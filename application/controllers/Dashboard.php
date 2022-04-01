@@ -11,8 +11,10 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
-        $this->load->view('layout/header');
-        $this->load->view('dashboard/dashbord.php');
-        $this->load->view('layout/footer');
+        $data['judul'] = "Pemetaan Client | Dashboard";
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $this->load->view('layout/header', $data);
+        $this->load->view('dashboard/dashbord.php', $data);
+        $this->load->view('layout/footer', $data);
 	}
 }
