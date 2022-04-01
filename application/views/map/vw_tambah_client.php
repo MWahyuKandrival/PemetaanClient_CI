@@ -78,13 +78,13 @@
                             </div>
                             <div class="form-group">
                                 <label for="status_kerja_sama">Status Kerja Sama</label>
-                                <select name="status_kerja_sama" id="status_kerja_sama" class="form-group">
+                                <select name="status_kerja_sama" class="form-control" id="status_kerja_sama">
                                     <option value="Aktif">Aktif</option>
-                                    <option value="Aktif">Berakhir</option>
+                                    <option value="Berakhir">Berakhir</option>
                                 </select>
                                 <?= form_error('status_kerja_sama', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
-                            
+
                             <!-- <div class="form-group">
 							<label for="link_foto">Foto</label>
 							<div class="custom-file">
@@ -104,7 +104,7 @@
 </div>
 
 <script>
-    var map = L.map('map').setView([0.8742919,114.4477902], 5);
+    var map = L.map('map').setView([0.8742919, 114.4477902], 5);
 
     var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
