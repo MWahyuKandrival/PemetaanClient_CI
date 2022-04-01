@@ -72,10 +72,6 @@ class Map extends CI_Controller
 			'required' => 'Status Kerja Sama Wajib di isi!!!'
 		));
 
-		$this->form_validation->set_rules('link_foto', 'Foto', 'required', array(
-			'required' => 'Format Link upload Foto Drive --> https://drive.google.com/uc?export=view&id= [masukan id'
-		));
-
 		if ($this->form_validation->run() == FALSE) {
 			$data = array(
 				'judul' => "Pemetaan Client | Tambah Client"
