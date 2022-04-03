@@ -20,7 +20,8 @@ class Map_model extends CI_Model {
     public function get_product_keyword($keyword){
 	    $this->db->select('*');
 	    $this->db->from('client');
-		$this->db->like('negara',$keyword);
+        $this->db->like('nama_client',$keyword);
+		$this->db->or_like('negara',$keyword);
 		$this->db->or_like('region',$keyword);
 		return $this->db->get()->result_array();
 	}

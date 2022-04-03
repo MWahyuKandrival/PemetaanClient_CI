@@ -12,9 +12,43 @@ class Map extends CI_Controller
 
 	public function index()
 	{
+		//Mapping
+		$data = array(
+			// Tampil ALL DATA
+			'client'=> $this->Map_model->tampil(),
+			// Tampil SELEKSI Negara
+			'filterIndonesia' => $this->db->like('negara','indonesia'),
+			'filterIndonesia'=> $this->Map_model->tampil(),
+			'filterForeign' => $this->db->not_like('negara','indonesia'),
+			'filterForeign'=> $this->Map_model->tampil(),
+			// // Tampil SELEKSI JB-FUNGSI
+			// 'filterBU' => $this->db->like('jb_fungsi','Bank Umum'),
+			// 'filterBU'=> $this->Map_model->tampil(),
+			// 'filterBST' => $this->db->like('jb_fungsi','Bank Sentral'),
+			// 'filterBST'=> $this->Map_model->tampil(),
+			// 'filterBPR' => $this->db->like('jb_fungsi','Bank Perkreditan Rakyat'),
+			// 'filterBPR'=> $this->Map_model->tampil(),
+			// // Tampil SELEKSI JB-KEPEMILIKAN
+			// 'filterBMP' => $this->db->like('jb_kepemilikan','Bank Milik Pemerintah'),
+			// 'filterBMP'=> $this->Map_model->tampil(),
+			// 'filterBSMN' => $this->db->like('jb_kepemilikan','Bank Swasta Milik Nasional'),
+			// 'filterBSMN'=> $this->Map_model->tampil(),
+			// 'filterBPD' => $this->db->like('jb_kepemilikan','Bank Pembangunan Daerah'),
+			// 'filterBPD'=> $this->Map_model->tampil(),
+			// 'filterBA' => $this->db->like('jb_kepemilikan','Bank Asing'),
+			// 'filterBA'=> $this->Map_model->tampil(),
+			// 'filterBMC' => $this->db->like('jb_kepemilikan','Bank Milik Campuran'),
+			// 'filterBMC'=> $this->Map_model->tampil(),
+		);
+
+		// print_r($data["filterForeign"]);die;
+		//Deklarasi dasar
 		$data['judul'] = "Pemetaan Client | Map";
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
+		//Pencarian
+		$keyword = $this->input->post('keyword');
+		$data['products']=$this->Map_model->get_product_keyword($keyword);
 		// load vw_bank
 		$this->load->view("layout/header", $data);
 		$this->load->view("map/vw_map", $data);

@@ -71,7 +71,6 @@
                                 <input id="lokasi2" name="longitude" autocomplete="off" value="<?= set_value('longitude'); ?>" type="text" class="form-control">
                                 <?= form_error('longitude', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
-                            
                             <div class="form-group">
                                 <label for="mulai_kerja_sama">Tanggal Kerja Sama</label>
                                 <input name="mulai_kerja_sama" autocomplete="off" value="<?= set_value('mulai_kerja_sama'); ?>" type="text" class="form-control" id="mulai_kerja_sama">
@@ -88,11 +87,11 @@
 
                             <!-- <div class="form-group">
 							<label for="link_foto">Foto</label>
-							<div class="custom-file">
-								<input type="file" class="custom-file-input" name="gambar" id="link_foto">
-								<label for="link_foto" class="custom-file-label">Choose File</label>
-							</div>
-						</div> -->
+						    	<div class="custom-file">
+								    <input type="file" class="custom-file-input" name="gambar" id="link_foto">
+							    	<label for="link_foto" class="custom-file-label">Choose File</label>
+							    </div>
+						    </div> -->
                             <button type="submit" name="tambah" class="btn btn-primary float-left">Tambah Bank</button>
                             <button style="margin-left:10px;" type="reset" name="tambah" class="btn btn-success float-left">Reset</button>
                         </form>

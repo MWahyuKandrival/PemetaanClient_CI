@@ -73,13 +73,13 @@
           </div>
           <ul class="sidebar-menu">
             <li class="menu-header">DASHBOARD</li>
-            <li><a class="nav-link" href="blank.html"><i class="fas fa-fire"></i> <span>Halaman Dashboard </span></a></li>
+            <li><a class="nav-link" href="<?= base_url('Dashboard')?>"><i class="fas fa-fire"></i> <span>Halaman Dashboard </span></a></li>
             </li>
             <li class="menu-header">MAP</li>
-            <li><a class="nav-link" href="blank.html"><i class="fas fa-map-marker-alt"></i> <span>Halaman Map</span></a></li>
+            <li><a class="nav-link" href="<?= base_url('Map')?>"><i class="fas fa-map-marker-alt"></i> <span>Halaman Map</span></a></li>
             <li class="menu-header">CLIENT</li>
             <li><a class="nav-link" href="blank.html"><i class="fas fa-map-marker-alt"></i> <span>Halaman Data Client</span></a></li>
             <li class="menu-header">LOGOUT</li>
-            <li><a class="nav-link" href="blank.html"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
+            <li><a class="nav-link" href="<?= base_url('auth/logout')?>"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
         </aside>
       </div>
