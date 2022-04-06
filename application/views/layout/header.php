@@ -19,10 +19,6 @@
   <link rel="stylesheet" href="../node_modules/summernote/dist/summernote-bs4.css"> -->
 
   <!-- Template CSS -->
-<<<<<<< Updated upstream
-  <link rel="stylesheet" href="<?= base_url()?>assets/css/style.css">
-  <link rel="stylesheet" href="<?= base_url()?>assets/css/components.css">
-=======
   <link rel="stylesheet" href="<?= base_url() ?>assets/css/style.css">
   <link rel="stylesheet" href="<?= base_url() ?>assets/css/components.css">
 
@@ -47,7 +43,6 @@
 
   <link href="<?= base_url('assets/') ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
 
->>>>>>> Stashed changes
 </head>
 
 <body>
@@ -83,17 +78,6 @@
             <a href="index.html">PCR</a>
           </div>
           <ul class="sidebar-menu">
-<<<<<<< Updated upstream
-              <li class="menu-header">DASHBOARD</li>
-              <li><a class="nav-link" href="blank.html"><i class="fas fa-fire"></i> <span>Halaman Dashboard </span></a></li>
-              </li>
-              <li class="menu-header">MAP</li>
-              <li><a class="nav-link" href="blank.html"><i class="fas fa-map-marker-alt"></i> <span>Halaman Map</span></a></li>
-              <li class="menu-header">CLIENT</li>
-              <li><a class="nav-link" href="blank.html"><i class="fas fa-map-marker-alt"></i> <span>Halaman Data Client</span></a></li>
-              <li class="menu-header">LOGOUT</li>
-              <li><a class="nav-link" href="blank.html"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
-=======
             <li class="menu-header">DASHBOARD</li>
             <li><a class="nav-link" href="<?= base_url('Dashboard')?>"><i class="fas fa-fire"></i> <span>Dashboard </span></a></li>
             </li>
@@ -103,6 +87,5 @@
             <li><a class="nav-link" href="<?= base_url('Client')?>"><i class="fas fa-map-marker-alt"></i> <span>Data Client</span></a></li>
             <li class="menu-header">LOGOUT</li>
             <li><a class="nav-link" href="<?= base_url('auth/logout')?>"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
->>>>>>> Stashed changes
         </aside>
       </div>

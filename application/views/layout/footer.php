@@ -31,8 +31,6 @@
 
 <!-- Page Specific JS File -->
 <script src="<?= base_url() ?>assets/js/page/index-0.js"></script>
-<<<<<<< Updated upstream
-=======
 
 <!-- Plugin GEOCODER -->
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
@@ -46,7 +44,6 @@
 <script src="<?= base_url() ?>assets/js/demo/datatables-demo.js"></script>
 
 
->>>>>>> Stashed changes
 </body>
 
 </html>
