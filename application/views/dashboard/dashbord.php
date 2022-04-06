@@ -11,7 +11,7 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Total Admin</h4>
+                            <h4>Total Client</h4>
                         </div>
                         <div class="card-body">
                             10
@@ -21,15 +21,15 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
-                    <div class="card-icon bg-danger">
-                        <i class="far fa-newspaper"></i>
+                    <div class="card-icon bg-success">
+                        <i class="fas fa-circle"></i>
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>News</h4>
+                            <h4>Client Aktif</h4>
                         </div>
                         <div class="card-body">
-                            42
+                            47
                         </div>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Reports</h4>
+                            <h4>Total Projek</h4>
                         </div>
                         <div class="card-body">
                             1,201
@@ -65,5 +65,69 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <canvas id="dashChart"></canvas>
+            </div>
+        </div>
     </section>
 </div>
+
+<script>
+    const labels = [
+        '0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39',
+        '40-44', '45-49', '50-54', '55-59', '60-64', '65-69', '70-74', '75+'
+    ];
+    var xValues = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
+    var yValues = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
+    const data = {
+        labels: xValues,
+        datasets: [{
+            label: 'Total',
+            data: yValues,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1,
+            tension: 0.5
+        }]
+    };
+    const config = {
+        type: 'line',
+        data,
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Usia'
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    };
+
+    var ctx = document.getElementById('dashChart');
+    var dashChart = new Chart(ctx, config);
+</script>
