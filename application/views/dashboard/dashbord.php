@@ -14,7 +14,7 @@
                             <h4>Total Client</h4>
                         </div>
                         <div class="card-body">
-                            10
+                            <?= $totalUser['total'] ?>
                         </div>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                             <h4>Client Aktif</h4>
                         </div>
                         <div class="card-body">
-                            47
+                        <?= $UserAktif['total']?>
                         </div>
                     </div>
                 </div>
@@ -41,10 +41,10 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Total Projek</h4>
+                            <h4>Client Berakhir</h4>
                         </div>
                         <div class="card-body">
-                            1,201
+                            <?= $UserNonAktif?>
                         </div>
                     </div>
                 </div>
@@ -56,10 +56,10 @@
                     </div>
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Online Users</h4>
+                            <h4>Total Project</h4>
                         </div>
                         <div class="card-body">
-                            47
+                        <?= $totalProject['total_project'] ?>
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,19 @@
     </section>
 </div>
 
+<?php 
+    $labelTahun = array();
+    $dataTahun = array();
+
+    foreach($Year as $tahun):
+        $labelTahun[] = $tahun['year'];
+        $dataTahun[] = $tahun['Total'];
+    endforeach;
+?>
+
 <script>
+    var labeltahun = <?= json_encode($labelTahun)?>;
+    var datatahun = <?= json_encode($dataTahun)?>; 
     const labels = [
         '0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39',
         '40-44', '45-49', '50-54', '55-59', '60-64', '65-69', '70-74', '75+'
@@ -81,10 +93,10 @@
     var xValues = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
     var yValues = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
     const data = {
-        labels: xValues,
+        labels: labeltahun,
         datasets: [{
             label: 'Total',
-            data: yValues,
+            data: datatahun,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
