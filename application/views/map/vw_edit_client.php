@@ -2,13 +2,7 @@
     <section class="section">
         <div class="section-header d-flex ">
             <!-- button search -->
-            <div class="d-flex ">
-                <?php echo form_open('') ?>
-                <div>
-                    <h1>Form Edit Data Client</h1>
-                </div>
-                <?php echo form_close() ?>
-            </div>
+            
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -72,7 +66,7 @@
                                 <input id="lokasi2" name="longitude" autocomplete="off" value="<?= $client['longitude']; ?>" type="text" class="form-control">
                                 <?= form_error('longitude', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="mulai_kerja_sama">Tanggal Mulai Kerja Sama</label>
                                 <input name="mulai_kerja_sama" autocomplete="off" value="<?= $client['mulai_kerja_sama']; ?>" type="date" class="form-control" id="mulai_kerja_sama">
                                 <?= form_error('mulai_kerja_sama', '<small class="text-danger pl-3">', '</small>'); ?>
@@ -81,7 +75,7 @@
                                 <label for="henti_kerja_sama">Tanggal Berhenti Kerja Sama</label>
                                 <input name="henti_kerja_sama" autocomplete="off" value="<?= $client['henti_kerja_sama']; ?>" type="date" class="form-control" id="henti_kerja_sama">
                                 <?= form_error('henti_kerja_sama', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label for="status_kerja_sama">Status Kerja Sama</label>
                                 <select name="status_kerja_sama" class="form-control" id="status_kerja_sama" value="<?= $client['status_kerja_]ama']; ?>">
@@ -139,108 +133,3 @@
     }
     map.on('click', onMapClick);
 </script>
-
-<!-- <div class="main-content">
-    <section class="section">
-        <div class="section-header d-flex ">
-        <div class="d-flex ">
-                <?php echo form_open('') ?>
-                <div>
-                    <h1>Form Edit Data Bank</h1>
-                </div>
-                <?php echo form_close() ?>
-            </div>
-        </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="<?= base_url('Client/update'); ?>" method="POST" enctype="multipart/form-data">
-                            <input type="hidden" name="id" value="<?= $client['id_client']; ?>">
-                            <div class="form-group">
-                                <label for="nama">Nama Pemilik</label>
-                                <input name="nama_client" autocomplete="off" type="text" value="<?= $client['nama_client']; ?>" class="form-control" id="nama_client">
-                                <?= form_error('nama_client', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
-                            <div class="form-group">
-                                <label for="owner">Owner</label>
-                                <input name="owner" autocomplete="off" type="text" value="<?= $client['owner']; ?>" class="form-control" id="owner">
-                                <?= form_error('owner', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
-                            <div class="form-group">
-                                <label for="alamat">Alamat</label>
-                                <input name="alamat" autocomplete="off" type="text" value="<?= $client['alamat']; ?>" class="form-control" id="alamat">
-                                <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
-                            <div class="form-group">
-                                <label for="negara">Negara</label>
-                                <input name="negara" autocomplete="off" type="text" value="<?= $client['negara']; ?>" class="form-control" id="negara">
-                                <?= form_error('negara', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
-                            <div class="form-group">
-                                <label for="region">Region</label>
-                                <input name="region" autocomplete="off" value="<?= $client['region']; ?>" type="text" class="form-control" id="region">
-                                <?= form_error('region', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">E-Mail</label>
-                                <input name="email" autocomplete="off" value="<?= $client['email']; ?>" type="text" class="form-control" id="email">
-                                <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
-                            <div class="form-group">
-                                <label for="no_hp">No Handphone</label>
-                                <input name="no_hp" autocomplete="off" value="<?= $client['no_hp']; ?>" type="text" class="form-control" id="no_hp">
-                                <?= form_error('no_hp', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
-                            <div class="form-group">
-                                <label for="domain">Domain</label>
-                                <input name="domain" autocomplete="off" value="<?= $client['domain']; ?>" type="text" class="form-control" id="domain">
-                                <?= form_error('domain', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
-                            <div class="form-group">
-                                <label for="latitude">Latitude</label>
-                                <label id=Llat style="color:white;background-color:black;"></label>
-                                <input id="lokasi1" name="latitude" autocomplete="off" value="<?= $client['latitude']; ?>" type="text" class="form-control">
-                                <?= form_error('latitude', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
-                            <div class="form-group">
-                                <label for="longitude">Longitude</label>
-                                <label id=Llng style="color:white;background-color:black;"></label>
-                                <input id="lokasi2" name="longitude" autocomplete="off" value="<?= $client['longitude']; ?>" type="text" class="form-control">
-                                <?= form_error('longitude', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
-                            <div class="form-group">
-                                <label for="mulai_kerja_sama">Tanggal Mulai Kerja Sama</label>
-                                <input name="mulai_kerja_sama" autocomplete="off" value="<?= $client['mulai_kerja_sama']; ?>" type="date" class="form-control" id="mulai_kerja_sama">
-                                <?= form_error('mulai_kerja_sama', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
-                            <div class="form-group">
-                                <label for="henti_kerja_sama">Tanggal Henti Kerja Sama</label>
-                                <input name="henti_kerja_sama" autocomplete="off" value="<?= $client['henti_kerja_sama']; ?>" type="date" class="form-control" id="mulai_kerja_sama">
-                                <?= form_error('henti_kerja_sama', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
-                            <div class="form-group">
-                                <label for="status_kerja_sama">Status Kerja Sama</label>
-                                <select name="status_kerja_sama" value="<?= $client['status_kerja_sama']; ?>" class="form-control" id="status_kerja_sama">
-                                    <option value="Aktif">Aktif</option>
-                                    <option value="Berakhir">Berakhir</option>
-                                </select>
-                                <?= form_error('status_kerja_sama', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
-
-                            <!-- <div class="form-group">
-							<label for="link_foto">Foto</label>
-						    	<div class="custom-file">
-								    <input type="file" class="custom-file-input" name="gambar" id="link_foto">
-							    	<label for="link_foto" class="custom-file-label">Choose File</label>
-							    </div>
-						    </div> -->
-                            <button type="submit" name="tambah" class="btn btn-primary float-left">Edit Bank</button>
-                            <a href="<?= base_url('Client') ?>" style="margin-left:10px;" class="btn btn-success float-left">Tutup</a>
-                        </form>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        </section>
-</div> -->

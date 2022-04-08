@@ -99,13 +99,13 @@ class Map extends CI_Controller
 			'required' => 'Longitude Wajib di isi!!!'
 		));
 
-		$this->form_validation->set_rules('mulai_kerja_sama', 'Tanggal Mulai Kerja Sama', 'required', array(
-			'required' => 'Tanggal Mulai Kerja Sama Wajib di isi!!!'
-		));
+		// $this->form_validation->set_rules('mulai_kerja_sama', 'Tanggal Mulai Kerja Sama', 'required', array(
+		// 	'required' => 'Tanggal Mulai Kerja Sama Wajib di isi!!!'
+		// ));
 
-		$this->form_validation->set_rules('status_kerja_sama', 'Status Kerja Sama', 'required', array(
-			'required' => 'Status Kerja Sama Wajib di isi!!!'
-		));
+		// $this->form_validation->set_rules('status_kerja_sama', 'Status Kerja Sama', 'required', array(
+		// 	'required' => 'Status Kerja Sama Wajib di isi!!!'
+		// ));
 
 		if ($this->form_validation->run() == FALSE) {
 			$data = array(
