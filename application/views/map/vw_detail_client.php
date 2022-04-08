@@ -1,31 +1,17 @@
-<div class="container-fluid">
-	<h1 class="h3 mb-4 text-gray-800"><?php  ?></h1>
-	<div class="row ">
-		<div class="col-md-6 ">
-        <div id="map" style="width:100%; height: 98%;"></div>
-			<!-- <div class="card">
-				<div class="card-header">
-					PICTURE
-				</div>
-				<div class="card-body">
-                 
-				<div>
-                    <img style="width:100%" src="<?=$client->link_foto?>" alt="foto_bank">
-                </div>
-                   
-				</div>
-			</div> -->
-
-		</div>
-
-        <!-- Begin Page For Content -->
-        <div class="col-md-6 ">
-			<div class="card">
-				<div class="card-header">
-					<?php echo $judul?>
-				</div>
-				<div class="card-body">
-					<form action="" method="POST" enctype="multipart/form-data">
+<div class="main-content">
+    <section class="section">
+        <div class="section-header d-flex ">
+            <!-- button search -->
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <!-- MEMANGGIL MAP -->
+                <div id="map" style="width:100%; height: 98%;"></div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                    <form action="" method="POST" enctype="multipart/form-data">
 						<div class="form-group">
 							<label>Nama Client</label>
 							<input class="form-control" value="<?=$client['nama_client']?>" disabled>
@@ -67,28 +53,29 @@
 							<input class="form-control" value="<?=$client['longitude']?>" disabled>
                         </div>
                         <div class="form-group">
-							<label>Tanggal Mulai Kerja Sama</label>
+							<label>Total Project</label>
 							<input class="form-control" value="<?=$client['mulai_kerja_sama']?>" disabled>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
 							<label>Tanggal Henti Kerja Sama</label>
 							<input class="form-control" value="<?=$client['henti_kerja_sama']?>" disabled>
                         </div>
                         <div class="form-group">
 							<label>Status Kerja Sama</label>
 							<input class="form-control" value="<?=$client['status_kerja_sama']?>" disabled>
-                        </div>
+                        </div> -->
+                        <a href="<?= base_url('Client') ?>" style="margin-left:10px;" class="btn btn-success float-left">Tutup</a>
 					</form>
-				</div>
-			</div>
+                    </div>
+                </div>
 
-		</div>
-	</div>
-</div>
+            </div>
+        </div>
+    </section>
 </div>
 
 <script>
-    var map = L.map('map').setView([0.8742919, 114.4477902], 5);
+    var map = L.map('map').setView([<?=$client['latitude']?>, <?=$client['longitude']?>], 10);
 
     var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
@@ -97,7 +84,7 @@
     }).addTo(map);
 
     //var marker = L.marker([0.5102756596410103, 101.44848654368349],{draggable:true}).addTo(map)
-    // var marker = L.marker([0.5102756596410103, 101.44848654368349],{draggable:false}).addTo(map)
+    var marker = L.marker([<?=$client['latitude']?>, <?=$client['longitude']?>],{draggable:false}).addTo(map)
     // 		.bindPopup('<b>Latitude : </b>'+lat[1]+'<br><b>Longitude : </b>'+lng[0]).openPopup(); 
     var popup = L.popup()
         .setLatLng([0.5102756596410103, 101.44848654368349], 14)

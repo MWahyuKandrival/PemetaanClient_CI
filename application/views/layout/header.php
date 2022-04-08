@@ -37,6 +37,26 @@
 
   <!-- data table -->
   <link href="<?= base_url('assets/') ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
+  <style>
+    .Tulisanbagus {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+    background-color: #fff;
+    border-radius: 3px;
+    border: none;
+    position: relative;
+    margin-bottom: 30px;
+    padding: 20px;
+    /* display: flex; */
+    align-items: center; }
+    .Tulisanbagus h1 {
+      margin-bottom: 0;
+      font-weight: 700;
+      display: inline-block;
+      font-size: 24px;
+      margin-top: 3px;
+      color: #34395e; }
+  </style>
 
   <!-- Custom styles for this template -->
   <link href="<?= base_url('assets/') ?>css/sb-admin-2.min.css" rel="stylesheet" />
@@ -85,6 +105,8 @@
             <li><a class="nav-link" href="<?= base_url('Map')?>"><i class="fas fa-map-marker-alt"></i> <span>Map</span></a></li>
             <li class="menu-header">CLIENT</li>
             <li><a class="nav-link" href="<?= base_url('Client')?>"><i class="fas fa-map-marker-alt"></i> <span>Data Client</span></a></li>
+            <li class="menu-header">PROJECT</li>
+            <li><a class="nav-link" href="<?= base_url('Project')?>"><i class="fas fa-map-marker-alt"></i> <span>Data Project</span></a></li>
             <li class="menu-header">LOGOUT</li>
             <li><a class="nav-link" href="<?= base_url('auth/logout')?>"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
         </aside>

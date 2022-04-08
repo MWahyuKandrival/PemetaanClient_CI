@@ -2,7 +2,6 @@
     <section class="section">
         <div class="section-header d-flex ">
             <!-- button search -->
-            
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -76,14 +75,14 @@
                                 <input name="henti_kerja_sama" autocomplete="off" value="<?= $client['henti_kerja_sama']; ?>" type="date" class="form-control" id="henti_kerja_sama">
                                 <?= form_error('henti_kerja_sama', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div> -->
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="status_kerja_sama">Status Kerja Sama</label>
                                 <select name="status_kerja_sama" class="form-control" id="status_kerja_sama" value="<?= $client['status_kerja_]ama']; ?>">
                                     <option value="Aktif">Aktif</option>
                                     <option value="Berakhir">Berakhir</option>
                                 </select>
                                 <?= form_error('status_kerja_sama', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
+                            </div> -->
 
                             <!-- <div class="form-group">
 							<label for="link_foto">Foto</label>
