@@ -1,17 +1,18 @@
 <div class="main-content">
     <section class="section">
-        <div class="section-header d-flex flex-row-reverse">
+
+        <div class="col-md-12 bg-white Tulisanbagus">
+            <!-- button search -->
+            <h1 style="float: left; font-size: 25px;">Halaman MAP</h1>
             <!-- button search -->
             <div class="d-flex flex-row-reverse">
                 <?php echo form_open('') ?>
-                <div>
-                    <input type="text" style="height:37px;border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" name="keyword" autocomplete="off" placeholder="search">
-                    <input class="btn btn-primary " type="submit" name="search_submit" value="Cari">
-                </div>
+                    <div>
+                        <input type="text" style="height:37px;border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" name="keyword" autocomplete="off" placeholder="search">
+                        <input class="btn btn-primary " type="submit" name="search_submit" value="Cari">
+                    </div>
                 <?php echo form_close() ?>
             </div>
-
-
         </div>
         <div class="row">
             <div class="col">
@@ -28,8 +29,8 @@
     // LAYER SEARCH   
 
     var search = L.layerGroup();
-    <?php 
-        foreach ($products as $key) { ?>
+    <?php
+    foreach ($products as $key) { ?>
         var lokasi = L.marker([<?= $key['latitude'] ?>, <?= $key['longitude'] ?>]).bindPopup("<center><b>INFORMATION</b></center><br>" +
             "<?= $key['nama_client'] ?><br>" +
             "<?= $key['owner'] ?><br>" +

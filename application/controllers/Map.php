@@ -8,6 +8,7 @@ class Map extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('Map_model');
+		$this->load->model('Client_model');
 		$this->load->model('Project_model');
 	}
 
@@ -99,13 +100,14 @@ class Map extends CI_Controller
 			'required' => 'Longitude Wajib di isi!!!'
 		));
 
-		$this->form_validation->set_rules('mulai_kerja_sama', 'Tanggal Mulai Kerja Sama', 'required', array(
-			'required' => 'Tanggal Mulai Kerja Sama Wajib di isi!!!'
-		));
 
-		$this->form_validation->set_rules('status_kerja_sama', 'Status Kerja Sama', 'required', array(
-			'required' => 'Status Kerja Sama Wajib di isi!!!'
-		));
+		// $this->form_validation->set_rules('mulai_kerja_sama', 'Tanggal Mulai Kerja Sama', 'required', array(
+		// 	'required' => 'Tanggal Mulai Kerja Sama Wajib di isi!!!'
+		// ));
+
+		// $this->form_validation->set_rules('status_kerja_sama', 'Status Kerja Sama', 'required', array(
+		// 	'required' => 'Status Kerja Sama Wajib di isi!!!'
+		// ));
 
 		if ($this->form_validation->run() == FALSE) {
 			$data = array(
@@ -117,19 +119,22 @@ class Map extends CI_Controller
 			$this->load->view("layout/footer");
 		} else {
 			$data = array(
-				'nama' => $this->input->post('nama'),
-				'jb_harga' => $this->input->post('jb_harga'),
-				'jb_kepemilikan' => $this->input->post('jb_kepemilikan'),
-				'jb_fungsi' => $this->input->post('jb_fungsi'),
-				'jml_pendapatan' => $this->input->post('jml_pendapatan'),
+				'nama_client' => $this->input->post('nama_client'),
+				'owner' => $this->input->post('owner'),
+				'alamat' => $this->input->post('alamat'),
+				'negara' => $this->input->post('negara'),
+				'region' => $this->input->post('region'),
+				'email' => $this->input->post('email'),
+				'no_hp' => $this->input->post('no_hp'),
+				'domain' => $this->input->post('domain'),
 				'latitude' => $this->input->post('latitude'),
 				'longitude' => $this->input->post('longitude'),
-				'latitude' => $this->input->post('latitude'),
-				'link_foto' => $this->input->post('link_foto')
-			);
-			$this->m_bank->simpan($data);
+				'mulai_kerja_sama' => $this->input->post('mulai_kerja_sama'),
+				'status_kerja_sama' => $this->input->post('status_kerja_sama'),
+				);
+			$this->Client_model->insert($data);
 			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Buku Berhasil Ditambah!</div>');
-			redirect('home/');
+			redirect('Client');
 		}
 	}
 
