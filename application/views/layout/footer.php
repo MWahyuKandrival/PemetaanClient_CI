@@ -17,20 +17,30 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="<?= base_url() ?>assets/js/stisla.js"></script>
 
-<!-- JS Libraies -->
+<!-- JS Libraies
 <script src="<?= base_url() ?>node_modules/simpleweather/jquery.simpleWeather.min.js"></script>
 <script src="<?= base_url() ?>node_modules/chart.js/dist/Chart.min.js"></script>
 <script src="<?= base_url() ?>node_modules/jqvmap/dist/jquery.vmap.min.js"></script>
 <script src="<?= base_url() ?>node_modules/jqvmap/dist/maps/jquery.vmap.world.js"></script>
 <script src="<?= base_url() ?>node_modules/summernote/dist/summernote-bs4.js"></script>
-<script src="<?= base_url() ?>node_modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
+<script src="<?= base_url() ?>node_modules/chocolat/dist/js/jquery.chocolat.min.js"></script> -->
 
+<!-- JS Chart -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"> </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- Template JS File -->
 <script src="<?= base_url() ?>assets/js/scripts.js"></script>
 <script src="<?= base_url() ?>assets/js/custom.js"></script>
 
 <!-- Page Specific JS File -->
 <script src="<?= base_url() ?>assets/js/page/index-0.js"></script>
+
+<!-- Plugin GEOCODER -->
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+
+
+
 </body>
 
 </html>

@@ -20,6 +20,7 @@ class Auth extends CI_Controller
 		if ($user) {
 			if (password_verify($password, $user['password'])) {
 				$data = [
+                    'username' => $user['username'],
 					'email' => $user['email'],
 					'role' => $user['role'],
 					'id' => $user['id'],
@@ -39,12 +40,6 @@ class Auth extends CI_Controller
 			redirect('auth');
 		}
 	}
-    public function logout(){
-            $this->session->unset_userdata('email');
-            $this->session->unset_userdata('role');
-            $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Berhasil Logout! </div>');
-            redirect('auth');
-        }
 
     public function registrasi()
     {
@@ -59,11 +54,17 @@ class Auth extends CI_Controller
             'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
             'role' => "Admin"
         ];
-        // print_r($data);
-        // print_r($this->input->post("password"));
-        // die;
         $this->userrole->insert($data);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Selamat!  Akunmu telah berhasil terdaftar, Silahkan Login! </div>');
+        redirect('auth');
+    }
+
+    public function logout(){
+        $this->session->unset_userdata('username');
+        $this->session->unset_userdata('email');
+        $this->session->unset_userdata('password');
+        $this->session->unset_userdata('role');
+        $this->session->set_flashdata('message','<div class="alert alert-success" role="alert">Berhasil Logout! </div>');
         redirect('auth');
     }
 }
