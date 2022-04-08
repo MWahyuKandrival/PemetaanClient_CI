@@ -1,5 +1,6 @@
 <div class="main-content">
     <section class="section">
+
         <div class="col-md-12 bg-white Tulisanbagus">
             <!-- button search -->
             <h1 style="float: left; font-size: 25px;">Halaman MAP</h1>
@@ -21,7 +22,6 @@
         </div>
     </section>
 </div>
-
 <script>
     //=================================================================//
     //  |   |   |   |   CONTROL LAYER

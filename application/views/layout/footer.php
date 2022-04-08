@@ -17,14 +17,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="<?= base_url() ?>assets/js/stisla.js"></script>
 
-<!-- JS Libraies -->
+<!-- JS Libraies
 <script src="<?= base_url() ?>node_modules/simpleweather/jquery.simpleWeather.min.js"></script>
 <script src="<?= base_url() ?>node_modules/chart.js/dist/Chart.min.js"></script>
 <script src="<?= base_url() ?>node_modules/jqvmap/dist/jquery.vmap.min.js"></script>
 <script src="<?= base_url() ?>node_modules/jqvmap/dist/maps/jquery.vmap.world.js"></script>
 <script src="<?= base_url() ?>node_modules/summernote/dist/summernote-bs4.js"></script>
-<script src="<?= base_url() ?>node_modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
+<script src="<?= base_url() ?>node_modules/chocolat/dist/js/jquery.chocolat.min.js"></script> -->
 
+<!-- JS Chart -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"> </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- Template JS File -->
 <script src="<?= base_url() ?>assets/js/scripts.js"></script>
 <script src="<?= base_url() ?>assets/js/custom.js"></script>

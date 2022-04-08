@@ -9,6 +9,7 @@ class Map extends CI_Controller
 		parent::__construct();
 		$this->load->model('Map_model');
 		$this->load->model('Client_model');
+		$this->load->model('Project_model');
 	}
 
 	public function index()
@@ -99,6 +100,7 @@ class Map extends CI_Controller
 			'required' => 'Longitude Wajib di isi!!!'
 		));
 
+
 		// $this->form_validation->set_rules('mulai_kerja_sama', 'Tanggal Mulai Kerja Sama', 'required', array(
 		// 	'required' => 'Tanggal Mulai Kerja Sama Wajib di isi!!!'
 		// ));
@@ -177,6 +179,54 @@ class Map extends CI_Controller
 				break;
 		endswitch;
 		return $data;
+	}
+
+	public function addRandomProjek($limit = "")
+	{
+		$client = $this->Map_model->tampil();
+		for($i = 1; $i < $limit; $i++)
+		{
+			$nama_projek = "Test ". $i;
+			$domain = "domain".$i.".com";
+			$ranPackage = rand(1,3);
+			switch($ranPackage):
+				case 1:
+					$package = "Bronze";
+					break;
+
+				case 2:
+					$package = "Silver";
+					break;
+
+				case 3:
+					$package = "Gold";
+					break;
+			endswitch;
+			$id_client =  $client[rand(0,99)]['id_client'];
+			$randDate = rand(1300000000, 1640000000);
+			$start_date = date("Y-m-d", $randDate);
+			$ranStatus = rand(1,2);
+			if($ranStatus == 1)
+			{
+				$status = "Berlangsung";
+			}else{
+				$status = "Selesai";
+				$end_date  = date("Y-m-d", strtotime(date("Y-m-d", strtotime($start_date)) . " + " . rand(1, 730) . " day"));
+			}
+			$ketua_projek = "Doni Romdoni";
+			$data = [
+				"nama_projek" => $nama_projek,
+				"domain" => $domain,
+				"package" => $package,
+				"id_client" => $id_client,
+				"start_date" => $start_date,
+				"end_date" => $end_date,
+				"status" => $status,
+				"ketua_projek" => $ketua_projek
+			];
+
+			$this->Project_model->insert($data);
+		}
 	}
 
 	public function updateClient()

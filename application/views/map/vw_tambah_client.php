@@ -5,6 +5,7 @@
             <div class="d-flex ">
                 <?php echo form_open('') ?>
                 <div>
+
                     <h1>Form Tambah Data Client</h1>
                 </div>
                 <?php echo form_close() ?>
