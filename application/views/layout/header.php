@@ -96,10 +96,10 @@
       <div class="main-sidebar">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="index.html">Pemetaan Client</a>
+            <a href="<?= base_url()?>">Pemetaan Client</a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
-            <a href="index.html">PCR</a>
+            <a href="<?= base_url()?>">PCR</a>
           </div>
           <ul class="sidebar-menu">
             <li class="menu-header">DASHBOARD</li>
