@@ -19,7 +19,7 @@ class Client extends CI_Controller
         $this->load->view("map/vw_client", $data);
         $this->load->view("layout/footer", $data);
     }
-    function detail($id)
+    function detail($id = "")
     {
         $data['judul'] = "Halaman Detail Client";
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
@@ -57,7 +57,7 @@ class Client extends CI_Controller
         $id = $this->input->post('id_client');
         $input = $this->Client_model->update(['id_client' => $id], $data);
         // $this->db->error(); 
-        redirect('Client');
+        redirect('Client/detail/').$id;
     }
     function hapus($id)
 	{

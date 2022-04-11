@@ -132,9 +132,9 @@ class Map extends CI_Controller
 				'mulai_kerja_sama' => $this->input->post('mulai_kerja_sama'),
 				'status_kerja_sama' => $this->input->post('status_kerja_sama'),
 				);
-			$this->Client_model->insert($data);
+			$id = $this->Client_model->insert($data);
 			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Buku Berhasil Ditambah!</div>');
-			redirect('Client');
+			redirect('Client/detail/'.$id);
 		}
 	}
 

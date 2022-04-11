@@ -2,6 +2,7 @@
     <section class="section">
         <div class="section-header d-flex ">
             <!-- button search -->
+            <h1>Form Edit Client <?= $client['nama_client'] ?></h1>
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -12,7 +13,7 @@
                 <div class="card">
                     <div class="card-body">
                         <form action="<?= base_url('Client/update'); ?>" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="id_client" value="<?= $client['id_client']; ?>">
+                            <input type="hidden" name="id_client" value="<?= $client['id_client']; ?>">
                             <div class="form-group">
                                 <label for="nama">Nama Pemilik</label>
                                 <input name="nama_client" autocomplete="off" type="text" value="<?= $client['nama_client']; ?>" class="form-control" id="nama_client">
@@ -20,7 +21,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="owner">Owner</label>
-                                <input name="owner" autocomplete="off" type="text" value="<?= $client['owner']; ?>"class="form-control" id="owner">
+                                <input name="owner" autocomplete="off" type="text" value="<?= $client['owner']; ?>" class="form-control" id="owner">
                                 <?= form_error('owner', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                             <div class="form-group">
@@ -103,7 +104,7 @@
 </div>
 
 <script>
-    var map = L.map('map').setView([0.8742919, 114.4477902], 5);
+    var map = L.map('map').setView([<?= $client['latitude'] ?>, <?= $client['longitude'] ?>], 10);
 
     var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
@@ -111,7 +112,13 @@
         id: 'mapbox/streets-v11',
     }).addTo(map);
 
-    //var marker = L.marker([0.5102756596410103, 101.44848654368349],{draggable:true}).addTo(map)
+    var marker = L.marker([<?= $client['latitude'] ?>, <?= $client['longitude'] ?>], {
+        draggable: true
+    }).addTo(map);
+    marker.on('dragend', function(e) {
+        document.getElementById('lokasi1').value = marker.getLatLng().lat;
+        document.getElementById('lokasi2').value = marker.getLatLng().lng;
+    });
     // var marker = L.marker([0.5102756596410103, 101.44848654368349],{draggable:false}).addTo(map)
     // 		.bindPopup('<b>Latitude : </b>'+lat[1]+'<br><b>Longitude : </b>'+lng[0]).openPopup(); 
     var popup = L.popup()
@@ -122,7 +129,7 @@
         var coord = e.latlng.toString().split(',');
         var lat = coord[0].split('(');
         var lng = coord[1].split(')');
-        var lokasi1 = lat[1]; 
+        var lokasi1 = lat[1];
         var lokasi2 = lng[0];
         document.getElementById("Llat").innerHTML = "--> Koordinat : " + lokasi1;
         document.getElementById("Llng").innerHTML = "--> Koordinat : " + lokasi2;
