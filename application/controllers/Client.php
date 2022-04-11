@@ -8,7 +8,13 @@ class Client extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        is_logged_in();
         $this->load->model('Client_model');
+    }
+
+    public function getData($id_client = ""){
+        $data = $this->Client_model->getById($id_client);
+        echo json_encode($data);
     }
     function index()
     {
