@@ -10,14 +10,19 @@ class Client_model extends CI_Model{
     }
     public function get()
     {
-        $this->db->from($this->table);
+        $this->db->select("c.*, count(p.id_client) as jumlah");
+        $this->db->from("client c");
+        $this->db->join("project p", "p.id_client = c.id_client", 'left');
+        $this->db->group_by("c.id_client");
         $query = $this->db->get();
         return $query->result_array();
     }
     public function getById($id)
     {
-        $this->db->from($this->table);
-        $this->db->where('id_client', $id);
+        $this->db->select("c.*, count(p.id_client) as jumlah");
+        $this->db->from("client c");
+        $this->db->join("project p", "p.id_client = c.id_client", 'left');
+        $this->db->where('c.id_client', $id);
         $query = $this->db->get();
         return $query->row_array();
     }

@@ -30,6 +30,7 @@ class Client extends CI_Controller
         $data['judul'] = "Halaman Detail Client";
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['client'] = $this->Client_model->getById($id);
+        // print_r($data['client']);die;
         $this->load->view("layout/header", $data);
         $this->load->view("map/vw_detail_client", $data);
         $this->load->view("layout/footer", $data);

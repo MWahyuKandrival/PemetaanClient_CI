@@ -54,16 +54,17 @@
                         </div>
                         <div class="form-group">
 							<label>Total Project</label>
-							<input class="form-control" value="<?=$client['mulai_kerja_sama']?>" disabled>
+							<input class="form-control" value="<?=$client['jumlah']?>" disabled>
                         </div>
                         <!-- <div class="form-group">
 							<label>Tanggal Henti Kerja Sama</label>
 							<input class="form-control" value="<?=$client['henti_kerja_sama']?>" disabled>
-                        </div>
+                        </div> -->
                         <div class="form-group">
 							<label>Status Kerja Sama</label>
 							<input class="form-control" value="<?=$client['status_kerja_sama']?>" disabled>
-                        </div> -->
+                        </div>
+                        <a href="<?= base_url('Project/list/').$client['id_client'] ?>" class="btn btn-primary float-left">Lihat Projek</a>
                         <a href="<?= base_url('Client') ?>" style="margin-left:10px;" class="btn btn-success float-left">Tutup</a>
 					</form>
                     </div>

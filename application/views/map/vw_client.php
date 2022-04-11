@@ -22,7 +22,8 @@
                                 <td>Owner</td>
                                 <!-- <td>Domain</td> -->
                                 <td>Region</td>
-                                <!-- <td>Status</td> -->
+                                <td>Total Projek</td>
+                                <td>Status</td>
                                 <td>Aksi</td>
                             </tr>
                         </thead>
@@ -35,7 +36,8 @@
                                     <td><?= $us['owner']; ?></td>
                                     <!-- <td><?= $us['domain']; ?></td> -->
                                     <td><?= $us['region']; ?></td>
-                                    <!-- <td><?= $us['status_kerja_sama']; ?></td> -->
+                                    <td><?= $us['jumlah']; ?></td>
+                                    <td><?= $us['status_kerja_sama']; ?></td>
                                     <td>
                                         <a href="<?= base_url('Client/hapus/') . $us['id_client']; ?>" class="badge badge-danger"  onclick="return confirm('Apakah anda ingin menghapus Client beserta Project nya?');">Hapus</a>
                                         <a href="<?= base_url('Client/edit/') . $us['id_client']; ?>" class="badge badge-warning">Edit</a>
