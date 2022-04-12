@@ -5,7 +5,7 @@
                 <!-- button search -->
                 <h1 style="float: left; font-size: 25px;"><b>List Data Project</b></h1>
                 
-                <a href="<?= base_url('Project/addproject') ?>" class="btn btn-primary" style="float: right; margin-top: 10px;"><i class="fa fa-plus"></i>Tambah Data Client</a>
+                <a href="<?= base_url('Project/addproject') ?>" class="btn btn-primary" style="float: right; margin-top: 10px;"><i class="fa fa-plus"></i>Tambah Data Project</a>
             </div>
         </div>
 
