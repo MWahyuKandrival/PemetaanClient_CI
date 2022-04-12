@@ -18,34 +18,42 @@ class Dashboard_model extends CI_Model{
 
     public function getCountActiveUser()
     {
-        $this->db->select("count(DISTINCT id_client) as total");
-        $this->db->from("project");
-        $this->db->where("status", "Aktif");
+        $this->db->select("count(*) as total");
+        $this->db->from("client");
+        $this->db->where("status_kerja_sama", "Aktif");
         $query = $this->db->get();
         return $query->row_array();    
     }
     
     public function getCountNonActiveUser()
     {
-        $this->db->select('id_client,
-         sum(case when status = "Aktif" then 1 else 0 end) as JumlahAktif,
-         sum(case when status = "Berakhir" then 1 else 0 end) as JumlahNonAktif');
-        $this->db->from("project");
-        $this->db->group_by("id_client");
+        $this->db->select("count(*) as total");
+        $this->db->from("client");
+        $this->db->where("status_kerja_sama", "Berakhir");
         $query = $this->db->get();
-        return $query->result_array();
-        //select id_client,
-        // sum(case when status = "Aktif" then 1 else 0 end) as JumlahAktif,
-        // sum(case when status = "Berakhir" then 1 else 0 end) as JumlahNonAktif
-        // from project
-        // WHERE jumlahAktif = 0
-        // group by id_client;
+        return $query->row_array(); 
     }
 
     public function getCountAllProject()
     {
         $this->db->select("count(*) as total_project");
         $this->db->from("project");
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+    public function getCountActiveProject()
+    {
+        $this->db->select("count(*) as total_project");
+        $this->db->from("project");
+        $this->db->where("status", "Aktif");
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+    public function getCountNonActiveProject()
+    {
+        $this->db->select("count(*) as total_project");
+        $this->db->from("project");
+        $this->db->where("status", "Berakhir");
         $query = $this->db->get();
         return $query->row_array();
     }
