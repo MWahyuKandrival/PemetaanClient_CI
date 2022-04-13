@@ -9,14 +9,16 @@
                     <div class="card-icon bg-primary">
                         <i class="far fa-user"></i>
                     </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Total Client</h4>
+                    <a href="<?= base_url('client') ?>">
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Total Client</h4>
+                            </div>
+                            <div class="card-body">
+                                <?= $totalUser['total'] ?>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <?= $totalUser['total'] ?>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
@@ -24,14 +26,16 @@
                     <div class="card-icon bg-success">
                         <i class="fas fa-circle"></i>
                     </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Client Aktif</h4>
+                    <a href="<?= base_url('client/index/Aktif') ?>">
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Client Aktif</h4>
+                            </div>
+                            <div class="card-body">
+                                <?= $UserAktif['total'] ?>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <?= $UserAktif['total'] ?>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
@@ -39,14 +43,16 @@
                     <div class="card-icon bg-warning">
                         <i class="fas fa-circle"></i>
                     </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Client Berakhir</h4>
+                    <a href="<?= base_url('client/index/Berakhir') ?>">
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Client Berakhir</h4>
+                            </div>
+                            <div class="card-body">
+                                <?= $UserNonAktif['total'] ?>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <?= $UserNonAktif['total'] ?>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -56,14 +62,16 @@
                     <div class="card-icon bg-primary">
                         <i class="far fa-file"></i>
                     </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Total Project</h4>
+                    <a href="<?= base_url('Project') ?>">
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Total Project</h4>
+                            </div>
+                            <div class="card-body">
+                                <?= $totalProject['total_project'] ?>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <?= $totalProject['total_project'] ?>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
@@ -71,14 +79,16 @@
                     <div class="card-icon bg-success">
                         <i class="far fa-file"></i>
                     </div>
+                    <a href="<?= base_url('Project/index/Aktif') ?>">
                     <div class="card-wrap">
                         <div class="card-header">
                             <h4>Projek Aktif</h4>
                         </div>
                         <div class="card-body">
-                        <?= $AktifProject['total_project'] ?>
+                            <?= $AktifProject['total_project'] ?>
                         </div>
                     </div>
+                    </a>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
@@ -86,14 +96,16 @@
                     <div class="card-icon bg-warning">
                         <i class="far fa-file"></i>
                     </div>
+                    <a href="<?= base_url('Project/index/Berakhir') ?>">
                     <div class="card-wrap">
                         <div class="card-header">
                             <h4>Projek Berakhir</h4>
                         </div>
                         <div class="card-body">
-                        <?= $BerakhirProject['total_project'] ?>
+                            <?= $BerakhirProject['total_project'] ?>
                         </div>
                     </div>
+                    </a>
                 </div>
             </div>
         </div>

@@ -17,11 +17,11 @@ class Client extends CI_Controller
         $data = $this->Client_model->getById($id_client);
         echo json_encode($data);
     }
-    function index()
+    function index($status = "")
     {
         $data['judul'] = "Halaman Client";
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['client'] = $this->Client_model->get();
+        $data['client'] = $this->Client_model->get($status);
         $this->load->view("layout/header", $data);
         $this->load->view("map/vw_client", $data);
         $this->load->view("layout/footer", $data);

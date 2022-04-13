@@ -8,11 +8,12 @@ class Client_model extends CI_Model{
     {
         parent::__construct();
     }
-    public function get()
+    public function get($status)
     {
         $this->db->select("c.*, count(p.id_client) as jumlah");
         $this->db->from("client c");
         $this->db->join("project p", "p.id_client = c.id_client", 'left');
+        $this->db->like("status_kerja_sama", $status);
         $this->db->group_by("c.id_client");
         $query = $this->db->get();
         return $query->result_array();

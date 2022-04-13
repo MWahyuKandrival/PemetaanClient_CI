@@ -11,11 +11,11 @@ class Project extends CI_Controller
 		$this->load->model('Project_model');
 		$this->load->model('Client_model');
 	}
-	function index()
+	function index($status = "")
 	{
 		$data['judul'] = "Halaman Project";
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-		$data['project'] = $this->Project_model->get();
+		$data['project'] = $this->Project_model->get($status);
 		$this->load->view("layout/header", $data);
 		$this->load->view("project/vw_project", $data);
 		$this->load->view("layout/footer", $data);

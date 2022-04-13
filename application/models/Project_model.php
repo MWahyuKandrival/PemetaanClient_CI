@@ -8,10 +8,11 @@ class Project_model extends CI_Model {
     {
         parent::__construct();
     }
-    public function get()
+    public function get($status)
     {
         $this->db->select('p.*,c.nama_client as nama');
         $this->db->from('project p');
+        $this->db->like('p.status', $status);
         $this->db->join('client c', 'p.id_client = c.id_client');
         $query = $this->db->get();
         return $query->result_array();
