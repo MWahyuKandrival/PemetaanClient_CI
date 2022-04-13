@@ -92,6 +92,7 @@ class Project extends CI_Controller
 		$data['judul'] = "Halaman Detail Project";
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 		$data['project'] = $this->Project_model->getByClient($id);
+		// print_r($data['project']);die;
 		$this->load->view("layout/header", $data);
 		$this->load->view("project/vw_list_project", $data);
 		$this->load->view("layout/footer", $data);

@@ -29,7 +29,10 @@
                         </thead>
                         <tbody>
                             <?php $i = 1; ?>
-                            <?php foreach ($project as $us) : ?>
+                            <?php foreach ($project as $us) : 
+                                if($us['kode_projek'] == ""){
+                                    continue;
+                                }?>
                                 <tr>
                                     <td><?= $i; ?>.</td>
                                     <td><?= $us['nama_projek']; ?></td>
