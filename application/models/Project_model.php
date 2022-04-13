@@ -58,6 +58,13 @@ class Project_model extends CI_Model {
         $this->db->delete($this->table);
         return $this->db->affected_rows();
     }
+    public function deleteClient($id)
+    {
+        $this->db->where('id_client', $id);
+        $this->db->delete($this->table);
+        return $this->db->affected_rows();
+    }
+
     public function cekStatus($id_client)
     {
         $this->db->select('id_client,

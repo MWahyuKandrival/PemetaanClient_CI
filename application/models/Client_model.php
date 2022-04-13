@@ -8,7 +8,7 @@ class Client_model extends CI_Model{
     {
         parent::__construct();
     }
-    public function get($status)
+    public function get($status = "")
     {
         $this->db->select("c.*, count(p.id_client) as jumlah");
         $this->db->from("client c");

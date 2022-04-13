@@ -75,6 +75,7 @@ class Client extends CI_Controller
     }
     function hapus($id)
 	{
+        $this->Project_model->deleteClient($id);
 		$this->Client_model->delete($id);
 		redirect('Client');
 	}
