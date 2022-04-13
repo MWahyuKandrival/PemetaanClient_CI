@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Project_model extends CI_Model {
     public $table = 'project';
-    public $id = 'project.kode_project';
+    public $id = 'project.kode_projek';
     public function __contruct()
     {
         parent::__construct();
@@ -21,11 +21,21 @@ class Project_model extends CI_Model {
         $this->db->insert($this->table, $data);
         return $this->db->insert_id();
     }
+    public function getByClient($id)
+    {
+        $this->db->select("p.*, c.nama_client as nama");
+        $this->db->from("project p");
+        $this->db->join("client c", "p.id_client = c.id_client", "left");
+        $this->db->where("p.id_client", $id);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
     public function getById($id)
     {
-        $this->db->select("p.*, c.id_client as client");
+        $this->db->select("p.*, c.nama_client as nama, c.latitude, c.longitude");
         $this->db->from("project p");
         $this->db->join("client c", "p.id_client = c.id_client");
+        $this->db->where("p.kode_projek", $id);
         $query = $this->db->get();
         return $query->row_array();
     }
@@ -46,5 +56,15 @@ class Project_model extends CI_Model {
         $this->db->where($this->id, $id);
         $this->db->delete($this->table);
         return $this->db->affected_rows();
+    }
+    public function cekStatus($id_client)
+    {
+        $this->db->select('id_client,
+         sum(case when status = "Aktif" then 1 else 0 end) as JumlahAktif,
+         sum(case when status = "Berakhir" then 1 else 0 end) as JumlahNonAktif');
+        $this->db->from("project");
+        $this->db->where("id_client", $id_client);
+        $query = $this->db->get();
+        return $query->row_array();
     }
 }

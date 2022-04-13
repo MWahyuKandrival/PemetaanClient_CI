@@ -2,6 +2,7 @@
     <section class="section">
         <div class="section-header d-flex ">
             <!-- button search -->
+            <h1>Form Detail Project <?= $project['nama_projek']?></h1>
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -26,7 +27,7 @@
                         </div>
                         <div class="form-group">
 							<label>ID Client</label>
-							<input class="form-control" value="<?=$project['id_client']?>" disabled>
+							<input class="form-control" value="<?=$project['nama']?>" disabled>
                         </div>
                         <div class="form-group">
 							<label>Start Date</label>
@@ -55,7 +56,7 @@
 </div>
 
 <script>
-    var map = L.map('map').setView([<?=$client['latitude']?>, <?=$client['longitude']?>], 10);
+    var map = L.map('map').setView([<?=$project['latitude']?>, <?=$project['longitude']?>], 10);
 
     var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
@@ -64,13 +65,12 @@
     }).addTo(map);
 
     //var marker = L.marker([0.5102756596410103, 101.44848654368349],{draggable:true}).addTo(map)
-    var marker = L.marker([<?=$client['latitude']?>, <?=$client['longitude']?>],{draggable:false}).addTo(map)
+    var marker = L.marker([<?=$project['latitude']?>, <?=$project['longitude']?>],{draggable:false}).addTo(map)
     // 		.bindPopup('<b>Latitude : </b>'+lat[1]+'<br><b>Longitude : </b>'+lng[0]).openPopup(); 
     var popup = L.popup()
         .setLatLng([0.5102756596410103, 101.44848654368349], 14)
 
     function onMapClick(e) {
-
         var coord = e.latlng.toString().split(',');
         var lat = coord[0].split('(');
         var lng = coord[1].split(')');
@@ -78,9 +78,7 @@
         var lokasi2 = lng[0];
         document.getElementById("Llat").innerHTML = "--> Koordinat : " + lokasi1;
         document.getElementById("Llng").innerHTML = "--> Koordinat : " + lokasi2;
-
         //alert(lokasi1  +' | '+ lokasi2); 
-
     }
     map.on('click', onMapClick);
 </script>

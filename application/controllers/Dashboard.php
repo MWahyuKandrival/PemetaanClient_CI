@@ -15,16 +15,11 @@ class Dashboard extends CI_Controller {
 	{
         $data['totalUser'] = $this->Dashboard_model->getCountAllUser();
         $data['UserAktif'] = $this->Dashboard_model->getCountActiveUser();
-        $AllData = $this->Dashboard_model->getCountNonActiveUser();
-        // print_r($AllData); die;
+        $data['UserNonAktif'] = $this->Dashboard_model->getCountNonActiveUser();
         $data['totalProject'] = $this->Dashboard_model->getCountAllProject();
-        $total = 0;
-        foreach($AllData as $test):
-            if($test['JumlahAktif'] == 0){
-                $total= $total +1;
-            }
-        endforeach; 
-        $data['UserNonAktif'] = $total;
+        $data['AktifProject'] = $this->Dashboard_model->getCountActiveProject();
+        $data['BerakhirProject'] = $this->Dashboard_model->getCountNonActiveProject();
+        
         $data['Year'] = $this->Dashboard_model->getTahun();
         
         $data['judul'] = "Pemetaan Client | Dashboard";

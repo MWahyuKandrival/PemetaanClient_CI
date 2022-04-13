@@ -5,8 +5,7 @@
             <div class="d-flex ">
                 <?php echo form_open('') ?>
                 <div>
-
-                    <h1>Form Edit Data Project</h1>
+                    <h1>Form Edit Data Project <?= $project['nama_projek']?></h1>
                 </div>
                 <?php echo form_close() ?>
             </div>
@@ -19,7 +18,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <form action="<?= base_url('project/update')?>" method="POST" enctype="multipart/form-data">
+                        <form action="<?= base_url('Project/update')?>" method="POST" enctype="multipart/form-data">
                                 <input type="hidden" name="kode_projek" value="<?= $project['kode_projek']?>">
                             <div class="form-group">
                                 <label for="nama">Nama Project</label>
@@ -46,7 +45,7 @@
 
                             <div class="form-group">
                                 <label for="client">Nama Client</label>
-                                <select name="id_client" id="client" class="form-control">
+                                <select name="id_client" id="id_client" class="form-control">
                                     <option value="">Pilih Client</option>
                                     <?php foreach ($client as $p) : ?>
                                         <option value="<?= $p['id_client']; ?>" <?php if($project['id_client'] == $p['id_client']) echo "selected"?>><?= $p['nama_client']; ?></option>
@@ -81,7 +80,6 @@
                                 <?= form_error('ketua_projek', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
 
-
                             <!-- <div class="form-group">
 							<label for="link_foto">Foto</label>
 						    	<div class="custom-file">
@@ -103,22 +101,6 @@
 <script>
     var map = L.map('map').setView([0.8742919, 114.4477902], 5);
 
-    $(document).ready(function() {
-        $('#client').change(function() {
-            var id = $("client").val();
-            console.log(id);
-            $.ajax({
-                type: "POST",
-                url: "<?= base_url('Client/getData/') ?>" + id,
-                dataType: "JSON",
-                success: async function(data) {
-                    console.log(data);
-                }
-            });
-        });
-
-    });
-
     var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
             'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -132,7 +114,6 @@
         .setLatLng([0.5102756596410103, 101.44848654368349], 14)
 
     function onMapClick(e) {
-
         var coord = e.latlng.toString().split(',');
         var lat = coord[0].split('(');
         var lng = coord[1].split(')');
@@ -140,9 +121,22 @@
         var lokasi2 = lng[0];
         document.getElementById("Llat").innerHTML = "--> Koordinat : " + lokasi1;
         document.getElementById("Llng").innerHTML = "--> Koordinat : " + lokasi2;
-
         //alert(lokasi1  +' | '+ lokasi2); 
-
     }
     map.on('click', onMapClick);
+    
+    $(document).ready(function() {
+        $('#client').change(function() {
+            var id = $("client").val();
+            console.log(id);
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('Client/getData/') ?>" + id,
+                dataType: "JSON",
+                success: async function(data) {
+                    console.log(data);
+                }
+            });
+        });
+    });
 </script>

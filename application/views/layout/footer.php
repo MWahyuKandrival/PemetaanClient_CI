@@ -46,6 +46,8 @@
 <!-- Page level custom scripts -->
 <script src="<?= base_url() ?>assets/js/demo/datatables-demo.js"></script>
 
+<!-- Select JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
 </body>
 

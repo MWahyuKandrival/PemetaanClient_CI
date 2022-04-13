@@ -7,7 +7,7 @@
   <title><?= $judul ?></title>
 
   <!-- Custom styles for this page -->
-  
+
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -38,25 +38,31 @@
 
   <!-- data table -->
   <link href="<?= base_url('assets/') ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+  <!-- Select Search -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
   <style>
     .Tulisanbagus {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
-    background-color: #fff;
-    border-radius: 3px;
-    border: none;
-    position: relative;
-    margin-bottom: 30px;
-    padding: 20px;
-    /* display: flex; */
-    align-items: center; }
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+      background-color: #fff;
+      border-radius: 3px;
+      border: none;
+      position: relative;
+      margin-bottom: 30px;
+      padding: 20px;
+      /* display: flex; */
+      align-items: center;
+    }
+
     .Tulisanbagus h1 {
       margin-bottom: 0;
       font-weight: 700;
       display: inline-block;
       font-size: 24px;
       margin-top: 3px;
-      color: #34395e; }
+      color: #34395e;
+    }
   </style>
 
   <!-- Custom styles for this template -->
@@ -96,22 +102,22 @@
       <div class="main-sidebar">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="<?= base_url()?>">Pemetaan Client</a>
+            <a href="<?= base_url() ?>">Pemetaan Client</a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
-            <a href="<?= base_url()?>">PCR</a>
+            <a href="<?= base_url() ?>">PCR</a>
           </div>
           <ul class="sidebar-menu">
             <li class="menu-header">DASHBOARD</li>
-            <li><a class="nav-link" href="<?= base_url('Dashboard')?>"><i class="fas fa-fire"></i> <span>Dashboard </span></a></li>
+            <li><a class="nav-link" href="<?= base_url('Dashboard') ?>"><i class="fas fa-fire"></i> <span>Dashboard </span></a></li>
             </li>
             <li class="menu-header">MAP</li>
-            <li><a class="nav-link" href="<?= base_url('Map')?>"><i class="fas fa-map-marker-alt"></i> <span>Map</span></a></li>
+            <li><a class="nav-link" href="<?= base_url('Map') ?>"><i class="fas fa-map-marker-alt"></i> <span>Map</span></a></li>
             <li class="menu-header">CLIENT</li>
-            <li><a class="nav-link" href="<?= base_url('Client')?>"><i class="fas fa-map-marker-alt"></i> <span>Data Client</span></a></li>
+            <li><a class="nav-link" href="<?= base_url('Client') ?>"><i class="fas fa-map-marker-alt"></i> <span>Data Client</span></a></li>
             <li class="menu-header">PROJECT</li>
-            <li><a class="nav-link" href="<?= base_url('Project')?>"><i class="fas fa-map-marker-alt"></i> <span>Data Project</span></a></li>
+            <li><a class="nav-link" href="<?= base_url('Project') ?>"><i class="fas fa-map-marker-alt"></i> <span>Data Project</span></a></li>
             <li class="menu-header">LOGOUT</li>
-            <li><a class="nav-link" href="<?= base_url('auth/logout')?>"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
+            <li><a class="nav-link" href="<?= base_url('auth/logout') ?>"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
         </aside>
       </div>

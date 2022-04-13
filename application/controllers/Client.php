@@ -10,6 +10,7 @@ class Client extends CI_Controller
         parent::__construct();
         is_logged_in();
         $this->load->model('Client_model');
+        $this->load->model('Project_model');
     }
 
     public function getData($id_client = ""){
@@ -61,10 +62,16 @@ class Client extends CI_Controller
             'henti_kerja_sama' => $this->input->post('henti_kerja_sama'),
             'status_kerja_sama' => $this->input->post('status_kerja_sama'),
         ];
+        $status_kerja_sama = $this->input->post('status_kerja_sama');
+        if($status_kerja_sama == "Berakhir"){
+            $id_client = $this->input->post('id_client');
+			$client = ['status' => 'Berakhir'];
+			$input = $this->Project_model->update(['id_client' => $id_client], $client);
+        }
         $id = $this->input->post('id_client');
         $input = $this->Client_model->update(['id_client' => $id], $data);
         // $this->db->error(); 
-        redirect('Client/detail/').$id;
+        redirect('Client/detail/'.$id);
     }
     function hapus($id)
 	{
@@ -84,5 +91,3 @@ class Client extends CI_Controller
         $dompdf->stream('Laporan Data Tanggal ' . date('d F Y'), array("Attachment" => false));
     } 
 }
-
-?>

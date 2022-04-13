@@ -76,10 +76,25 @@ class Project extends CI_Controller
 				'status' => $this->input->post('status'),
 				'ketua_projek' => $this->input->post('ketua_projek'),
 			);
+			$status = $this->input->post('status');
+			if ($status == "Aktif") {
+				$id_client = $this->input->post('id_client');
+				$client = ['status_kerja_sama' => 'Aktif'];
+				$input = $this->Client_model->update(['id_client' => $id_client], $client);
+			}
 			$id = $this->Project_model->insert($data);
 			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Buku Berhasil Ditambah!</div>');
 			redirect('Project/index/' . $id);
 		}
+	}
+
+	function list($id = ""){
+		$data['judul'] = "Halaman Detail Project";
+		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+		$data['project'] = $this->Project_model->getByClient($id);
+		$this->load->view("layout/header", $data);
+		$this->load->view("project/vw_list_project", $data);
+		$this->load->view("layout/footer", $data);
 	}
 
 	function detail($id = "")
@@ -117,11 +132,26 @@ class Project extends CI_Controller
 		$id = $this->input->post('kode_projek');
 		$input = $this->Project_model->update(['kode_projek' => $id], $data);
 		// $this->db->error(); 
-		redirect('Project/detail/') . $id;
+		redirect('Project/detail/'. $id);
 	}
 	function hapus($id)
 	{
 		$this->Project_model->delete($id);
 		redirect('Project');
+	}
+	function test($id_client, $status = "")
+	{
+		$client = $this->Client_model->getById($id_client);
+		$cek_total = $this->Project_model->cekStatus($id_client);
+		echo 'Client : '. $client['nama_client']."<br>";
+		echo 'Aktif : '. $cek_total['JumlahAktif']."<br>";
+		echo 'NonAktif : '. $cek_total['JumlahNonAktif']."<br>";
+		if($cek_total['JumlahAktif'] > 1){
+			echo "Jumlah Aktif lebih dari 1  dengan jumlah : ". $cek_total['JumlahAktif'];	
+		}else if($cek_total['JumlahAktif'] == 1){
+			echo "Jumlah Aktif sama dengan 1 dengan jumlah : ". $cek_total['JumlahAktif'];	
+		}else{
+			echo "Jumlah Aktif :". $cek_total['JumlahAktif'];
+		}
 	}
 }

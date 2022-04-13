@@ -43,9 +43,9 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group search_select_box">
                                 <label for="id_client">Nama Client</label>
-                                <select name="id_client" id="id_client" class="form-control">
+                                <select name="id_client" id="id_client" class="form-control" data-live-search="true">
                                     <option value="">Pilih Client</option>
                                     <?php foreach ($client as $p) : ?>
                                         <option value="<?= $p['id_client']; ?>"><?= $p['nama_client']; ?></option>
@@ -100,10 +100,12 @@
     </section>
 </div>
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script>
     var map = L.map('map').setView([0.8742919, 114.4477902], 5);
-
+    
     $(document).ready(function() {
+        $('.search_select_box select').selectpicker();    
         $('#client').change(function() {
             var id = $("client").val();
             console.log(id);

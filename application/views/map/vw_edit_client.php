@@ -76,14 +76,14 @@
                                 <input name="henti_kerja_sama" autocomplete="off" value="<?= $client['henti_kerja_sama']; ?>" type="date" class="form-control" id="henti_kerja_sama">
                                 <?= form_error('henti_kerja_sama', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div> -->
-                            <!-- <div class="form-group">
+                            <div class="form-group">
                                 <label for="status_kerja_sama">Status Kerja Sama</label>
-                                <select name="status_kerja_sama" class="form-control" id="status_kerja_sama" value="<?= $client['status_kerja_]ama']; ?>">
+                                <select name="status_kerja_sama" class="form-control" id="status_kerja_sama">
                                     <option value="Aktif">Aktif</option>
-                                    <option value="Berakhir">Berakhir</option>
+                                    <option value="Berakhir" <?php if($client['status_kerja_sama'] == "Berakhir") echo "selected"?>>Berakhir</option>
                                 </select>
                                 <?= form_error('status_kerja_sama', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div> -->
+                            </div>
 
                             <!-- <div class="form-group">
 							<label for="link_foto">Foto</label>
