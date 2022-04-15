@@ -7,10 +7,10 @@
             <!-- button search -->
             <div class="d-flex flex-row-reverse">
                 <?php echo form_open('') ?>
-                    <div>
-                        <input type="text" style="height:37px;border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" name="keyword" autocomplete="off" placeholder="search">
-                        <input class="btn btn-primary " type="submit" name="search_submit" value="Cari">
-                    </div>
+                <div>
+                    <input type="text" style="height:37px;border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" name="keyword" autocomplete="off" placeholder="search">
+                    <input class="btn btn-primary " type="submit" name="search_submit" value="Cari">
+                </div>
                 <?php echo form_close() ?>
             </div>
         </div>
@@ -35,7 +35,9 @@
             "<?= $key['nama_client'] ?><br>" +
             "<?= $key['owner'] ?><br>" +
             "<?= $key['negara'] ?><br>" +
-            '<a href ="<?= base_url('bank_data/detail/') . $key["id_client"] ?>">See Detail...</a>').addTo(search);
+            '<a href ="<?= base_url('Client/detail/') . $key["id_client"] ?>">See Detail...</a>').on('click', function(e) {
+            map.flyTo(e.latlng, 13);
+        }).addTo(search);
     <?php } ?>
     //  LAYER 1 -> ALL DATA
     var clientLayer = L.layerGroup();
@@ -44,7 +46,9 @@
             "<?= $key["nama_client"] ?><br>" +
             "<?= $key["owner"] ?><br>" +
             "<?= $key["negara"] ?><br>" +
-            '<a href ="<?= base_url('bank_data/detail/') . $key["id_client"] ?>">See Detail...</a>').addTo(clientLayer);
+            '<a href ="<?= base_url('Client/detail/') . $key["id_client"] ?>">See Detail...</a>').on('click', function(e) {
+            map.flyTo(e.latlng, 13);
+        }).addTo(clientLayer);
     <?php } ?>
     // LAYER 2 -> SELEKSI Negara = Indonesia
     var negaraIndonesia = L.layerGroup();
@@ -53,7 +57,9 @@
             "<?= $key["nama_client"] ?><br>" +
             "<?= $key["owner"] ?><br>" +
             "<?= $key["negara"] ?><br>" +
-            '<a href ="<?= base_url('bank_data/detail/') . $key["id_client"] ?>">See Detail...</a>').addTo(negaraIndonesia);
+            '<a href ="<?= base_url('Client/detail/') . $key["id_client"] ?>">See Detail...</a>').on('click', function(e) {
+            map.flyTo(e.latlng, 13);
+        }).addTo(negaraIndonesia);
     <?php } ?>
     // LAYER 3 -> SELEKSI Negara != Indonesia
     var negaraForeign = L.layerGroup();
@@ -62,7 +68,9 @@
             "<?= $key["nama_client"] ?><br>" +
             "<?= $key["owner"] ?><br>" +
             "<?= $key["negara"] ?><br>" +
-            '<a href ="<?= base_url('bank_data/detail/') . $key["id_client"] ?>">See Detail...</a>').addTo(negaraForeign);
+            '<a href ="<?= base_url('Client/detail/') . $key["id_client"] ?>">See Detail...</a>').on('click', function(e) {
+            map.flyTo(e.latlng, 13);
+        }).addTo(negaraForeign);
     <?php } ?>
 
     var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';

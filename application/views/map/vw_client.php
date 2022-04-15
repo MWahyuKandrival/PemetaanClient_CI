@@ -4,8 +4,8 @@
             <div class="col-md-12 bg-white Tulisanbagus" >
                 <!-- button search -->
                 <h1 style="float: left; font-size: 25px;"><b>List Data Client</b></h1>
-                <a href="<?= base_url('client/export') ?>" class="btn btn-danger" style="float: right; margin-top: 10px; margin-left: 10px;"><i class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
-                <a href="<?= base_url('Map/addclient') ?>" class="btn btn-primary" style="float: right; margin-top: 10px;"><i class="fa fa-plus"></i>Tambah Data Client</a>
+                <a href="<?= base_url('client/export') ?>" class="btn btn-danger" style="float: right; margin-left: 10px;"><i class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
+                <a href="<?= base_url('Map/addclient') ?>" class="btn btn-primary" style="float: right;"><i class="fa fa-plus"></i>Tambah Data Client</a>
             </div>
         </div>
 
@@ -22,7 +22,8 @@
                                 <td>Owner</td>
                                 <!-- <td>Domain</td> -->
                                 <td>Region</td>
-                                <!-- <td>Status</td> -->
+                                <td>Total Projek</td>
+                                <td>Status</td>
                                 <td>Aksi</td>
                             </tr>
                         </thead>
@@ -35,9 +36,10 @@
                                     <td><?= $us['owner']; ?></td>
                                     <!-- <td><?= $us['domain']; ?></td> -->
                                     <td><?= $us['region']; ?></td>
-                                    <!-- <td><?= $us['status_kerja_sama']; ?></td> -->
+                                    <td><?= $us['jumlah']; ?></td>
+                                    <td><?= $us['status_kerja_sama']; ?></td>
                                     <td>
-                                        <a href="<?= base_url('Client/hapus/') . $us['id_client']; ?>" class="badge badge-danger">Hapus</a>
+                                        <a href="<?= base_url('Client/hapus/') . $us['id_client']; ?>" class="badge badge-danger"  onclick="return confirm('Apakah anda ingin menghapus Client beserta Project nya?');">Hapus</a>
                                         <a href="<?= base_url('Client/edit/') . $us['id_client']; ?>" class="badge badge-warning">Edit</a>
                                         <a href="<?= base_url('Client/detail/') . $us['id_client']; ?>" class="badge badge-primary">Detail</a>
                                     </td>

@@ -7,6 +7,7 @@ class Map extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		is_logged_in();
 		$this->load->model('Map_model');
 		$this->load->model('Client_model');
 		$this->load->model('Project_model');
@@ -129,12 +130,11 @@ class Map extends CI_Controller
 				'domain' => $this->input->post('domain'),
 				'latitude' => $this->input->post('latitude'),
 				'longitude' => $this->input->post('longitude'),
-				'mulai_kerja_sama' => $this->input->post('mulai_kerja_sama'),
 				'status_kerja_sama' => $this->input->post('status_kerja_sama'),
 				);
-			$this->Client_model->insert($data);
+			$id = $this->Client_model->insert($data);
 			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Buku Berhasil Ditambah!</div>');
-			redirect('Client');
+			redirect('Client/detail/'.$id);
 		}
 	}
 

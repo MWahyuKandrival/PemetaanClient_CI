@@ -8,22 +8,30 @@ class Client extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        is_logged_in();
         $this->load->model('Client_model');
+        $this->load->model('Project_model');
     }
-    function index()
+
+    public function getData($id_client = ""){
+        $data = $this->Client_model->getById($id_client);
+        echo json_encode($data);
+    }
+    function index($status = "")
     {
         $data['judul'] = "Halaman Client";
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['client'] = $this->Client_model->get();
+        $data['client'] = $this->Client_model->get($status);
         $this->load->view("layout/header", $data);
         $this->load->view("map/vw_client", $data);
         $this->load->view("layout/footer", $data);
     }
-    function detail($id)
+    function detail($id = "")
     {
         $data['judul'] = "Halaman Detail Client";
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['client'] = $this->Client_model->getById($id);
+        // print_r($data['client']);die;
         $this->load->view("layout/header", $data);
         $this->load->view("map/vw_detail_client", $data);
         $this->load->view("layout/footer", $data);
@@ -54,13 +62,20 @@ class Client extends CI_Controller
             'henti_kerja_sama' => $this->input->post('henti_kerja_sama'),
             'status_kerja_sama' => $this->input->post('status_kerja_sama'),
         ];
+        $status_kerja_sama = $this->input->post('status_kerja_sama');
+        if($status_kerja_sama == "Berakhir"){
+            $id_client = $this->input->post('id_client');
+			$client = ['status' => 'Berakhir'];
+			$input = $this->Project_model->update(['id_client' => $id_client], $client);
+        }
         $id = $this->input->post('id_client');
         $input = $this->Client_model->update(['id_client' => $id], $data);
         // $this->db->error(); 
-        redirect('Client');
+        redirect('Client/detail/'.$id);
     }
     function hapus($id)
 	{
+        $this->Project_model->deleteClient($id);
 		$this->Client_model->delete($id);
 		redirect('Client');
 	}
@@ -77,5 +92,3 @@ class Client extends CI_Controller
         $dompdf->stream('Laporan Data Tanggal ' . date('d F Y'), array("Attachment" => false));
     } 
 }
-
-?>

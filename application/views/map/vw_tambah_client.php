@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <form action="" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
-                                <label for="nama">Nama Pemilik</label>
+                                <label for="nama">Nama Client</label>
                                 <input name="nama_client" autocomplete="off" type="text" value="<?= set_value('nama_client'); ?>" class="form-control" id="nama_client">
                                 <?= form_error('nama_client', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
@@ -72,6 +72,13 @@
                                 <input id="lokasi2" name="longitude" autocomplete="off" value="<?= set_value('longitude'); ?>" type="text" class="form-control">
                                 <?= form_error('longitude', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
+                            <div class="form-group">
+                                <label for="status_kerja_sama">Status Kerja Sama</label>
+                                <select name="status_kerja_sama" class="form-control">
+                                    <option value="Aktif">Aktif</option>
+                                    <option value="Berakhir">Berakhir</option>
+                                </select>
+                            </div>
 
                             <!-- <div class="form-group">
 							<label for="link_foto">Foto</label>
@@ -113,8 +120,10 @@
         var lng = coord[1].split(')');
         var lokasi1 = lat[1];
         var lokasi2 = lng[0];
-        document.getElementById("Llat").innerHTML = "--> Koordinat : " + lokasi1;
-        document.getElementById("Llng").innerHTML = "--> Koordinat : " + lokasi2;
+        // document.getElementById("Llat").innerHTML = "--> Koordinat : " + lokasi1;
+        // document.getElementById("Llng").innerHTML = "--> Koordinat : " + lokasi2;
+        document.getElementById("lokasi1").value = lokasi1;
+        document.getElementById("lokasi2").value = lokasi2;
 
         //alert(lokasi1  +' | '+ lokasi2); 
 

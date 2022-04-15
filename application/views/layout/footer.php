@@ -27,7 +27,7 @@
 
 <!-- JS Chart -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"> </script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 <!-- Template JS File -->
 <script src="<?= base_url() ?>assets/js/scripts.js"></script>
 <script src="<?= base_url() ?>assets/js/custom.js"></script>
@@ -46,6 +46,8 @@
 <!-- Page level custom scripts -->
 <script src="<?= base_url() ?>assets/js/demo/datatables-demo.js"></script>
 
+<!-- Select JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
 </body>
 

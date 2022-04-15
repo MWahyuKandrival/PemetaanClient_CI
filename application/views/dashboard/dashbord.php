@@ -4,64 +4,108 @@
             <h1>Dashboard</h1>
         </div>
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-primary">
                         <i class="far fa-user"></i>
                     </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Total Client</h4>
+                    <a href="<?= base_url('client') ?>">
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Total Client</h4>
+                            </div>
+                            <div class="card-body">
+                                <?= $totalUser['total'] ?>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <?= $totalUser['total'] ?>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-success">
                         <i class="fas fa-circle"></i>
                     </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Client Aktif</h4>
+                    <a href="<?= base_url('client/index/Aktif') ?>">
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Client Aktif</h4>
+                            </div>
+                            <div class="card-body">
+                                <?= $UserAktif['total'] ?>
+                            </div>
                         </div>
-                        <div class="card-body">
-                        <?= $UserAktif['total']?>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-warning">
+                        <i class="fas fa-circle"></i>
+                    </div>
+                    <a href="<?= base_url('client/index/Berakhir') ?>">
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Client Berakhir</h4>
+                            </div>
+                            <div class="card-body">
+                                <?= $UserNonAktif['total'] ?>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-primary">
+                        <i class="far fa-file"></i>
+                    </div>
+                    <a href="<?= base_url('Project') ?>">
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Total Project</h4>
+                            </div>
+                            <div class="card-body">
+                                <?= $totalProject['total_project'] ?>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-success">
+                        <i class="far fa-file"></i>
+                    </div>
+                    <a href="<?= base_url('Project/index/Aktif') ?>">
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Projek Aktif</h4>
+                        </div>
+                        <div class="card-body">
+                            <?= $AktifProject['total_project'] ?>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-warning">
                         <i class="far fa-file"></i>
                     </div>
+                    <a href="<?= base_url('Project/index/Berakhir') ?>">
                     <div class="card-wrap">
                         <div class="card-header">
-                            <h4>Client Berakhir</h4>
+                            <h4>Projek Berakhir</h4>
                         </div>
                         <div class="card-body">
-                            <?= $UserNonAktif?>
+                            <?= $BerakhirProject['total_project'] ?>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="card card-statistic-1">
-                    <div class="card-icon bg-success">
-                        <i class="fas fa-circle"></i>
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4>Total Project</h4>
-                        </div>
-                        <div class="card-body">
-                        <?= $totalProject['total_project'] ?>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -73,19 +117,19 @@
     </section>
 </div>
 
-<?php 
-    $labelTahun = array();
-    $dataTahun = array();
+<?php
+$labelTahun = array();
+$dataTahun = array();
 
-    foreach($Year as $tahun):
-        $labelTahun[] = $tahun['year'];
-        $dataTahun[] = $tahun['Total'];
-    endforeach;
+foreach ($Year as $tahun) :
+    $labelTahun[] = $tahun['year'];
+    $dataTahun[] = $tahun['Total'];
+endforeach;
 ?>
 
 <script>
-    var labeltahun = <?= json_encode($labelTahun)?>;
-    var datatahun = <?= json_encode($dataTahun)?>; 
+    var labeltahun = <?= json_encode($labelTahun) ?>;
+    var datatahun = <?= json_encode($dataTahun) ?>;
     const labels = [
         '0-4', '5-9', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39',
         '40-44', '45-49', '50-54', '55-59', '60-64', '65-69', '70-74', '75+'
@@ -125,7 +169,7 @@
                 x: {
                     title: {
                         display: true,
-                        text: 'Usia'
+                        text: 'Tahun'
                     },
                     grid: {
                         display: false
