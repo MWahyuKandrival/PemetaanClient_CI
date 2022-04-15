@@ -169,7 +169,7 @@ endforeach;
                 x: {
                     title: {
                         display: true,
-                        text: 'Usia'
+                        text: 'Tahun'
                     },
                     grid: {
                         display: false

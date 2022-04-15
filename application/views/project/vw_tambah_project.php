@@ -51,7 +51,6 @@
                                         <option value="<?= $p['id_client']; ?>"><?= $p['nama_client']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
-
                             </div>
                             <div class="form-group">
                                 <label for="start_date">Start Date</label>
@@ -106,19 +105,20 @@
     
     $(document).ready(function() {
         $('.search_select_box select').selectpicker();    
-        $('#client').change(function() {
-            var id = $("client").val();
+        $('#id_client').change(function() {
+            var id = $("#id_client").val();
             console.log(id);
             $.ajax({
                 type: "POST",
                 url: "<?= base_url('Client/getData/') ?>" + id,
                 dataType: "JSON",
                 success: async function(data) {
-                    console.log(data);
+                    map.removeLayer(marker)
+                    marker = L.marker([data['latitude'], data['longitude']],{draggable:false}).addTo(map)
+                    // map.flyTo(marker.latlng, 13)
                 }
             });
         });
-
     });
 
     var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -127,7 +127,7 @@
         id: 'mapbox/streets-v11',
     }).addTo(map);
 
-    //var marker = L.marker([0.5102756596410103, 101.44848654368349],{draggable:true}).addTo(map)
+    var marker = L.marker([0.5102756596410103, 101.44848654368349],{draggable:true})
     // var marker = L.marker([0.5102756596410103, 101.44848654368349],{draggable:false}).addTo(map)
     // 		.bindPopup('<b>Latitude : </b>'+lat[1]+'<br><b>Longitude : </b>'+lng[0]).openPopup(); 
     var popup = L.popup()

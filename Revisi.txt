@@ -1,0 +1,10 @@
+descending sort all table
+alert delete
+label colored status
+status end based end_date
+map based project
+export sort filter based datepicker
+/*pdf kop 
+export to xcl or csv (no kop)
+import export csv
+deadline tgl 27 April

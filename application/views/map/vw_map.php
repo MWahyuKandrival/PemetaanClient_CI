@@ -36,7 +36,7 @@
             "<?= $key['owner'] ?><br>" +
             "<?= $key['negara'] ?><br>" +
             '<a href ="<?= base_url('Client/detail/') . $key["id_client"] ?>">See Detail...</a>').on('click', function(e) {
-            map.setView(e.latlng, 13);
+            map.flyTo(e.latlng, 13);
         }).addTo(search);
     <?php } ?>
     //  LAYER 1 -> ALL DATA
@@ -47,7 +47,7 @@
             "<?= $key["owner"] ?><br>" +
             "<?= $key["negara"] ?><br>" +
             '<a href ="<?= base_url('Client/detail/') . $key["id_client"] ?>">See Detail...</a>').on('click', function(e) {
-            map.setView(e.latlng, 13);
+            map.flyTo(e.latlng, 13);
         }).addTo(clientLayer);
     <?php } ?>
     // LAYER 2 -> SELEKSI Negara = Indonesia
@@ -58,7 +58,7 @@
             "<?= $key["owner"] ?><br>" +
             "<?= $key["negara"] ?><br>" +
             '<a href ="<?= base_url('Client/detail/') . $key["id_client"] ?>">See Detail...</a>').on('click', function(e) {
-            map.setView(e.latlng, 13);
+            map.flyTo(e.latlng, 13);
         }).addTo(negaraIndonesia);
     <?php } ?>
     // LAYER 3 -> SELEKSI Negara != Indonesia
@@ -69,7 +69,7 @@
             "<?= $key["owner"] ?><br>" +
             "<?= $key["negara"] ?><br>" +
             '<a href ="<?= base_url('Client/detail/') . $key["id_client"] ?>">See Detail...</a>').on('click', function(e) {
-            map.setView(e.latlng, 13);
+            map.flyTo(e.latlng, 13);
         }).addTo(negaraForeign);
     <?php } ?>
 

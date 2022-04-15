@@ -43,16 +43,16 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
-                                <label for="client">Nama Client</label>
-                                <select name="id_client" id="id_client" class="form-control">
+                            <div class="form-group search_select_box">
+                                <label for="id_client">Nama Client</label>
+                                <select name="id_client" id="id_client" class="form-control" data-live-search="true">
                                     <option value="">Pilih Client</option>
                                     <?php foreach ($client as $p) : ?>
                                         <option value="<?= $p['id_client']; ?>" <?php if($project['id_client'] == $p['id_client']) echo "selected"?>><?= $p['nama_client']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
-
                             </div>
+                                
                             <div class="form-group">
                                 <label for="start_date">Start Date</label>
                                 <input name="start_date" autocomplete="off" value="<?= $project['start_date']; ?>" type="date" class="form-control" id="region">
@@ -97,9 +97,9 @@
         </div>
     </section>
 </div>
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script>
-    var map = L.map('map').setView([0.8742919, 114.4477902], 5);
+    var map = L.map('map').setView([<?= $project['latitude']?>, <?= $project['longitude']?>], 10);
 
     var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
@@ -107,6 +107,25 @@
         id: 'mapbox/streets-v11',
     }).addTo(map);
 
+    $(document).ready(function() {
+        $('.search_select_box select').selectpicker();    
+        $('#id_client').change(function() {
+            var id = $("#id_client").val();
+            console.log(id);
+            $.ajax({
+                type: "POST",
+                url: "<?= base_url('Client/getData/') ?>" + id,
+                dataType: "JSON",
+                success: async function(data) {
+                    map.removeLayer(marker)
+                    marker = L.marker([data['latitude'], data['longitude']],{draggable:false}).addTo(map)
+                    map.setView([data['latitude'], data['longitude']], 13)
+                }
+            });
+        });
+    });
+
+    var marker = L.marker([<?= $project['latitude']?>, <?= $project['longitude']?>],{draggable:true}).addTo(map)
     //var marker = L.marker([0.5102756596410103, 101.44848654368349],{draggable:true}).addTo(map)
     // var marker = L.marker([0.5102756596410103, 101.44848654368349],{draggable:false}).addTo(map)
     // 		.bindPopup('<b>Latitude : </b>'+lat[1]+'<br><b>Longitude : </b>'+lng[0]).openPopup(); 
@@ -125,18 +144,5 @@
     }
     map.on('click', onMapClick);
     
-    $(document).ready(function() {
-        $('#client').change(function() {
-            var id = $("client").val();
-            console.log(id);
-            $.ajax({
-                type: "POST",
-                url: "<?= base_url('Client/getData/') ?>" + id,
-                dataType: "JSON",
-                success: async function(data) {
-                    console.log(data);
-                }
-            });
-        });
-    });
+    
 </script>
