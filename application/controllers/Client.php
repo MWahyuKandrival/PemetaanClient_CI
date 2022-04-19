@@ -90,5 +90,10 @@ class Client extends CI_Controller
         $dompdf->load_html($html);
         $dompdf->render();
         $dompdf->stream('Laporan Data Tanggal ' . date('d F Y'), array("Attachment" => false));
+    }
+    public function cekDate()
+    {
+        $today = date("Y-M-D");
+        echo $today;
     } 
 }

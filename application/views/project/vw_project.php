@@ -35,7 +35,7 @@
                                     <td><?= $us['nama_projek']; ?></td>
                                     <td><?= $us['nama']; ?></td>
                                     <td><?= $us['domain']; ?></td>
-                                    <td><?= $us['status']; ?></td>
+                                    <td class="<?php if($us['status'] == "Berakhir"){echo "text-danger";}else{echo "text-success";}?>"><?= $us['status']; ?></td>
                                     <td>
                                         <a href="<?= base_url('Project/hapus/') . $us['kode_projek']; ?>" class="badge badge-danger">Hapus</a>
                                         <a href="<?= base_url('Project/edit/') . $us['kode_projek']; ?>" class="badge badge-warning">Edit</a>
@@ -49,6 +49,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>

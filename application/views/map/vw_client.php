@@ -37,7 +37,7 @@
                                     <!-- <td><?= $us['domain']; ?></td> -->
                                     <td><?= $us['region']; ?></td>
                                     <td><?= $us['jumlah']; ?></td>
-                                    <td><?= $us['status_kerja_sama']; ?></td>
+                                    <td class="<?php if($us['status_kerja_sama'] == "Berakhir"){echo "text-danger";}else{echo "text-success";}?>"><?= $us['status_kerja_sama']; ?></td>
                                     <td>
                                         <a href="<?= base_url('Client/hapus/') . $us['id_client']; ?>" class="badge badge-danger"  onclick="return confirm('Apakah anda ingin menghapus Client beserta Project nya?');">Hapus</a>
                                         <a href="<?= base_url('Client/edit/') . $us['id_client']; ?>" class="badge badge-warning">Edit</a>

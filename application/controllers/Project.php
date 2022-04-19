@@ -135,7 +135,7 @@ class Project extends CI_Controller
 			'kode_projek' => $id,
 			'status' => $this->input->post('status')
 		];
-		$this->test($this->input->post('id_client'), $projek);
+		test($this->input->post('id_client'), $projek);
 		$input = $this->Project_model->update(['kode_projek' => $id], $data);
 		// $this->db->error(); 
 		// die;
@@ -145,34 +145,5 @@ class Project extends CI_Controller
 	{
 		$this->Project_model->delete($id);
 		redirect('Project');
-	}
-	function test($id_client = "", $data = "")
-	{
-		$client = $this->Client_model->getById($id_client);
-		$projek = $this->Project_model->getById($data['kode_projek']);
-		print_r($projek);
-		$cek_total = $this->Project_model->cekStatus($id_client);
-		echo 'Client : '. $client['nama_client']."<br>";
-		echo 'Aktif : '. $cek_total['JumlahAktif']."<br>";
-		echo 'NonAktif : '. $cek_total['JumlahNonAktif']."<br>";
-		if($cek_total['JumlahAktif'] > 1){
-			echo "Jumlah Aktif lebih dari 1  dengan jumlah : ". $cek_total['JumlahAktif'];	
-		}else if($cek_total['JumlahAktif'] == 1){
-			if($projek['status'] == 'Aktif' && $data['status']=="Berakhir"){
-				echo "Input : ".$data['status']."<br>DB : ".$projek['status']."<br>";
-				$status = ['status_kerja_sama'=> $data['status']];
-				$this->Client_model->update(['id_client' => $projek['id_client']], $status);
-				echo "Mengubah Client menjadi status berakhir";
-			}
-			echo "Jumlah Aktif sama dengan 1 dengan jumlah : ". $cek_total['JumlahAktif'];	
-		}else{
-			if($projek['status'] == 'Berakhir' && $data['status']=="Aktif"){
-				echo "Input : ".$data['status']."<br>DB : ".$projek['status']."<br>";
-				$status = ['status_kerja_sama'=> $data['status']];
-				$this->Client_model->update(['id_client' => $projek['id_client']], $status);
-				echo "Mengubah Client menjadi status Aktif";
-			}
-			echo "Jumlah Aktif :". $cek_total['JumlahAktif'];
-		}
 	}
 }
