@@ -49,30 +49,108 @@ class Client extends CI_Controller
     {
         $data = [
             'nama_client' => $this->input->post('nama_client'),
-            'owner' => $this->input->post('owner'),
+            'pic' => $this->input->post('pic'),
             'alamat' => $this->input->post('alamat'),
             'negara' => $this->input->post('negara'),
             'region' => $this->input->post('region'),
             'email' => $this->input->post('email'),
             'no_hp' => $this->input->post('no_hp'),
             'domain' => $this->input->post('domain'),
-            'latitude' => $this->input->post('latitude'),
-            'longitude' => $this->input->post('longitude'),
-            'mulai_kerja_sama' => $this->input->post('mulai_kerja_sama'),
-            'henti_kerja_sama' => $this->input->post('henti_kerja_sama'),
+            // 'mulai_kerja_sama' => $this->input->post('mulai_kerja_sama'),
+            // 'henti_kerja_sama' => $this->input->post('henti_kerja_sama'),
             'status_kerja_sama' => $this->input->post('status_kerja_sama'),
         ];
         $status_kerja_sama = $this->input->post('status_kerja_sama');
         if($status_kerja_sama == "Berakhir"){
             $id_client = $this->input->post('id_client');
-			$client = ['status' => 'Berakhir'];
-			$input = $this->Project_model->update(['id_client' => $id_client], $client);
+			$project = ['status' => 'Berakhir'];
+			$input = $this->Project_model->update(['id_client' => $id_client], $project);
         }
         $id = $this->input->post('id_client');
         $input = $this->Client_model->update(['id_client' => $id], $data);
         // $this->db->error(); 
         redirect('Client/detail/'.$id);
     }
+    
+	public function addClient()
+	{
+		//Validasi Data Tidak Boleh Kosong
+		$this->form_validation->set_rules('nama_client', 'Nama Client', 'required', array(
+			'required' => 'Nama Client Wajib di isi!!!'
+		));
+
+		$this->form_validation->set_rules('pic', 'Owner', 'required', array(
+			'required' => 'Owner Wajib di isi!!!'
+		));
+
+		$this->form_validation->set_rules('alamat', 'Alamat', 'required', array(
+			'required' => 'Alamat Wajib di isi!!!'
+		));
+
+		$this->form_validation->set_rules('negara', 'Negara', 'required', array(
+			'required' => 'Negara Wajib di isi!!!'
+		));
+
+		$this->form_validation->set_rules('region', 'Region', 'required', array(
+			'required' => 'Region Wajib di isi!!!'
+		));
+
+		$this->form_validation->set_rules('email', 'Email', 'required', array(
+			'required' => 'Email Wajib di isi!!!'
+		));
+
+		$this->form_validation->set_rules('no_hp', 'No HP', 'required', array(
+			'required' => 'No HP Wajib di isi!!!'
+		));
+
+		$this->form_validation->set_rules('domain', 'Domain', 'required', array(
+			'required' => 'Domain Wajib di isi!!!'
+		));
+
+		// $this->form_validation->set_rules('latitude', 'Latitude', 'required', array(
+		// 	'required' => 'Latitude Wajib di isi!!!'
+		// ));
+
+		// $this->form_validation->set_rules('longitude', 'Longitude', 'required', array(
+		// 	'required' => 'Longitude Wajib di isi!!!'
+		// ));
+
+		// $this->form_validation->set_rules('mulai_kerja_sama', 'Tanggal Mulai Kerja Sama', 'required', array(
+		// 	'required' => 'Tanggal Mulai Kerja Sama Wajib di isi!!!'
+		// ));
+
+		// $this->form_validation->set_rules('status_kerja_sama', 'Status Kerja Sama', 'required', array(
+		// 	'required' => 'Status Kerja Sama Wajib di isi!!!'
+		// ));
+
+		if ($this->form_validation->run() == FALSE) {
+			$data = array(
+				'judul' => "Pemetaan Client | Tambah Client"
+			);
+			$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+			$this->load->view("layout/header", $data);
+			$this->load->view("map/vw_tambah_client", $data);
+			$this->load->view("layout/footer");
+		} else {
+			$data = array(
+				'nama_client' => $this->input->post('nama_client'),
+				'pic' => $this->input->post('pic'),
+				'alamat' => $this->input->post('alamat'),
+				'negara' => $this->input->post('negara'),
+				'region' => $this->input->post('region'),
+				'email' => $this->input->post('email'),
+				'no_hp' => $this->input->post('no_hp'),
+				'domain' => $this->input->post('domain'),
+				// 'latitude' => $this->input->post('latitude'),
+				// 'longitude' => $this->input->post('longitude'),
+				'status_kerja_sama' => $this->input->post('status_kerja_sama'),
+				);
+			$id = $this->Client_model->insert($data);
+			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Buku Berhasil Ditambah!</div>');
+			redirect('Client/detail/'.$id);
+		}
+	}
+
     function hapus($id)
 	{
         $this->Project_model->deleteClient($id);

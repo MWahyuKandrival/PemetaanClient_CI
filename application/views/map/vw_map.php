@@ -32,10 +32,10 @@
     <?php
     foreach ($products as $key) { ?>
         var lokasi = L.marker([<?= $key['latitude'] ?>, <?= $key['longitude'] ?>]).bindPopup("<center><b>INFORMATION</b></center><br>" +
+            "<?= $key['nama_projek'] ?><br>" +
             "<?= $key['nama_client'] ?><br>" +
-            "<?= $key['owner'] ?><br>" +
             "<?= $key['negara'] ?><br>" +
-            '<a href ="<?= base_url('Client/detail/') . $key["id_client"] ?>">See Detail...</a>').on('click', function(e) {
+            '<a href ="<?= base_url('Project/detail/') . $key["kode_projek"] ?>">See Detail...</a>').on('click', function(e) {
             map.flyTo(e.latlng, 13);
         }).addTo(search);
     <?php } ?>
@@ -43,10 +43,10 @@
     var clientLayer = L.layerGroup();
     <?php foreach ($client as $key) { ?>
         var lokasi = L.marker([<?= $key["latitude"] ?>, <?= $key["longitude"] ?>]).bindPopup("<center><b>INFORMATION</b></center><br>" +
+            "<?= $key["nama_projek"] ?><br>" +
             "<?= $key["nama_client"] ?><br>" +
-            "<?= $key["owner"] ?><br>" +
             "<?= $key["negara"] ?><br>" +
-            '<a href ="<?= base_url('Client/detail/') . $key["id_client"] ?>">See Detail...</a>').on('click', function(e) {
+            '<a href ="<?= base_url('Project/detail/') . $key["kode_projek"] ?>">See Detail...</a>').on('click', function(e) {
             map.flyTo(e.latlng, 13);
         }).addTo(clientLayer);
     <?php } ?>
@@ -54,10 +54,10 @@
     var negaraIndonesia = L.layerGroup();
     <?php foreach ($filterIndonesia as $key) { ?>
         var lokasi = L.marker([<?= $key["latitude"] ?>, <?= $key["longitude"] ?>]).bindPopup("<center><b>INFORMATION</b></center><br>" +
+            "<?= $key["nama_projek"] ?><br>" +
             "<?= $key["nama_client"] ?><br>" +
-            "<?= $key["owner"] ?><br>" +
             "<?= $key["negara"] ?><br>" +
-            '<a href ="<?= base_url('Client/detail/') . $key["id_client"] ?>">See Detail...</a>').on('click', function(e) {
+            '<a href ="<?= base_url('Project/detail/') . $key["kode_projek"] ?>">See Detail...</a>').on('click', function(e) {
             map.flyTo(e.latlng, 13);
         }).addTo(negaraIndonesia);
     <?php } ?>
@@ -65,10 +65,10 @@
     var negaraForeign = L.layerGroup();
     <?php foreach ($filterForeign as $key) { ?>
         var lokasi = L.marker([<?= $key["latitude"] ?>, <?= $key["longitude"] ?>]).bindPopup("<center><b>INFORMATION</b></center><br>" +
+            "<?= $key["nama_projek"] ?><br>" +
             "<?= $key["nama_client"] ?><br>" +
-            "<?= $key["owner"] ?><br>" +
             "<?= $key["negara"] ?><br>" +
-            '<a href ="<?= base_url('Client/detail/') . $key["id_client"] ?>">See Detail...</a>').on('click', function(e) {
+            '<a href ="<?= base_url('Project/detail/') . $key["kode_projek"] ?>">See Detail...</a>').on('click', function(e) {
             map.flyTo(e.latlng, 13);
         }).addTo(negaraForeign);
     <?php } ?>

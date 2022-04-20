@@ -1,14 +1,15 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header d-flex ">
+            <h1>Halaman Detail <?= $client['nama_client']?></h1>
             <!-- button search -->
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <!-- <div class="col-md-6"> -->
                 <!-- MEMANGGIL MAP -->
-                <div id="map" style="width:100%; height: 98%;"></div>
-            </div>
-            <div class="col-md-6">
+                <!-- <div id="map" style="width:100%; height: 98%;"></div> -->
+            <!-- </div> -->
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
                     <form action="" method="POST" enctype="multipart/form-data">
@@ -17,8 +18,8 @@
 							<input class="form-control" value="<?=$client['nama_client']?>" disabled>
                         </div>
                         <div class="form-group">
-							<label>Owner</label>
-							<input class="form-control" value="<?=$client['owner']?>" disabled>
+							<label>PIC</label>
+							<input class="form-control" value="<?=$client['pic']?>" disabled>
                         </div>
                         <div class="form-group">
 							<label>Alamat</label>
@@ -44,14 +45,14 @@
 							<label>Domain</label>
 							<input class="form-control" value="<?=$client['domain']?>" disabled>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
 							<label>Latitude</label>
 							<input class="form-control" value="<?=$client['latitude']?>" disabled>
                         </div>
                         <div class="form-group">
 							<label>Longitude</label>
 							<input class="form-control" value="<?=$client['longitude']?>" disabled>
-                        </div>
+                        </div> -->
                         <div class="form-group">
 							<label>Total Project</label>
 							<input class="form-control" value="<?=$client['jumlah']?>" disabled>
@@ -74,7 +75,7 @@
         </div>
     </section>
 </div>
-
+<!-- 
 <script>
     var map = L.map('map').setView([<?=$client['latitude']?>, <?=$client['longitude']?>], 10);
 
@@ -97,11 +98,11 @@
         var lng = coord[1].split(')');
         var lokasi1 = lat[1];
         var lokasi2 = lng[0];
-        document.getElementById("Llat").innerHTML = "--> Koordinat : " + lokasi1;
-        document.getElementById("Llng").innerHTML = "--> Koordinat : " + lokasi2;
+        document.getElementById("Llat").innerHTML = " Koordinat : " + lokasi1;
+        document.getElementById("Llng").innerHTML = " Koordinat : " + lokasi2;
 
         //alert(lokasi1  +' | '+ lokasi2); 
 
     }
     map.on('click', onMapClick);
-</script>
+</script> -->

@@ -39,6 +39,14 @@ class Project extends CI_Controller
 			'required' => 'Id client Wajib di isi!!!'
 		));
 
+		$this->form_validation->set_rules('latitude', 'Latitude', 'required', array(
+			'required' => 'Latitude Wajib di isi!!!'
+		));
+
+		$this->form_validation->set_rules('longitude', 'Longitude', 'required', array(
+			'required' => 'Longitude Wajib di isi!!!'
+		));
+
 		$this->form_validation->set_rules('start_date', 'Start date', 'required', array(
 			'required' => 'Start date Wajib di isi!!!'
 		));
@@ -71,6 +79,8 @@ class Project extends CI_Controller
 				'domain' => $this->input->post('domain'),
 				'package' => $this->input->post('package'),
 				'id_client' => $this->input->post('id_client'),
+				'latitude' => $this->input->post('latitude'),
+				'longitude' => $this->input->post('longitude'),
 				'start_date' => $this->input->post('start_date'),
 				'end_date' => $this->input->post('end_date'),
 				'status' => $this->input->post('status'),
@@ -125,6 +135,8 @@ class Project extends CI_Controller
 			'domain' => $this->input->post('domain'),
 			'package' => $this->input->post('package'),
 			'id_client' => $this->input->post('id_client'),
+			'latitude' => $this->input->post('latitude'),
+			'longitude' => $this->input->post('longitude'),
 			'start_date' => $this->input->post('start_date'),
 			'end_date' => $this->input->post('end_date'),
 			'status' => $this->input->post('status'),

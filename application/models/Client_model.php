@@ -15,6 +15,7 @@ class Client_model extends CI_Model{
         $this->db->join("project p", "p.id_client = c.id_client", 'left');
         $this->db->like("status_kerja_sama", $status);
         $this->db->group_by("c.id_client");
+        $this->db->order_by('c.id_client', 'DESC');
         $query = $this->db->get();
         return $query->result_array();
     }

@@ -5,7 +5,7 @@
                 <!-- button search -->
                 <h1 style="float: left; font-size: 25px;"><b>List Data Client</b></h1>
                 <a href="<?= base_url('client/export') ?>" class="btn btn-danger" style="float: right; margin-left: 10px;"><i class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
-                <a href="<?= base_url('Map/addclient') ?>" class="btn btn-primary" style="float: right;"><i class="fa fa-plus"></i>Tambah Data Client</a>
+                <a href="<?= base_url('client/addclient') ?>" class="btn btn-primary" style="float: right;"><i class="fa fa-plus"></i>Tambah Data Client</a>
             </div>
         </div>
 
@@ -19,7 +19,7 @@
                             <tr>
                                 <td>No</td>
                                 <td>Nama</td>
-                                <td>Owner</td>
+                                <td>PIC</td>
                                 <!-- <td>Domain</td> -->
                                 <td>Region</td>
                                 <td>Total Projek</td>
@@ -33,7 +33,7 @@
                                 <tr>
                                     <td><?= $i; ?>.</td>
                                     <td><?= $us['nama_client']; ?></td>
-                                    <td><?= $us['owner']; ?></td>
+                                    <td><?= $us['pic']; ?></td>
                                     <!-- <td><?= $us['domain']; ?></td> -->
                                     <td><?= $us['region']; ?></td>
                                     <td><?= $us['jumlah']; ?></td>
