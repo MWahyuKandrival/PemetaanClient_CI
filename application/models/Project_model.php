@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Project_model extends CI_Model {
+class Project_model extends CI_Model
+{
     public $table = 'project';
     public $id = 'project.kode_projek';
     public function __contruct()
@@ -18,10 +19,16 @@ class Project_model extends CI_Model {
         $query = $this->db->get();
         return $query->result_array();
     }
-    public function fetch_data()
+    public function fetch_data($where)
     {
         $this->db->select("*");
         $this->db->from('project');
+        if ($where != null) {
+            if ($where['mulai'] != "" && $where['sampai'] != "") {
+                $this->db->where('start_date >=', $where['mulai']);
+                $this->db->where('start_date <=', $where['sampai']);
+            }
+        }
         return $this->db->get();
     }
 

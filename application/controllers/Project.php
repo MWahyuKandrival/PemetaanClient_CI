@@ -14,6 +14,14 @@ class Project extends CI_Controller
 	function index($status = "")
 	{
 		$data['judul'] = "Halaman Project";
+		//Get Date
+		$lastWeek = date("Y-m-d", strtotime("-7 days"));
+		$lastMonth = date("Y-m-d", strtotime("-1 month"));
+		$data['tanggal'] = [
+			'today' => date('Y-m-d'),
+			'last_week' => $lastWeek,
+			'last_month' => $lastMonth,
+		];
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 		$data['project'] = $this->Project_model->get($status);
 		$this->load->view("layout/header", $data);
@@ -98,7 +106,8 @@ class Project extends CI_Controller
 		}
 	}
 
-	function list($id = ""){
+	function list($id = "")
+	{
 		$data['judul'] = "Halaman Detail Project";
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 		$data['project'] = $this->Project_model->getByClient($id);
@@ -151,30 +160,33 @@ class Project extends CI_Controller
 		$input = $this->Project_model->update(['kode_projek' => $id], $data);
 		// $this->db->error(); 
 		// die;
-		redirect('Project/detail/'. $id);
+		redirect('Project/detail/' . $id);
 	}
 	function export_csv()
-    {
-     $file_name = 'Project_Export_on_'.date('Ymd').'.csv'; 
-     header("Content-Description: File Transfer"); 
-     header("Content-Disposition: attachment; filename=$file_name"); 
-     header("Content-Type: application/csv;");
-   
-     // get data 
-     $client_data = $this->Project_model->fetch_data();
+	{
+		$file_name = 'Project_Export_on_' . date('Ymd') . '.csv';
+		header("Content-Description: File Transfer");
+		header("Content-Disposition: attachment; filename=$file_name");
+		header("Content-Type: application/csv;");
 
-     // file creation 
-     $file = fopen('php://output', 'w');
- 
-     $header = array("*"); 
-     fputcsv($file, $header);
-     foreach ($client_data->result_array() as $key => $value)
-     { 
-       fputcsv($file, $value); 
-     }
-     fclose($file); 
-     exit; 
-    }
+		// get data 
+		$whare = [
+            "mulai"=> $this->input->post('mulai'),
+            "sampai"=> $this->input->post('sampai')
+        ];
+		$client_data = $this->Project_model->fetch_data($whare);
+
+		// file creation 
+		$file = fopen('php://output', 'w');
+
+		$header = array("*");
+		fputcsv($file, $header);
+		foreach ($client_data->result_array() as $key => $value) {
+			fputcsv($file, $value);
+		}
+		fclose($file);
+		exit;
+	}
 
 	function hapus($id)
 	{
