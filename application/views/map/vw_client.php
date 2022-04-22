@@ -4,7 +4,7 @@
             <div class="col-md-12 bg-white Tulisanbagus" >
                 <!-- button search -->
                 <h1 style="float: left; font-size: 25px;"><b>List Data Client</b></h1>
-                <a href="<?= base_url('client/export') ?>" class="btn btn-danger" style="float: right; margin-left: 10px;"><i class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
+                <a href="<?= base_url('client/export_csv') ?>" class="btn btn-danger" style="float: right; margin-left: 10px;"><i class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
                 <a href="<?= base_url('client/addclient') ?>" class="btn btn-primary" style="float: right;"><i class="fa fa-plus"></i>Tambah Data Client</a>
             </div>
         </div>

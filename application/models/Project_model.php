@@ -18,6 +18,13 @@ class Project_model extends CI_Model {
         $query = $this->db->get();
         return $query->result_array();
     }
+    public function fetch_data()
+    {
+        $this->db->select("*");
+        $this->db->from('project');
+        return $this->db->get();
+    }
+
     public function insert($data)
     {
         $this->db->insert($this->table, $data);

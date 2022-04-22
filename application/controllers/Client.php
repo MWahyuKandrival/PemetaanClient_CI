@@ -22,6 +22,7 @@ class Client extends CI_Controller
         $data['judul'] = "Halaman Client";
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['client'] = $this->Client_model->get($status);
+        $data['client_data'] = $this->Client_model->fetch_data();
         $this->load->view("layout/header", $data);
         $this->load->view("map/vw_client", $data);
         $this->load->view("layout/footer", $data);
@@ -157,21 +158,52 @@ class Client extends CI_Controller
 		$this->Client_model->delete($id);
 		redirect('Client');
 	}
-    public function export()
+
+    // public function export()
+    // {
+    //     $dompdf = new Dompdf();
+    //     $this->data['all_jual'] = $this->Client_model->get();
+    //     $this->data['title'] = 'Laporan Data Client';
+    //     $this->data['no'] = 1;
+    //     $dompdf->setPaper('A4', 'Portrait');
+    //     $html = $this->load->view('laporan/report', $this->data, true);
+    //     $dompdf->load_html($html);
+    //     $dompdf->render();
+    //     $dompdf->stream('Laporan Data Tanggal ' . date('d F Y'), array("Attachment" => false));
+    // }
+
+    function export_csv()
     {
-        $dompdf = new Dompdf();
-        $this->data['all_jual'] = $this->Client_model->get();
-        $this->data['title'] = 'Laporan Data Client';
-        $this->data['no'] = 1;
-        $dompdf->setPaper('A4', 'Portrait');
-        $html = $this->load->view('laporan/report', $this->data, true);
-        $dompdf->load_html($html);
-        $dompdf->render();
-        $dompdf->stream('Laporan Data Tanggal ' . date('d F Y'), array("Attachment" => false));
+     $file_name = 'Client_Export_on_'.date('Ymd').'.csv'; 
+     header("Content-Description: File Transfer"); 
+     header("Content-Disposition: attachment; filename=$file_name"); 
+     header("Content-Type: application/csv;");
+   
+     // get data 
+     $client_data = $this->Client_model->fetch_data();
+
+     // file creation 
+     $file = fopen('php://output', 'w');
+ 
+     $header = array("id_client", "nama_client", "pic", "alamat", "negara", "region", "email", "no_hp", "domain", "status_kerja_sama"); 
+     fputcsv($file, $header);
+     foreach ($client_data->result_array() as $key => $value)
+     { 
+       fputcsv($file, $value); 
+     }
+     fclose($file); 
+     exit; 
     }
+
     public function cekDate()
     {
         $today = date("Y-M-D");
         echo $today;
-    } 
+    }
+    
+    public function test(){
+        $this->load->view("layout/header");
+        $this->load->view("map/test");
+        $this->load->view("layout/footer");
+    }
 }

@@ -19,6 +19,13 @@ class Client_model extends CI_Model{
         $query = $this->db->get();
         return $query->result_array();
     }
+    public function fetch_data()
+    {
+        $this->db->select("*");
+        $this->db->from('client');
+        return $this->db->get();
+    }
+
     public function getById($id)
     {
         $this->db->select("c.*, count(p.id_client) as jumlah");

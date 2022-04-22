@@ -153,6 +153,29 @@ class Project extends CI_Controller
 		// die;
 		redirect('Project/detail/'. $id);
 	}
+	function export_csv()
+    {
+     $file_name = 'Project_Export_on_'.date('Ymd').'.csv'; 
+     header("Content-Description: File Transfer"); 
+     header("Content-Disposition: attachment; filename=$file_name"); 
+     header("Content-Type: application/csv;");
+   
+     // get data 
+     $client_data = $this->Project_model->fetch_data();
+
+     // file creation 
+     $file = fopen('php://output', 'w');
+ 
+     $header = array("*"); 
+     fputcsv($file, $header);
+     foreach ($client_data->result_array() as $key => $value)
+     { 
+       fputcsv($file, $value); 
+     }
+     fclose($file); 
+     exit; 
+    }
+
 	function hapus($id)
 	{
 		$this->Project_model->delete($id);

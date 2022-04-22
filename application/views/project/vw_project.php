@@ -4,8 +4,8 @@
             <div class="col-md-12 bg-white Tulisanbagus" >
                 <!-- button search -->
                 <h1 style="float: left; font-size: 25px;"><b>List Data Project</b></h1>
-                
-                <a href="<?= base_url('Project/addproject') ?>" class="btn btn-primary" style="float: right; margin-top: 10px;"><i class="fa fa-plus"></i>Tambah Data Project</a>
+                <a href="<?= base_url('project/export_csv') ?>" class="btn btn-danger" style="float: right; margin-left: 10px;"><i class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
+                <a href="<?= base_url('Project/addproject') ?>" class="btn btn-primary" style="float: right;"><i class="fa fa-plus"></i>Tambah Data Project</a>
             </div>
         </div>
 
