@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Project_model extends CI_Model {
+class Project_model extends CI_Model
+{
     public $table = 'project';
     public $id = 'project.kode_projek';
     public function __contruct()
@@ -14,9 +15,26 @@ class Project_model extends CI_Model {
         $this->db->from('project p');
         $this->db->like('p.status', $status);
         $this->db->join('client c', 'p.id_client = c.id_client');
+        $this->db->order_by('p.kode_projek', 'DESC');
         $query = $this->db->get();
         return $query->result_array();
     }
+    public function fetch_data($where)
+    {
+        $this->db->select("*");
+        $this->db->from('project');
+        if ($where != null) {
+            if ($where['mulai'] != "") {
+                if($where['sampai'] != ""){
+                    
+                }
+                $this->db->where('start_date >=', $where['mulai']);
+                $this->db->where('start_date <=', $where['sampai']);
+            }
+        }
+        return $this->db->get();
+    }
+
     public function insert($data)
     {
         $this->db->insert($this->table, $data);
@@ -33,7 +51,7 @@ class Project_model extends CI_Model {
     }
     public function getById($id)
     {
-        $this->db->select("p.*, c.nama_client as nama, c.latitude, c.longitude");
+        $this->db->select("p.*, c.nama_client as nama");
         $this->db->from("project p");
         $this->db->join("client c", "p.id_client = c.id_client");
         $this->db->where("p.kode_projek", $id);
@@ -63,6 +81,22 @@ class Project_model extends CI_Model {
         $this->db->where('id_client', $id);
         $this->db->delete($this->table);
         return $this->db->affected_rows();
+    }
+
+    public function getDate($today)
+    {
+        $this->db->from('project');
+        $this->db->where('end_date', $today);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function getPrevDate($today)
+    {
+        $this->db->from('project');
+        $this->db->where('end_date <=', $today);
+        $query = $this->db->get();
+        return $query->result_array();
     }
 
     public function cekStatus($id_client)

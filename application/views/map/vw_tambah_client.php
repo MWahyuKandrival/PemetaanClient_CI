@@ -5,18 +5,17 @@
             <div class="d-flex ">
                 <?php echo form_open('') ?>
                 <div>
-
                     <h1>Form Tambah Data Client</h1>
                 </div>
                 <?php echo form_close() ?>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <!-- <div class="col-md-6"> -->
                 <!-- MEMANGGIL MAP -->
-                <div id="map" style="width:100%; height: 98%;"></div>
-            </div>
-            <div class="col-md-6">
+                <!-- <div id="map" style="width:100%; height: 98%;"></div> -->
+            <!-- </div> -->
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
                         <form action="" method="POST" enctype="multipart/form-data">
@@ -26,9 +25,9 @@
                                 <?= form_error('nama_client', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                             <div class="form-group">
-                                <label for="owner">Owner</label>
-                                <input name="owner" autocomplete="off" type="text" value="<?= set_value('owner'); ?>" class="form-control" id="owner">
-                                <?= form_error('owner', '<small class="text-danger pl-3">', '</small>'); ?>
+                                <label for="pic">PIC</label>
+                                <input name="pic" autocomplete="off" type="text" value="<?= set_value('pic'); ?>" class="form-control" id="pic">
+                                <?= form_error('pic', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                             <div class="form-group">
                                 <label for="alamat">Alamat</label>
@@ -60,7 +59,7 @@
                                 <input name="domain" autocomplete="off" value="<?= set_value('domain'); ?>" type="text" class="form-control" id="domain">
                                 <?= form_error('domain', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="latitude">Latitude</label>
                                 <label id=Llat style="color:white;background-color:black;"></label>
                                 <input id="lokasi1" name="latitude" autocomplete="off" value="<?= set_value('latitude'); ?>" type="text" class="form-control">
@@ -71,7 +70,7 @@
                                 <label id=Llng style="color:white;background-color:black;"></label>
                                 <input id="lokasi2" name="longitude" autocomplete="off" value="<?= set_value('longitude'); ?>" type="text" class="form-control">
                                 <?= form_error('longitude', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label for="status_kerja_sama">Status Kerja Sama</label>
                                 <select name="status_kerja_sama" class="form-control">
@@ -98,7 +97,7 @@
     </section>
 </div>
 
-<script>
+<!-- <script>
     var map = L.map('map').setView([0.8742919, 114.4477902], 5);
 
     var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -120,8 +119,8 @@
         var lng = coord[1].split(')');
         var lokasi1 = lat[1];
         var lokasi2 = lng[0];
-        // document.getElementById("Llat").innerHTML = "--> Koordinat : " + lokasi1;
-        // document.getElementById("Llng").innerHTML = "--> Koordinat : " + lokasi2;
+        // document.getElementById("Llat").innerHTML = " Koordinat : " + lokasi1;
+        // document.getElementById("Llng").innerHTML = " Koordinat : " + lokasi2;
         document.getElementById("lokasi1").value = lokasi1;
         document.getElementById("lokasi2").value = lokasi2;
 
@@ -129,4 +128,4 @@
 
     }
     map.on('click', onMapClick);
-</script>
+</script> -->

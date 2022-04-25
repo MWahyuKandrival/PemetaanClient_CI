@@ -5,11 +5,11 @@
             <h1>Form Edit Client <?= $client['nama_client'] ?></h1>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <!-- <div class="col-md-6"> -->
                 <!-- MEMANGGIL MAP -->
-                <div id="map" style="width:100%; height: 98%;"></div>
-            </div>
-            <div class="col-md-6">
+                <!-- <div id="map" style="width:100%; height: 98%;"></div> -->
+            <!-- </div> -->
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
                         <form action="<?= base_url('Client/update'); ?>" method="POST" enctype="multipart/form-data">
@@ -20,9 +20,9 @@
                                 <?= form_error('nama_client', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                             <div class="form-group">
-                                <label for="owner">Owner</label>
-                                <input name="owner" autocomplete="off" type="text" value="<?= $client['owner']; ?>" class="form-control" id="owner">
-                                <?= form_error('owner', '<small class="text-danger pl-3">', '</small>'); ?>
+                                <label for="pic">PIC</label>
+                                <input name="pic" autocomplete="off" type="text" value="<?= $client['pic']; ?>" class="form-control" id="pic">
+                                <?= form_error('pic', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                             <div class="form-group">
                                 <label for="alamat">Alamat</label>
@@ -54,7 +54,7 @@
                                 <input name="domain" autocomplete="off" value="<?= $client['domain']; ?>" type="text" class="form-control" id="domain">
                                 <?= form_error('domain', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="latitude">Latitude</label>
                                 <label id=Llat style="color:white;background-color:black;"></label>
                                 <input id="lokasi1" name="latitude" autocomplete="off" value="<?= $client['latitude']; ?>" type="text" class="form-control">
@@ -65,7 +65,7 @@
                                 <label id=Llng style="color:white;background-color:black;"></label>
                                 <input id="lokasi2" name="longitude" autocomplete="off" value="<?= $client['longitude']; ?>" type="text" class="form-control">
                                 <?= form_error('longitude', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
+                            </div> -->
                             <!-- <div class="form-group">
                                 <label for="mulai_kerja_sama">Tanggal Mulai Kerja Sama</label>
                                 <input name="mulai_kerja_sama" autocomplete="off" value="<?= $client['mulai_kerja_sama']; ?>" type="date" class="form-control" id="mulai_kerja_sama">
@@ -92,7 +92,7 @@
 							    	<label for="link_foto" class="custom-file-label">Choose File</label>
 							    </div>
 						    </div> -->
-                            <button type="submit" name="tambah" class="btn btn-primary float-left">Edit Data</button>
+                            <button type="submit" name="edit_client" class="btn btn-primary float-left">Edit Data</button>
                             <a href="<?= base_url('Client') ?>" style="margin-left:10px;" class="btn btn-success float-left">Tutup</a>
                         </form>
                     </div>
@@ -102,7 +102,7 @@
         </div>
     </section>
 </div>
-
+<!-- 
 <script>
     var map = L.map('map').setView([<?= $client['latitude'] ?>, <?= $client['longitude'] ?>], 10);
 
@@ -131,11 +131,11 @@
         var lng = coord[1].split(')');
         var lokasi1 = lat[1];
         var lokasi2 = lng[0];
-        document.getElementById("Llat").innerHTML = "--> Koordinat : " + lokasi1;
-        document.getElementById("Llng").innerHTML = "--> Koordinat : " + lokasi2;
+        document.getElementById("Llat").innerHTML = " Koordinat : " + lokasi1;
+        document.getElementById("Llng").innerHTML = " Koordinat : " + lokasi2;
 
         //alert(lokasi1  +' | '+ lokasi2); 
 
     }
     map.on('click', onMapClick);
-</script>
+</script> -->

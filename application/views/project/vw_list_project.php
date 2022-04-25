@@ -40,7 +40,7 @@
                                     <td><?= $us['domain']; ?></td>
                                     <td><?= $us['status']; ?></td>
                                     <td>
-                                        <a href="<?= base_url('Project/hapus/') . $us['kode_projek']; ?>" class="badge badge-danger">Hapus</a>
+                                        <a href="<?= base_url('Project/hapus/') . $us['kode_projek']; ?>" class="badge badge-danger" onclick="return confirm('Apakah anda ingin menghapus Project <?= $us['nama_projek']?>?');">Hapus</a>
                                         <a href="<?= base_url('Project/edit/') . $us['kode_projek']; ?>" class="badge badge-warning">Edit</a>
                                         <a href="<?= base_url('Project/detail/') . $us['kode_projek']; ?>" class="badge badge-primary">Detail</a>
                                     </td>

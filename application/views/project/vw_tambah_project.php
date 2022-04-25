@@ -52,6 +52,21 @@
                                     <?php endforeach; ?>
                                 </select>
                             </div>
+
+                            <div class="form-group">
+                                <label for="latitude">Latitude</label>
+                                <label id=Llat style="color:white;background-color:black;"></label>
+                                <input id="lokasi1" name="latitude" autocomplete="off" value="<?= set_value('latitude'); ?>" type="text" class="form-control">
+                                <?= form_error('latitude', '<small class="text-danger pl-3">', '</small>'); ?>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="longitude">Longitude</label>
+                                <label id=Llng style="color:white;background-color:black;"></label>
+                                <input id="lokasi2" name="longitude" autocomplete="off" value="<?= set_value('longitude'); ?>" type="text" class="form-control">
+                                <?= form_error('longitude', '<small class="text-danger pl-3">', '</small>'); ?>
+                            </div>
+
                             <div class="form-group">
                                 <label for="start_date">Start Date</label>
                                 <input name="start_date" autocomplete="off" value="<?= set_value('start_date'); ?>" type="date" class="form-control" id="start_date">
@@ -98,8 +113,46 @@
         </div>
     </section>
 </div>
-
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script>
+    var map = L.map('map').setView([0.8742919, 114.4477902], 5);
+
+    var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+            'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        id: 'mapbox/streets-v11',
+    }).addTo(map);
+
+    $(document).ready(function() {
+        $('.search_select_box select').selectpicker();    
+    });
+
+
+    //var marker = L.marker([0.5102756596410103, 101.44848654368349],{draggable:true}).addTo(map)
+    // var marker = L.marker([0.5102756596410103, 101.44848654368349],{draggable:false}).addTo(map)
+    // 		.bindPopup('<b>Latitude : </b>'+lat[1]+'<br><b>Longitude : </b>'+lng[0]).openPopup(); 
+    var popup = L.popup()
+        .setLatLng([0.5102756596410103, 101.44848654368349], 14)
+
+    function onMapClick(e) {
+
+        var coord = e.latlng.toString().split(',');
+        var lat = coord[0].split('(');
+        var lng = coord[1].split(')');
+        var lokasi1 = lat[1];
+        var lokasi2 = lng[0];
+        // document.getElementById("Llat").innerHTML = " Koordinat : " + lokasi1;
+        // document.getElementById("Llng").innerHTML = " Koordinat : " + lokasi2;
+        document.getElementById("lokasi1").value = lokasi1;
+        document.getElementById("lokasi2").value = lokasi2;
+
+        //alert(lokasi1  +' | '+ lokasi2); 
+
+    }
+    map.on('click', onMapClick);
+</script> 
+
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script>
     var map = L.map('map').setView([0.8742919, 114.4477902], 5);
     
@@ -140,11 +193,11 @@
         var lng = coord[1].split(')');
         var lokasi1 = lat[1];
         var lokasi2 = lng[0];
-        document.getElementById("Llat").innerHTML = "--> Koordinat : " + lokasi1;
-        document.getElementById("Llng").innerHTML = "--> Koordinat : " + lokasi2;
+        document.getElementById("Llat").innerHTML = " Koordinat : " + lokasi1;
+        document.getElementById("Llng").innerHTML = " Koordinat : " + lokasi2;
 
         //alert(lokasi1  +' | '+ lokasi2); 
 
     }
     map.on('click', onMapClick);
-</script>
+</script> -->

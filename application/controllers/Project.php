@@ -14,6 +14,14 @@ class Project extends CI_Controller
 	function index($status = "")
 	{
 		$data['judul'] = "Halaman Project";
+		//Get Date
+		$lastWeek = date("Y-m-d", strtotime("-7 days"));
+		$lastMonth = date("Y-m-d", strtotime("-1 month"));
+		$data['tanggal'] = [
+			'today' => date('Y-m-d'),
+			'last_week' => $lastWeek,
+			'last_month' => $lastMonth,
+		];
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 		$data['project'] = $this->Project_model->get($status);
 		$this->load->view("layout/header", $data);
@@ -37,6 +45,14 @@ class Project extends CI_Controller
 
 		$this->form_validation->set_rules('id_client', 'Id client', 'required', array(
 			'required' => 'Id client Wajib di isi!!!'
+		));
+
+		$this->form_validation->set_rules('latitude', 'Latitude', 'required', array(
+			'required' => 'Latitude Wajib di isi!!!'
+		));
+
+		$this->form_validation->set_rules('longitude', 'Longitude', 'required', array(
+			'required' => 'Longitude Wajib di isi!!!'
 		));
 
 		$this->form_validation->set_rules('start_date', 'Start date', 'required', array(
@@ -71,6 +87,8 @@ class Project extends CI_Controller
 				'domain' => $this->input->post('domain'),
 				'package' => $this->input->post('package'),
 				'id_client' => $this->input->post('id_client'),
+				'latitude' => $this->input->post('latitude'),
+				'longitude' => $this->input->post('longitude'),
 				'start_date' => $this->input->post('start_date'),
 				'end_date' => $this->input->post('end_date'),
 				'status' => $this->input->post('status'),
@@ -88,10 +106,14 @@ class Project extends CI_Controller
 		}
 	}
 
-	function list($id = ""){
+	function list($id = "")
+	{
 		$data['judul'] = "Halaman Detail Project";
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 		$data['project'] = $this->Project_model->getByClient($id);
+		if ($data['project']['id_client'] == "") {
+            echo "<script>alert('Data Client tidak ditemukan'); window.location.href = '" . base_url('Client') . "';</script>";
+        }
 		// print_r($data['project']);die;
 		$this->load->view("layout/header", $data);
 		$this->load->view("project/vw_list_project", $data);
@@ -103,17 +125,23 @@ class Project extends CI_Controller
 		$data['judul'] = "Halaman Detail Project";
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 		$data['project'] = $this->Project_model->getById($id);
+		if ($data['project']['kode_projek'] == "") {
+            echo "<script>alert('Data Projek tidak ditemukan'); window.location.href = '" . base_url('Project') . "';</script>";
+        }
 		// print_r($data['project']);die;
 		$this->load->view("layout/header", $data);
 		$this->load->view("project/vw_detail_project", $data);
 		$this->load->view("layout/footer", $data);
 	}
-	function edit($id)
+	function edit($id = "")
 	{
 		$data['judul'] = "Halaman Edit Project";
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 		$data['client'] = $this->Client_model->get();
 		$data['project'] = $this->Project_model->getById($id);
+		if ($data['project']['kode_projek'] == "") {
+            echo "<script>alert('Data Projek tidak ditemukan'); window.location.href = '" . base_url('Project') . "';</script>";
+        }
 		$this->load->view("layout/header", $data);
 		$this->load->view("project/vw_edit_project", $data);
 		$this->load->view("layout/footer", $data);
@@ -125,6 +153,8 @@ class Project extends CI_Controller
 			'domain' => $this->input->post('domain'),
 			'package' => $this->input->post('package'),
 			'id_client' => $this->input->post('id_client'),
+			'latitude' => $this->input->post('latitude'),
+			'longitude' => $this->input->post('longitude'),
 			'start_date' => $this->input->post('start_date'),
 			'end_date' => $this->input->post('end_date'),
 			'status' => $this->input->post('status'),
@@ -135,44 +165,41 @@ class Project extends CI_Controller
 			'kode_projek' => $id,
 			'status' => $this->input->post('status')
 		];
-		$this->test($this->input->post('id_client'), $projek);
+		test($this->input->post('id_client'), $projek);
 		$input = $this->Project_model->update(['kode_projek' => $id], $data);
 		// $this->db->error(); 
 		// die;
-		redirect('Project/detail/'. $id);
+		redirect('Project/detail/' . $id);
 	}
+	function export_csv()
+	{
+		$file_name = 'Project_Export_on_' . date('Ymd') . '.csv';
+		header("Content-Description: File Transfer");
+		header("Content-Disposition: attachment; filename=$file_name");
+		header("Content-Type: application/csv;");
+
+		// get data 
+		$whare = [
+            "mulai"=> $this->input->post('mulai'),
+            "sampai"=> $this->input->post('sampai')
+        ];
+		$client_data = $this->Project_model->fetch_data($whare);
+
+		// file creation 
+		$file = fopen('php://output', 'w');
+
+		$header = array("kode_projek,nama_projek,domain,package,id_client,latitude,longitude,start_date,end_date,status,ketua_projek");
+		fputcsv($file, $header);
+		foreach ($client_data->result_array() as $key => $value) {
+			fputcsv($file, $value);
+		}
+		fclose($file);
+		exit;
+	}
+
 	function hapus($id)
 	{
 		$this->Project_model->delete($id);
 		redirect('Project');
-	}
-	function test($id_client = "", $data = "")
-	{
-		$client = $this->Client_model->getById($id_client);
-		$projek = $this->Project_model->getById($data['kode_projek']);
-		print_r($projek);
-		$cek_total = $this->Project_model->cekStatus($id_client);
-		echo 'Client : '. $client['nama_client']."<br>";
-		echo 'Aktif : '. $cek_total['JumlahAktif']."<br>";
-		echo 'NonAktif : '. $cek_total['JumlahNonAktif']."<br>";
-		if($cek_total['JumlahAktif'] > 1){
-			echo "Jumlah Aktif lebih dari 1  dengan jumlah : ". $cek_total['JumlahAktif'];	
-		}else if($cek_total['JumlahAktif'] == 1){
-			if($projek['status'] == 'Aktif' && $data['status']=="Berakhir"){
-				echo "Input : ".$data['status']."<br>DB : ".$projek['status']."<br>";
-				$status = ['status_kerja_sama'=> $data['status']];
-				$this->Client_model->update(['id_client' => $projek['id_client']], $status);
-				echo "Mengubah Client menjadi status berakhir";
-			}
-			echo "Jumlah Aktif sama dengan 1 dengan jumlah : ". $cek_total['JumlahAktif'];	
-		}else{
-			if($projek['status'] == 'Berakhir' && $data['status']=="Aktif"){
-				echo "Input : ".$data['status']."<br>DB : ".$projek['status']."<br>";
-				$status = ['status_kerja_sama'=> $data['status']];
-				$this->Client_model->update(['id_client' => $projek['id_client']], $status);
-				echo "Mengubah Client menjadi status Aktif";
-			}
-			echo "Jumlah Aktif :". $cek_total['JumlahAktif'];
-		}
 	}
 }

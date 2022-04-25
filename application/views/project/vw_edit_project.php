@@ -28,7 +28,7 @@
 
                             <div class="form-group">
                                 <label for="domain">domain</label>
-                                <input name="domain" autocomplete="off" type="text" value="<?= $project['domain']; ?>" class="form-control" id="owner">
+                                <input name="domain" autocomplete="off" type="text" value="<?= $project['domain']; ?>" class="form-control" id="domain">
                                 <?= form_error('domain', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
 
@@ -51,6 +51,19 @@
                                         <option value="<?= $p['id_client']; ?>" <?php if($project['id_client'] == $p['id_client']) echo "selected"?>><?= $p['nama_client']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="latitude">Latitude</label>
+                                <label id=Llat style="color:white;background-color:black;"></label>
+                                <input id="lokasi1" name="latitude" autocomplete="off" value="<?= $project['latitude']; ?>" type="text" class="form-control">
+                                <?= form_error('latitude', '<small class="text-danger pl-3">', '</small>'); ?>
+                            </div>
+                            <div class="form-group">
+                                <label for="longitude">Longitude</label>
+                                <label id=Llng style="color:white;background-color:black;"></label>
+                                <input id="lokasi2" name="longitude" autocomplete="off" value="<?= $project['longitude']; ?>" type="text" class="form-control">
+                                <?= form_error('longitude', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                                 
                             <div class="form-group">
@@ -109,23 +122,13 @@
 
     $(document).ready(function() {
         $('.search_select_box select').selectpicker();    
-        $('#id_client').change(function() {
-            var id = $("#id_client").val();
-            console.log(id);
-            $.ajax({
-                type: "POST",
-                url: "<?= base_url('Client/getData/') ?>" + id,
-                dataType: "JSON",
-                success: async function(data) {
-                    map.removeLayer(marker)
-                    marker = L.marker([data['latitude'], data['longitude']],{draggable:false}).addTo(map)
-                    map.setView([data['latitude'], data['longitude']], 13)
-                }
-            });
-        });
     });
 
     var marker = L.marker([<?= $project['latitude']?>, <?= $project['longitude']?>],{draggable:true}).addTo(map)
+    marker.on('dragend', function(e) {
+        document.getElementById('lokasi1').value = marker.getLatLng().lat;
+        document.getElementById('lokasi2').value = marker.getLatLng().lng;
+    });
     //var marker = L.marker([0.5102756596410103, 101.44848654368349],{draggable:true}).addTo(map)
     // var marker = L.marker([0.5102756596410103, 101.44848654368349],{draggable:false}).addTo(map)
     // 		.bindPopup('<b>Latitude : </b>'+lat[1]+'<br><b>Longitude : </b>'+lng[0]).openPopup(); 
