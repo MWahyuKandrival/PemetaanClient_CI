@@ -24,7 +24,10 @@ class Project_model extends CI_Model
         $this->db->select("*");
         $this->db->from('project');
         if ($where != null) {
-            if ($where['mulai'] != "" && $where['sampai'] != "") {
+            if ($where['mulai'] != "") {
+                if($where['sampai'] != ""){
+                    
+                }
                 $this->db->where('start_date >=', $where['mulai']);
                 $this->db->where('start_date <=', $where['sampai']);
             }
@@ -84,6 +87,14 @@ class Project_model extends CI_Model
     {
         $this->db->from('project');
         $this->db->where('end_date', $today);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function getPrevDate($today)
+    {
+        $this->db->from('project');
+        $this->db->where('end_date <=', $today);
         $query = $this->db->get();
         return $query->result_array();
     }

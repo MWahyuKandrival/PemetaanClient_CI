@@ -4,8 +4,51 @@
             <div class="col-md-12 bg-white Tulisanbagus" >
                 <!-- button search -->
                 <h1 style="float: left; font-size: 25px;"><b>List Data Client</b></h1>
-                <a href="<?= base_url('client/export_csv') ?>" class="btn btn-danger" style="float: right; margin-left: 10px;"><i class="fa fa-file-pdf"></i>&nbsp;&nbsp;Export</a>
+                <a href="<?= base_url('client/export_csv') ?>" class="btn btn-danger" style="float: right; margin-left: 10px;"><i class="fa fa-file-csv"></i>&nbsp;&nbsp;Export</a>
                 <a href="<?= base_url('client/addclient') ?>" class="btn btn-primary" style="float: right;"><i class="fa fa-plus"></i>Tambah Data Client</a>
+                <!-- Display status message -->
+                    <?php if (!empty($success_msg)) { ?>
+                        <div class="col-xs-12">
+                            <div class="alert alert-success"><?php echo $success_msg; ?></div>
+                        </div>
+                    <?php } ?>
+                    <?php if (!empty($error_msg)) { ?>
+                        <div class="col-xs-12">
+                            <div class="alert alert-danger"><?php echo $error_msg; ?></div>
+                        </div>
+                    <?php } ?>
+
+                    <div class="row">
+                        <!-- Import link -->
+                        <div class="col-md-12 head">
+                            <div class="float-right">
+                                <a href="javascript:void(0);" class="btn btn-success" onclick="formToggle('importFrm');"><i class="fa fa-upload"></i> Import</a>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+
+                        <!-- File upload form -->
+                        <div class="col-md-12" id="importFrm" style="display: none;">
+                            <form action="<?php echo base_url('client/import'); ?>" method="post" enctype="multipart/form-data" style="float: right; margin-left: 100px;">
+                                <input type="file" name="file" />
+                                <input type="submit" class="btn btn-primary" name="importSubmit" value="Submit">
+                            </form>
+                        </div>
+            </div>
+
+        
+        <script>
+        function formToggle(ID) {
+            var element = document.getElementById(ID);
+            if (element.style.display === "none") {
+                element.style.display = "block";
+            } else {
+                element.style.display = "none";
+            }
+        }
+    </script>
+
             </div>
         </div>
 

@@ -92,7 +92,7 @@
 							    	<label for="link_foto" class="custom-file-label">Choose File</label>
 							    </div>
 						    </div> -->
-                            <button type="submit" name="tambah" class="btn btn-primary float-left">Edit Data</button>
+                            <button type="submit" name="edit_client" class="btn btn-primary float-left">Edit Data</button>
                             <a href="<?= base_url('Client') ?>" style="margin-left:10px;" class="btn btn-success float-left">Tutup</a>
                         </form>
                     </div>

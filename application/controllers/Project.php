@@ -111,6 +111,9 @@ class Project extends CI_Controller
 		$data['judul'] = "Halaman Detail Project";
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 		$data['project'] = $this->Project_model->getByClient($id);
+		if ($data['project']['id_client'] == "") {
+            echo "<script>alert('Data Client tidak ditemukan'); window.location.href = '" . base_url('Client') . "';</script>";
+        }
 		// print_r($data['project']);die;
 		$this->load->view("layout/header", $data);
 		$this->load->view("project/vw_list_project", $data);
@@ -122,17 +125,23 @@ class Project extends CI_Controller
 		$data['judul'] = "Halaman Detail Project";
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 		$data['project'] = $this->Project_model->getById($id);
+		if ($data['project']['kode_projek'] == "") {
+            echo "<script>alert('Data Projek tidak ditemukan'); window.location.href = '" . base_url('Project') . "';</script>";
+        }
 		// print_r($data['project']);die;
 		$this->load->view("layout/header", $data);
 		$this->load->view("project/vw_detail_project", $data);
 		$this->load->view("layout/footer", $data);
 	}
-	function edit($id)
+	function edit($id = "")
 	{
 		$data['judul'] = "Halaman Edit Project";
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 		$data['client'] = $this->Client_model->get();
 		$data['project'] = $this->Project_model->getById($id);
+		if ($data['project']['kode_projek'] == "") {
+            echo "<script>alert('Data Projek tidak ditemukan'); window.location.href = '" . base_url('Project') . "';</script>";
+        }
 		$this->load->view("layout/header", $data);
 		$this->load->view("project/vw_edit_project", $data);
 		$this->load->view("layout/footer", $data);
@@ -179,7 +188,7 @@ class Project extends CI_Controller
 		// file creation 
 		$file = fopen('php://output', 'w');
 
-		$header = array("*");
+		$header = array("kode_projek,nama_projek,domain,package,id_client,latitude,longitude,start_date,end_date,status,ketua_projek");
 		fputcsv($file, $header);
 		foreach ($client_data->result_array() as $key => $value) {
 			fputcsv($file, $value);
