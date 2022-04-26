@@ -4,9 +4,21 @@
             <div class="col-md-12 bg-white Tulisanbagus">
                 <!-- button search -->
                 <h1 style="float: left; font-size: 25px;"><b>List Data Project</b></h1>
-                <button class="btn btn-success" data-toggle="modal" data-target="#example" style="float: right; margin-left: 10px;">Export CSV</button>
-                <a href="<?= base_url('Project/addproject') ?>" class="btn btn-primary" style="float: right;"><i class="fa fa-plus"></i>Tambah Data Project</a>
+                <?php if (!empty($success_msg)) { ?>
+                    <div class="col-xs-12">
+                        <div class="alert alert-success"><?php echo $success_msg; ?></div>
+                    </div>
+                <?php } ?>
+                <?php if (!empty($error_msg)) { ?>
+                    <div class="col-xs-12">
+                        <div class="alert alert-danger"><?php echo $error_msg; ?></div>
+                    </div>
+                <?php } ?>
+                <button class="btn btn-success" data-toggle="modal" data-target="#exampleImport" style="float: right; margin-left: 10px;"><i class="fa fa-file-csv"></i>&nbsp;&nbsp;Import</button>
+                <button class="btn btn-danger" data-toggle="modal" data-target="#example" style="float: right; margin-left: 10px;"><i class="fa fa-file-csv"></i>&nbsp;&nbsp;Export</button>
+                <a href="<?= base_url('Project/addproject') ?>" class="btn btn-primary" style="float: right;"><i class="fa fa-plus"></i>Tambah Data</a>
             </div>
+            <!-- Modal Export -->
             <div class="modal fade" id="example" tabindex="-1" role="dialog" aria-labelledby="example" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -43,6 +55,30 @@
                     </div>
                 </div>
             </div>
+            <!-- Modal Import -->
+            <div class="modal fade" id="exampleImport" tabindex="-1" role="dialog" aria-labelledby="exampleImport" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleLabel">Import CSV</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="<?php echo base_url('project/import'); ?>" method="post" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <center>
+                                    <input type="file" name="file" />
+                                </center>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                <button type="submit" name="importSubmit" value="Submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="row">
@@ -54,8 +90,8 @@
                         <thead class="thead-dark">
                             <tr>
                                 <td>No</td>
-                                <td>Nama project</td>
-                                <td>Nama client</td>
+                                <td>Nama Project</td>
+                                <td>Nama Client</td>
                                 <!-- <td>Domain</td> -->
                                 <td>Domain</td>
                                 <td>Status</td>
@@ -91,20 +127,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    function setDate(value) {
-        if (value == "today") {
-            $('#mulai').val("<?= $tanggal['today'] ?>")
-            $('#sampai').val("<?= $tanggal['today'] ?>")
-        } else if (value == "week") {
-            $('#mulai').val("<?= $tanggal['last_week'] ?>")
-            $('#sampai').val("<?= $tanggal['today'] ?>")
-        } else if(value == "month") {
-            $('#mulai').val("<?= $tanggal['last_month'] ?>")
-            $('#sampai').val("<?= $tanggal['today'] ?>")
-        }else{
-            $('#mulai').val("")
-            $('#sampai').val("")
-        }
-    }
-</script>

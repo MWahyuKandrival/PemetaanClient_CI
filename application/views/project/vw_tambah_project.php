@@ -27,7 +27,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="domain">domain</label>
+                                <label for="domain">Domain</label>
                                 <input name="domain" autocomplete="off" type="text" value="<?= set_value('domain'); ?>" class="form-control" id="domain">
                                 <?= form_error('domain', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
@@ -90,7 +90,7 @@
 
 
                             <div class="form-group">
-                                <label for="ketua_projek">Ketua_projek</label>
+                                <label for="ketua_projek">Ketua Project</label>
                                 <input name="ketua_projek" autocomplete="off" value="<?= set_value('ketua_projek'); ?>" type="text" class="form-control" id="ketua_projek">
                                 <?= form_error('ketua_projek', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>

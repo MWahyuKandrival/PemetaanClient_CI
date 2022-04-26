@@ -109,14 +109,14 @@
           </div>
           <ul class="sidebar-menu">
             <li class="menu-header">DASHBOARD</li>
-            <li><a class="nav-link" href="<?= base_url('Dashboard') ?>"><i class="fas fa-fire"></i> <span>Dashboard </span></a></li>
+            <li><a class="nav-link" href="<?= base_url('Dashboard') ?>"><i class="fas fa-chart-line"></i> <span>Dashboard </span></a></li>
             </li>
             <li class="menu-header">MAP</li>
             <li><a class="nav-link" href="<?= base_url('Map') ?>"><i class="fas fa-map-marker-alt"></i> <span>Map</span></a></li>
             <li class="menu-header">CLIENT</li>
-            <li><a class="nav-link" href="<?= base_url('Client') ?>"><i class="fas fa-map-marker-alt"></i> <span>Data Client</span></a></li>
+            <li><a class="nav-link" href="<?= base_url('Client') ?>"><i class="fas fa-users"></i> <span>Data Client</span></a></li>
             <li class="menu-header">PROJECT</li>
-            <li><a class="nav-link" href="<?= base_url('Project') ?>"><i class="fas fa-map-marker-alt"></i> <span>Data Project</span></a></li>
+            <li><a class="nav-link" href="<?= base_url('Project') ?>"><i class="fas fa-tasks"></i> <span>Data Project</span></a></li>
             <li class="menu-header">LOGOUT</li>
             <li><a class="nav-link" href="<?= base_url('auth/logout') ?>"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a></li>
         </aside>
