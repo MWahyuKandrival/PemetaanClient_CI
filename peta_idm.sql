@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2022 at 04:16 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.23
+-- Generation Time: Apr 27, 2022 at 08:13 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,17 +30,13 @@ SET time_zone = "+00:00";
 CREATE TABLE `client` (
   `id_client` int(11) NOT NULL,
   `nama_client` varchar(50) NOT NULL,
-  `owner` varchar(50) NOT NULL,
+  `pic` varchar(50) NOT NULL,
   `alamat` varchar(50) NOT NULL,
   `negara` varchar(255) NOT NULL,
   `region` varchar(255) NOT NULL,
   `email` varchar(50) NOT NULL,
   `no_hp` varchar(15) NOT NULL,
   `domain` varchar(50) NOT NULL,
-  `latitude` varchar(20) NOT NULL,
-  `longitude` varchar(20) NOT NULL,
-  `mulai_kerja_sama` date DEFAULT NULL,
-  `henti_kerja_sama` date DEFAULT NULL,
   `status_kerja_sama` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -48,12 +44,17 @@ CREATE TABLE `client` (
 -- Dumping data for table `client`
 --
 
-INSERT INTO `client` (`id_client`, `nama_client`, `owner`, `alamat`, `negara`, `region`, `email`, `no_hp`, `domain`, `latitude`, `longitude`, `mulai_kerja_sama`, `henti_kerja_sama`, `status_kerja_sama`) VALUES
-(943752156, 'Gedung Sate', 'BUMN', 'Jln. Diponegoro ', 'Indonesia', 'Jawa Barat', 'gedungsate@gmail.go.id', '0888888', 'gedungsate.com', '-6.90062282242416', '107.6197138895795', NULL, NULL, NULL),
-(943752157, 'Inovindo web', 'Novi ', 'Jl Batu sari', 'Indonesia', 'Jawa Barat', 'novipengusaha@gmail.com', '088888', 'inovindo.com', '-6.981648368742416', '107.67407244110632', NULL, NULL, NULL),
-(943752158, 'Politeknik Caltex Riau', 'Chevron', 'Jln. Umban sari', 'Indonesia', 'Riau', 'pcr@pcr.ac.id', '08888', 'pcr.ac.id', '0.5702455694186912', '101.42558992756356', NULL, NULL, NULL),
-(943752159, 'Petronas Twin tower', 'Petronas', 'Concourse level', 'Malaysia', 'Kuala Lumpur', 'twintower@gmail.com', '0888888', 'twintower.com', '3.158409817741703', '101.7117064263871', NULL, NULL, NULL),
-(943752160, 'Nanyang Politeknik', 'Nanyang', 'Downtown core district', 'Singapore', 'North East region', 'nanyang@nanyang.ac,sg', '09898989', 'nanyang.ac.sg', '1.3813196067814155', '103.84909538931907', NULL, NULL, NULL);
+INSERT INTO `client` (`id_client`, `nama_client`, `pic`, `alamat`, `negara`, `region`, `email`, `no_hp`, `domain`, `status_kerja_sama`) VALUES
+(943752156, 'Gedung Sate22', 'BUMN', 'Jln. Diponegoro ', 'Indonesia', 'Jawa Barat', 'gedungsate2@gmail.go.id', '888888', 'gedungsate.com', 'Berakhir'),
+(943752157, 'Inovindo web 2', 'Novi ', 'Jl Batu sari', 'Indonesia', 'Jawa Barat', 'novipengusaha@gmail.com', '88888', 'inovindo.com', 'Aktif'),
+(943752158, 'Politeknik Caltex Riau 2', 'Chevron', 'Jln. Umban sari', 'Indonesia', 'Riau', 'pcr@pcr.ac.id', '8888', 'pcr.ac.id', 'Aktif'),
+(943752160, 'Nanyang Politeknik 2', 'Nanyang', 'Downtown core district', 'Singapore', 'North East region', 'nanyang@nanyang.ac,sg', '9898989', 'nanyang.ac.sg', 'Berakhir'),
+(943752174, 'Justus Steack  2', 'Pak Nico', 'Jln. Buah batu no 1, ', 'Indonesia', 'Jawa Barat', 'steackhouse@gmail.com', '898888888', 'steackhouse.com', 'Aktif'),
+(943752176, 'Test 2', 'Test', 'Test', 'Indonesia', 'Test', 'test@GMAIL.COM', '88', 'test.com', 'Aktif'),
+(943752183, 'BADUT AGUNG 2', 'BUMN', 'Jln. Diponegoro', 'Indonesia', 'Jawa barat', 'agung@test.com', '8888', 'domain.com', 'Aktif'),
+(943752184, 'BADUT AGUNG 22', 'BUMN', 'Jln. Diponegoro', 'Indonesia', 'Jawa barat', 'agung2@test.com', '8888', 'domain.com', 'Aktif'),
+(943752185, 'Gedung Sate22', 'BUMN', 'Jln. Diponegoro ', 'Indonesia', 'Jawa Barat', 'gedungsate2@gmail.go.id', '888888', 'gedungsate.com', 'Berakhir'),
+(943752186, 'Diah', 'BUMN', 'Test', 'Amerika', 'Washington DC', 'Diah@gmail.com', '888', 'domain.com', 'Aktif');
 
 -- --------------------------------------------------------
 
@@ -67,6 +68,8 @@ CREATE TABLE `project` (
   `domain` varchar(50) NOT NULL,
   `package` varchar(20) NOT NULL,
   `id_client` int(11) NOT NULL,
+  `latitude` varchar(50) NOT NULL,
+  `longitude` varchar(50) NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
   `status` varchar(20) NOT NULL,
@@ -77,14 +80,17 @@ CREATE TABLE `project` (
 -- Dumping data for table `project`
 --
 
-INSERT INTO `project` (`kode_projek`, `nama_projek`, `domain`, `package`, `id_client`, `start_date`, `end_date`, `status`, `ketua_projek`) VALUES
-(1, 'Projek 1', 'kode.pcr.ac.id', 'Silver', 943752158, '2019-04-01', '2023-04-01', 'Berakhir', 'Doni Romdoni'),
-(2, 'Projek Luar Negeri 1', 'twintower.com', 'Gold', 943752159, '2020-04-01', '2022-08-01', 'Aktif', 'Doni Romdoni'),
-(3, 'Projek Sate', 'sate.com', 'Bronze', 943752156, '2019-04-01', '2021-04-01', 'Berakhir', 'Doni Romdoni'),
-(4, 'Projek PCR 2', 'projek.pcr.ac.id', 'Bronze', 943752158, '2017-04-01', '2019-04-01', 'Aktif', 'Doni Romdoni'),
-(5, 'Projek Inovindo', 'inovindo.com', 'Gold', 943752157, '2016-04-01', '2023-04-01', 'Aktif', 'Doni Romdoni'),
-(6, 'Projek Sate 2', 'pcr.co.id', 'Bronze', 943752158, '2019-04-01', '2021-04-01', 'Berakhir', 'Doni Romdoni'),
-(7, 'SISTIFO', 'nanyang.ac.sg', 'Gold', 943752160, '2019-01-01', '2022-01-01', 'Berakhir', 'Doni Romdoni');
+INSERT INTO `project` (`kode_projek`, `nama_projek`, `domain`, `package`, `id_client`, `latitude`, `longitude`, `start_date`, `end_date`, `status`, `ketua_projek`) VALUES
+(3, 'Projek Sate', 'sate.com', 'Bronze', 943752156, '-6.902208569132329', '107.61869609673788', '2019-04-01', '2021-04-01', 'Berakhir', 'Doni Romdoni'),
+(4, 'Projek PCR 2', 'projek.pcr.ac.id', 'Bronze', 943752158, '0.5704815921134163', '101.42547191017734', '2017-04-01', '2019-04-01', 'Berakhir', 'Doni Romdoni'),
+(5, 'Projek Inovindo', 'inovindo.com', 'Gold', 943752157, '-6.98176551083958', '107.67401879673884', '2016-04-01', '2023-04-01', 'Aktif', 'Doni Romdoni'),
+(6, 'Projek Sate 2', 'pcr.co.id', 'Bronze', 943752158, '0.5704815921134163', '101.42547191017734', '2019-04-01', '2021-04-01', 'Berakhir', 'Doni Romdoni'),
+(7, 'SISTIFO', 'nanyang.ac.sg', 'Gold', 943752160, '1.3801966906470826', '103.84840152602492', '2019-01-01', '2022-04-18', 'Berakhir', 'Doni Romdoni'),
+(14, 'Test', 'Test', 'Silver', 943752158, '0.5704815921134163', '101.42547191017734', '2021-11-11', '2022-11-11', 'Aktif', 'Doi'),
+(16, 'Steack House Informasi', 'steackhouse.com', 'Platinum', 943752174, '-6.902208569132329', '107.61869609673788', '2022-02-11', '2022-04-18', 'Berakhir', 'Doni Romdoni'),
+(19, 'Test Informasi', 'test.com', 'Platinum', 943752176, '10.847513', '122.582164', '2022-04-20', '2023-04-20', 'Aktif', 'Doi'),
+(20, 'Test 2', 'Test', 'Silver', 943752176, '2.718365', '113.27807', '2022-04-20', '2023-04-20', 'Aktif', 'Doi'),
+(21, 'Test update', 'Test update.com', 'Platinum', 943752174, '18.66218523534874', '109.77697956288756', '2021-04-20', '2023-04-20', 'Aktif', 'Doi');
 
 -- --------------------------------------------------------
 
@@ -139,13 +145,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
-  MODIFY `id_client` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=943752164;
+  MODIFY `id_client` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=943752187;
 
 --
 -- AUTO_INCREMENT for table `project`
 --
 ALTER TABLE `project`
-  MODIFY `kode_projek` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `kode_projek` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `user`
