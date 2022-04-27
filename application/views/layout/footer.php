@@ -26,6 +26,7 @@
 <script src="<?= base_url() ?>node_modules/chocolat/dist/js/jquery.chocolat.min.js"></script> -->
 
 <!-- JS Chart -->
+<!-- //pemanggilan line -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"> </script>
 <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 <!-- Template JS File -->

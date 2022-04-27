@@ -126,9 +126,9 @@ class Project extends CI_Controller
 		$data['judul'] = "Halaman Detail Project";
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 		$data['project'] = $this->Project_model->getByClient($id);
-		if ($data['project']['id_client'] == "") {
-            echo "<script>alert('Data Client tidak ditemukan'); window.location.href = '" . base_url('Client') . "';</script>";
-        }
+		// if ($data['project']['id_client'] == "") {
+        //     echo "<script>alert('Data Client tidak ditemukan'); window.location.href = '" . base_url('Client') . "';</script>";
+        // }
 		// print_r($data['project']);die;
 		$this->load->view("layout/header", $data);
 		$this->load->view("project/vw_list_project", $data);

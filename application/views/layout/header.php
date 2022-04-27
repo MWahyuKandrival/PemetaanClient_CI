@@ -71,6 +71,7 @@
   <link href="<?= base_url('assets/') ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
 
   <!-- JS Charts -->
+  <!-- //pemanggilan line -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
