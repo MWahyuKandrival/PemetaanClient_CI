@@ -92,8 +92,44 @@
     var map = L.map('map', {
         center: [0.8742919, 114.4477902],
         zoom: 5,
-        layers: [streets, search]
+        layers: [streets, search],
+        //fullscreenControl: true,
+        // fullscreenControl: {
+        // pseudoFullscreen: false // if true, fullscreen to page width and height
+        // }
+        
     });
+
+    // Create a new map with a fullscreen button:
+//     var map = new L.Map('map', {
+//     // fullscreenControl: true,
+//     // OR
+//     fullscreenControl: {
+//         pseudoFullscreen: false // if true, fullscreen to page width and height
+//     }
+//     }
+    
+// );
+    map.isFullscreen() // Is the map fullscreen?
+    map.toggleFullscreen() // Either go fullscreen, or cancel the existing fullscreen.
+
+    // `fullscreenchange` Event that's fired when entering or exiting fullscreen.
+    map.on('fullscreenchange', function () {
+        if (map.isFullscreen()) {
+            console.log('entered fullscreen');
+        } else {
+            console.log('exited fullscreen');
+        }
+    });
+
+    map.addControl(new L.Control.Fullscreen({
+    title: {
+        'false': 'View Fullscreen',
+        'true': 'Exit Fullscreen'
+    }
+}));
+// or, add to an existing map:
+// map.addControl(new L.Control.Fullscreen());
 
     var baseLayers = {
         'Grayscale': grayscale,
@@ -114,6 +150,7 @@
         // 'Bank Milik Campuran': jbkepemilikanLayerBMC,
         'Use Search': search,
     };
+    
 
     var layerControl = L.control.layers(baseLayers, overlays).addTo(map);
 </script>

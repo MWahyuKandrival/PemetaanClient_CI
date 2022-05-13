@@ -35,7 +35,7 @@ class Client extends CI_Controller
         
         // Get rows
         $data['client'] = $this->Client_model->getRows();
-        $data['judul'] = "Halaman Client";
+        $data['judul'] = "Pemetaan Client | Client";
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['client'] = $this->Client_model->get($status);
         // $data['client_data'] = $this->Client_model->fetch_data();
@@ -272,6 +272,7 @@ class Client extends CI_Controller
                     }
                 } else {
                     $this->session->set_userdata('error_msg', 'Error on file upload, please try again.');
+                  
                 }
             } else {
                 $this->session->set_userdata('error_msg', 'Invalid file, please select only CSV file.');
