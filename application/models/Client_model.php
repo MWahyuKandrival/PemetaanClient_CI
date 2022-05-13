@@ -140,4 +140,13 @@ class Client_model extends CI_Model
         }
         return false;
     }
+
+    public function checkExist($id_client)
+    {
+        $this->db->select('id_client');
+        $this->db->from('client');
+        $this->db->where("id_client", $id_client);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
 }

@@ -36,10 +36,10 @@
                                 <label for="package">Package</label>
                                 <select name="package" id="menu_id" class="form-control">
                                     <option value="">Pilih Package</option>
-                                    <option value="Bronze">Bronze</option>
-                                    <option value="Silver">Silver</option>
-                                    <option value="Gold">Gold</option>
-                                    <option value="Platinum">Platinum</option>
+                                    <option value="Bronze" <?php if(set_value('package') == "Bronze"){echo 'selected';}?>>Bronze</option>
+                                    <option value="Silver" <?php if(set_value('package') == "Silver"){echo 'selected';}?>>Silver</option>
+                                    <option value="Gold" <?php if(set_value('package') == "Gold"){echo 'selected';}?>>Gold</option>
+                                    <option value="Platinum" <?php if(set_value('package') == "Platinum"){echo 'selected';}?>>Platinum</option>
                                 </select>
                             </div>
 
@@ -48,9 +48,10 @@
                                 <select name="id_client" id="id_client" class="form-control" data-live-search="true">
                                     <option value="">Pilih Client</option>
                                     <?php foreach ($client as $p) : ?>
-                                        <option value="<?= $p['id_client']; ?>"><?= $p['nama_client']; ?></option>
+                                        <option value="<?= $p['id_client']; ?>" <?php if(set_value('id_client') == $p['id_client']){echo 'selected';}?>><?= $p['nama_client']; ?></option>
                                     <?php endforeach; ?>
                                 </select>
+                                <?= form_error('id_client', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
 
                             <div class="form-group">
@@ -83,9 +84,10 @@
                                 <label for="status">Status</label>
                                 <select name="status" id="menu_id" class="form-control">
                                     <option value="">Pilih Status</option>
-                                    <option value="Aktif">Aktif</option>
-                                    <option value="Berakhir">Berakhir</option>
+                                    <option value="Aktif" <?php if(set_value('status') == "Aktif"){echo 'selected';}?>>Aktif</option>
+                                    <option value="Berakhir" <?php if(set_value('status') == "Berakhir"){echo 'selected';}?>>Berakhir</option>
                                 </select>
+                                <?= form_error('status', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
 
 

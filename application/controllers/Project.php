@@ -1,4 +1,7 @@
 <?php
+
+use phpDocumentor\Reflection\PseudoTypes\False_;
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
@@ -14,19 +17,19 @@ class Project extends CI_Controller
 	function index($status = "")
 	{
 		$data = array();
-        
-        // Get messages from the session
-        if($this->session->userdata('success_msg')){
-            $data['success_msg'] = $this->session->userdata('success_msg');
-            $this->session->unset_userdata('success_msg');
-        }
-        if($this->session->userdata('error_msg')){
-            $data['error_msg'] = $this->session->userdata('error_msg');
-            $this->session->unset_userdata('error_msg');
-        }
-        
-        // Get rows
-        $data['project'] = $this->Project_model->getRows();
+
+		// Get messages from the session
+		if ($this->session->userdata('success_msg')) {
+			$data['success_msg'] = $this->session->userdata('success_msg');
+			$this->session->unset_userdata('success_msg');
+		}
+		if ($this->session->userdata('error_msg')) {
+			$data['error_msg'] = $this->session->userdata('error_msg');
+			$this->session->unset_userdata('error_msg');
+		}
+
+		// Get rows
+		$data['project'] = $this->Project_model->getRows();
 
 		$data['judul'] = "Halaman Project";
 		//Get Date
@@ -62,12 +65,16 @@ class Project extends CI_Controller
 			'required' => 'Id client Wajib di isi!!!'
 		));
 
-		$this->form_validation->set_rules('latitude', 'Latitude', 'required', array(
-			'required' => 'Latitude Wajib di isi!!!'
+		$this->form_validation->set_rules('latitude', 'Latitude', 'required|greater_than_equal_to[-90]|less_than_equal_to[90]', array(
+			'required' => 'Latitude Wajib di isi!!!',
+			'less_than_equal_to' => "longitude harus berada dalam range antara -90 hingga 90",
+			'greater_than_equal_to' => "longitude harus berada dalam range antara -90 hingga 90",
 		));
 
-		$this->form_validation->set_rules('longitude', 'Longitude', 'required', array(
-			'required' => 'Longitude Wajib di isi!!!'
+		$this->form_validation->set_rules('longitude', 'Longitude', 'required|greater_than_equal_to[-180]|less_than_equal_to[180]', array(
+			'required' => 'Longitude Wajib di isi!!!',
+			'less_than_equal_to' => "longitude harus berada dalam range antara -180 hingga 180",
+			'greater_than_equal_to' => "longitude harus berada dalam range antara -180 hingga 180",
 		));
 
 		$this->form_validation->set_rules('start_date', 'Start date', 'required', array(
@@ -126,10 +133,6 @@ class Project extends CI_Controller
 		$data['judul'] = "Halaman Detail Project";
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 		$data['project'] = $this->Project_model->getByClient($id);
-		// if ($data['project']['id_client'] == "") {
-        //     echo "<script>alert('Data Client tidak ditemukan'); window.location.href = '" . base_url('Client') . "';</script>";
-        // }
-		// print_r($data['project']);die;
 		$this->load->view("layout/header", $data);
 		$this->load->view("project/vw_list_project", $data);
 		$this->load->view("layout/footer", $data);
@@ -141,51 +144,97 @@ class Project extends CI_Controller
 		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 		$data['project'] = $this->Project_model->getById($id);
 		if ($data['project']['kode_projek'] == "") {
-            echo "<script>alert('Data Projek tidak ditemukan'); window.location.href = '" . base_url('Project') . "';</script>";
-        }
-		// print_r($data['project']);die;
+			echo "<script>alert('Data Projek tidak ditemukan'); window.location.href = '" . base_url('Project') . "';</script>";
+		}
 		$this->load->view("layout/header", $data);
 		$this->load->view("project/vw_detail_project", $data);
 		$this->load->view("layout/footer", $data);
 	}
+
 	function edit($id = "")
 	{
-		$data['judul'] = "Halaman Edit Project";
-		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-		$data['client'] = $this->Client_model->get();
-		$data['project'] = $this->Project_model->getById($id);
-		if ($data['project']['kode_projek'] == "") {
-            echo "<script>alert('Data Projek tidak ditemukan'); window.location.href = '" . base_url('Project') . "';</script>";
-        }
-		$this->load->view("layout/header", $data);
-		$this->load->view("project/vw_edit_project", $data);
-		$this->load->view("layout/footer", $data);
+		//Validasi Data Tidak Boleh Kosong
+		$this->form_validation->set_rules('nama_projek', 'Nama Project', 'required', array(
+			'required' => 'Nama Project Wajib di isi!!!'
+		));
+
+		$this->form_validation->set_rules('domain', 'Domain', 'required', array(
+			'required' => 'domain Wajib di isi!!!'
+		));
+
+		$this->form_validation->set_rules('package', 'Package', 'required', array(
+			'required' => 'Nama Project Wajib di isi!!!'
+		));
+
+		$this->form_validation->set_rules('id_client', 'Id client', 'required', array(
+			'required' => 'Id client Wajib di isi!!!'
+		));
+
+		$this->form_validation->set_rules('latitude', 'Latitude', 'required|greater_than_equal_to[-90]|less_than_equal_to[90]', array(
+			'required' => 'Latitude Wajib di isi!!!',
+			'less_than_equal_to' => "longitude harus berada dalam range antara -90 hingga 90",
+			'greater_than_equal_to' => "longitude harus berada dalam range antara -90 hingga 90",
+		));
+
+		$this->form_validation->set_rules('longitude', 'Longitude', 'required|greater_than_equal_to[-180]|less_than_equal_to[180]', array(
+			'required' => 'Longitude Wajib di isi!!!',
+			'less_than_equal_to' => "longitude harus berada dalam range antara -180 hingga 180",
+			'greater_than_equal_to' => "longitude harus berada dalam range antara -180 hingga 180",
+		));
+
+		$this->form_validation->set_rules('start_date', 'Start date', 'required', array(
+			'required' => 'Start date Wajib di isi!!!'
+		));
+
+		$this->form_validation->set_rules('end_date', 'End date', 'required', array(
+			'required' => 'End date Wajib di isi!!!'
+		));
+
+		$this->form_validation->set_rules('status', 'Status', 'required', array(
+			'required' => 'Status Wajib di isi!!!'
+		));
+
+		$this->form_validation->set_rules('ketua_projek', 'Ketua projek', 'required', array(
+			'required' => 'Ketua projek Wajib di isi!!!'
+
+		));
+
+		if ($this->form_validation->run() == FALSE) {
+
+			$data['judul'] = "Halaman Edit Project";
+			$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+			$data['client'] = $this->Client_model->get();
+			$data['project'] = $this->Project_model->getById($id);
+			if ($data['project']['kode_projek'] == "") {
+				echo "<script>alert('Data Projek tidak ditemukan'); window.location.href = '" . base_url('Project') . "';</script>";
+			}
+			$this->load->view("layout/header", $data);
+			$this->load->view("project/vw_edit_project", $data);
+			$this->load->view("layout/footer", $data);
+		} else {
+			$data = [
+				'nama_projek' => $this->input->post('nama_projek'),
+				'domain' => $this->input->post('domain'),
+				'package' => $this->input->post('package'),
+				'id_client' => $this->input->post('id_client'),
+				'latitude' => $this->input->post('latitude'),
+				'longitude' => $this->input->post('longitude'),
+				'start_date' => $this->input->post('start_date'),
+				'end_date' => $this->input->post('end_date'),
+				'status' => $this->input->post('status'),
+				'ketua_projek' => $this->input->post('ketua_projek'),
+			];
+			$id = $this->input->post('kode_projek');
+			$projek = [
+				'kode_projek' => $id,
+				'status' => $this->input->post('status')
+			];
+			test($this->input->post('id_client'), $projek);
+			$input = $this->Project_model->update(['kode_projek' => $id], $data);
+			redirect('Project/detail/' . $id);
+		}
 	}
-	function update()
-	{
-		$data = [
-			'nama_projek' => $this->input->post('nama_projek'),
-			'domain' => $this->input->post('domain'),
-			'package' => $this->input->post('package'),
-			'id_client' => $this->input->post('id_client'),
-			'latitude' => $this->input->post('latitude'),
-			'longitude' => $this->input->post('longitude'),
-			'start_date' => $this->input->post('start_date'),
-			'end_date' => $this->input->post('end_date'),
-			'status' => $this->input->post('status'),
-			'ketua_projek' => $this->input->post('ketua_projek'),
-		];
-		$id = $this->input->post('kode_projek');
-		$projek = [
-			'kode_projek' => $id,
-			'status' => $this->input->post('status')
-		];
-		test($this->input->post('id_client'), $projek);
-		$input = $this->Project_model->update(['kode_projek' => $id], $data);
-		// $this->db->error(); 
-		// die;
-		redirect('Project/detail/' . $id);
-	}
+
 	function export_csv()
 	{
 		$file_name = 'Project_Export_on_' . date('Ymd') . '.csv';
@@ -195,18 +244,18 @@ class Project extends CI_Controller
 
 		// get data 
 		$whare = [
-            "mulai"=> $this->input->post('mulai'),
-            "sampai"=> $this->input->post('sampai')
-        ];
+			"mulai" => $this->input->post('mulai'),
+			"sampai" => $this->input->post('sampai')
+		];
 		$client_data = $this->Project_model->fetch_data($whare);
 
 		// file creation 
 		$file = fopen('php://output', 'w');
 
-		$header = array("kode_projek","nama_projek","domain","package","id_client","latitude","longitude","start_date","end_date","status","ketua_projek");
-		fputcsv($file, $header);
+		$header = array("kode_projek", "nama_projek", "domain", "package", "id_client", "latitude", "longitude", "start_date", "end_date", "status", "ketua_projek");
+		fputcsv($file, $header, ";", '"');
 		foreach ($client_data->result_array() as $key => $value) {
-			fputcsv($file, $value, ";", '"');
+			fputcsv($file, $value, ";");
 		}
 		fclose($file);
 		exit;
@@ -219,108 +268,175 @@ class Project extends CI_Controller
 	}
 
 	public function import()
-    {
-        $data = array();
-        $memData = array();
+	{
+		$memData = array();
 
-        // If import request is submitted
-        if ($this->input->post('importSubmit')) {
-            // Form field validation rules
-            $this->form_validation->set_rules('file', 'CSV file', 'callback_file_check');
+		// If import request is submitted
+		if ($this->input->post('importSubmit')) {
+			// Form field validation rules
+			$this->form_validation->set_rules('file', 'CSV file', 'callback_file_check');
 
-            // Validate submitted form data
-            if ($this->form_validation->run() == true) {
-                $insertCount = $updateCount = $rowCount = $notAddCount = 0;
+			// Validate submitted form data
+			if ($this->form_validation->run() == true) {
+				$insertCount = $updateCount = $rowCount = $notAddCount = 0;
 
-                // If file uploaded
-                if (is_uploaded_file($_FILES['file']['tmp_name'])) {
-                    // Load CSV reader library
-                    $this->load->library('CSVReader');
+				// If file uploaded
+				if (is_uploaded_file($_FILES['file']['tmp_name'])) {
+					// Load CSV reader library
+					$this->load->library('CSVReader');
 
-                    // Parse data from CSV file
-                    $csvData = $this->csvreader->parse_csv($_FILES['file']['tmp_name']);
-                    // print_r($csvData);die;
-                    // Insert/update CSV data into database
-                    if (!empty($csvData)) {
-                        foreach ($csvData as $row) {
-                            $rowCount++;
+					// Parse data from CSV file
+					$csvData = $this->csvreader->parse_csv($_FILES['file']['tmp_name'], "project");
+					if (isset($csvData['error'])) {
+						redirect('project');
+						return FALSE;
+					}
 
-                            // Prepare data for DB insertion
-                            $memData = array(
-                                'kode_projek' => $row['kode_projek'],
-                                'nama_projek' => $row['nama_projek'],
-                                'domain' => $row['domain'],
-                                'package' => $row['package'],
-                                'id_client' => $row['id_client'],
-                                'latitude' => $row['latitude'],
-                                'longitude' => $row['longitude'],
-                                'start_date' => $row['start_date'],
-                                'end_date' => $row['end_date'],
-                                'status' => $row['status'],
+					// Insert/update CSV data into database
+					if (!empty($csvData)) {
+						//Validasi Data
+						$line = 0;
+						foreach ($csvData as $row) {
+							$line++;
+							foreach ($row as $key => $value) {
+								//Convert date local to sql date
+								if ($key == "start_date" || $key == "end_date") {
+									$date = str_replace('/', '-', $value);
+									$value = date('Y-m-d', strtotime($date));
+								}
+								//Cek jika value selain kode projek kosong, maka buat error message dan redirect ke project
+								if ($value == "" && $key != "kode_projek") {
+									$this->session->set_userdata('error_msg', "Terdapat data kosong di line " . $line . " pada kolom " . $key);
+									redirect('project');
+									return false;
+								}
+								//Cek jika key nya id_client, maka cek apakah di tabel client ada yang memiliki id yang sama
+								if ($key == "id_client") {
+									$exist = $this->Client_model->checkExist($value);
+									if ($exist == "") {
+										$this->session->set_userdata('error_msg', "id_client pada line " . $line . " dengan value " . $value . " tidak ditemukan di database");
+										redirect('project');
+										return false;
+									}
+								}
+								//Cek apakah format longitude dan latitude sesuai
+								if ($key == "latitude") {
+									if (is_numeric($value)) {
+										if ($value < -90 || $value > 90) {
+											$this->session->set_userdata('error_msg', "Format Latitude pada line " . $line . " Harus berada diantara -90 hingga 90");
+											redirect('project');
+											return false;
+										}
+									} else {
+										$this->session->set_userdata('error_msg', "Format Latitude pada line " . $line . " Harus berada diantara -90 hingga 90");
+										redirect('project');
+										return false;
+									}
+								}
+
+								if ($key == "longitude") {
+									if (is_numeric($value)) {
+										if ($value < -180 || $value > 180) {
+											$this->session->set_userdata('error_msg', "Format Latitude pada line " . $line . " Harus berada diantara -180 hingga 180");
+											redirect('project');
+											return false;
+										}
+									} else {
+										$this->session->set_userdata('error_msg', "Format Latitude pada line " . $line . " Harus berada diantara -180 hingga 180");
+										redirect('project');
+										return false;
+									}
+								}
+
+								//Cek Status
+								if($key == "status"){
+									if($value != "Berakhir" || $value != "Aktif"){
+										$this->session->set_userdata('error_msg', "Format Status pada line " . $line . " Harus Aktif atau Berakhir (tanpa Space)");
+										redirect('project');
+										return false;
+									}
+								}
+							}
+						}
+
+						//Memasukkan data
+						foreach ($csvData as $row) {
+							$rowCount++;
+
+							// Prepare data for DB insertion
+							$memData = array(
+								'kode_projek' => $row['kode_projek'],
+								'nama_projek' => $row['nama_projek'],
+								'domain' => $row['domain'],
+								'package' => $row['package'],
+								'id_client' => $row['id_client'],
+								'latitude' => $row['latitude'],
+								'longitude' => $row['longitude'],
+								'start_date' => $row['start_date'],
+								'end_date' => $row['end_date'],
+								'status' => $row['status'],
 								'ketua_projek' => $row['ketua_projek'],
-                            );
+							);
 
-                            // Check whether email already exists in the database
-                            $con = array(
-                                'where' => array(
-                                    'kode_projek' => $row['kode_projek']
-                                ),
-                                'returnType' => 'count'
-                            );
-                            $prevCount = $this->Project_model->getRows($con);
-							// print_r($prevCount);die;
-                            if ($prevCount > 0) {
-                                // Update member data
-                                $condition = array('kode_projek' => $row['kode_projek']);
-                                $update = $this->Project_model->updateimport($memData, $condition);
-								// print_r($update);die;
-                                if ($update) {
-                                    $updateCount++;
-                                }
-                            } else {
-                                // Insert member data
-                                $insert = $this->Project_model->insertimport($memData);
+							// Check whether email already exists in the database
+							$con = array(
+								'where' => array(
+									'kode_projek' => $row['kode_projek']
+								),
+								'returnType' => 'count'
+							);
+							$prevCount = $this->Project_model->getRows($con);
+							if ($prevCount > 0) {
+								// Update member data
+								$condition = array('kode_projek' => $row['kode_projek']);
+								$update = $this->Project_model->updateimport($memData, $condition);
+								if ($update) {
+									$updateCount++;
+								}
+							} else {
+								// Insert member data
+								$insert = $this->Project_model->insertimport($memData);
 
-                                if ($insert) {
-                                    $insertCount++;
-                                }
-                            }
-                        }
+								if ($insert) {
+									$insertCount++;
+								}
+							}
+						}
 
-                        // Status message with imported data count
-                        $notAddCount = ($rowCount - ($insertCount + $updateCount));
-                        $successMsg = 'Project imported successfully. Total Rows (' . $rowCount . ') | Inserted (' . $insertCount . ') | Updated (' . $updateCount . ') | Not Inserted (' . $notAddCount . ')';
-                        $this->session->set_userdata('success_msg', $successMsg);
-                    }
-                } else {
-                    $this->session->set_userdata('error_msg', 'Error on file upload, please try again.');
-                }
-            } else {
-                $this->session->set_userdata('error_msg', 'Invalid file, please select only CSV file.');
-            }
-        }
-        redirect('Project');
-    }
+						// Status message with imported data count
+						$notAddCount = ($rowCount - ($insertCount + $updateCount));
+						$successMsg = 'Project imported successfully. Total Rows (' . $rowCount . ') | Inserted (' . $insertCount . ') | Updated (' . $updateCount . ') | Not Inserted (' . $notAddCount . ')';
+						$this->session->set_userdata('success_msg', $successMsg);
+					}
+				} else {
+					$this->session->set_userdata('error_msg', 'Error on file upload, please try again.');
+				}
+			} else {
+				$this->session->set_userdata('error_msg', 'Invalid file, please select only CSV file.');
+			}
+		}
+		redirect('Project');
+	}
 
-    /*
+	/*
      * Callback function to check file value and type during validation
      */
-    public function file_check($str)
-    {
-        $allowed_mime_types = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain');
-        if (isset($_FILES['file']['name']) && $_FILES['file']['name'] != "") {
-            $mime = get_mime_by_extension($_FILES['file']['name']);
-            $fileAr = explode('.', $_FILES['file']['name']);
-            $ext = end($fileAr);
-            if (($ext == 'csv') && in_array($mime, $allowed_mime_types)) {
-                return true;
-            } else {
-                $this->form_validation->set_message('file_check', 'Please select only CSV file to upload.');
-                return false;
-            }
-        } else {
-            $this->form_validation->set_message('file_check', 'Please select a CSV file to upload.');
-            return false;
-        }
-    }
+	public function file_check($str)
+	{
+		$allowed_mime_types = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain');
+		if (isset($_FILES['file']['name']) && $_FILES['file']['name'] != "") {
+			$mime = get_mime_by_extension($_FILES['file']['name']);
+			$fileAr = explode('.', $_FILES['file']['name']);
+			$ext = end($fileAr);
+			if (($ext == 'csv') && in_array($mime, $allowed_mime_types)) {
+				return true;
+			} else {
+				$this->form_validation->set_message('file_check', 'Please select only CSV file to upload.');
+				return false;
+			}
+		} else {
+			$this->form_validation->set_message('file_check', 'Please select a CSV file to upload.');
+			return false;
+		}
+	}
 }

@@ -19,10 +19,11 @@ class Client extends CI_Controller
         $data = $this->Client_model->getById($id_client);
         echo json_encode($data);
     }
+
     function index($status = "")
     {
         $data = array();
-        
+
         // Get messages from the session
         if($this->session->userdata('success_msg')){
             $data['success_msg'] = $this->session->userdata('success_msg');
@@ -38,7 +39,6 @@ class Client extends CI_Controller
         $data['judul'] = "Halaman Client";
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['client'] = $this->Client_model->get($status);
-        // $data['client_data'] = $this->Client_model->fetch_data();
         $this->load->view("layout/header", $data);
         $this->load->view("map/vw_client", $data);
         $this->load->view("layout/footer", $data);
@@ -48,7 +48,6 @@ class Client extends CI_Controller
         $data['judul'] = "Halaman Detail Client";
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['client'] = $this->Client_model->getById($id);
-        // print_r($data['client']);die;
         if ($data['client']['id_client'] == "") {
             echo "<script>alert('Data Client tidak ditemukan'); window.location.href = '" . base_url('Client') . "';</script>";
         }
@@ -80,8 +79,6 @@ class Client extends CI_Controller
                 'email' => $this->input->post('email'),
                 'no_hp' => $this->input->post('no_hp'),
                 'domain' => $this->input->post('domain'),
-                // 'mulai_kerja_sama' => $this->input->post('mulai_kerja_sama'),
-                // 'henti_kerja_sama' => $this->input->post('henti_kerja_sama'),
                 'status_kerja_sama' => $this->input->post('status_kerja_sama'),
             ];
             $status_kerja_sama = $this->input->post('status_kerja_sama');
@@ -92,7 +89,6 @@ class Client extends CI_Controller
             }
             $id = $this->input->post('id_client');
             $input = $this->Client_model->update(['id_client' => $id], $data);
-            // $this->db->error(); 
             redirect('Client/detail/' . $id);
         } else {
             echo "<script>alert('UnAuthorized'); window.location.href = '" . base_url('Client') . "';</script>";
@@ -152,8 +148,6 @@ class Client extends CI_Controller
                 'email' => $this->input->post('email'),
                 'no_hp' => $this->input->post('no_hp'),
                 'domain' => $this->input->post('domain'),
-                // 'latitude' => $this->input->post('latitude'),
-                // 'longitude' => $this->input->post('longitude'),
                 'status_kerja_sama' => $this->input->post('status_kerja_sama'),
             );
             $id = $this->Client_model->insert($data);
@@ -183,7 +177,7 @@ class Client extends CI_Controller
         $file = fopen('php://output', 'w');
 
         $header = array("id_client", "nama_client", "pic", "alamat", "negara", "region", "email", "no_hp", "domain", "status_kerja_sama");
-        fputcsv($file, $header);
+        fputcsv($file, $header, ";", '"');
         foreach ($client_data->result_array() as $key => $value) {
             fputcsv($file, $value, ";", '"');
         }
@@ -191,15 +185,8 @@ class Client extends CI_Controller
         exit;
     }
 
-    public function cekDate()
-    {
-        $today = date("Y-M-D");
-        echo $today;
-    }
-
     public function import()
     {
-        $data = array();
         $memData = array();
 
         // If import request is submitted
@@ -217,10 +204,38 @@ class Client extends CI_Controller
                     $this->load->library('CSVReader');
 
                     // Parse data from CSV file
-                    $csvData = $this->csvreader->parse_csv($_FILES['file']['tmp_name']);
-                    // print_r($csvData);die;
+                    $csvData = $this->csvreader->parse_csv($_FILES['file']['tmp_name'], "client");
+                    if (isset($csvData['error'])) {
+						redirect('client');
+						return FALSE;
+					}
                     // Insert/update CSV data into database
                     if (!empty($csvData)) {
+                        //Validasi Data
+						$line = 0;
+						foreach ($csvData as $row) {
+							$line++;
+							foreach ($row as $key => $value) {
+								if ($value == "" && $key != "id_client") {
+									$this->session->set_userdata('error_msg', "Terdapat data kosong di line " . $line . " pada kolom " . $key);
+									redirect('client');
+									return false;
+								}
+
+                                //Cek Status
+								if($key == "status_kerja_sama"){
+									if($value == "Berakhir" || $value == "Aktif"){
+										
+									}else{
+                                        $this->session->set_userdata('error_msg', "Format status_kerja_sama pada line " . $line . " Harus Aktif atau Berakhir (tanpa Space)");
+										redirect('client');
+										return false;
+                                    }
+								}
+							}
+						}
+
+                        //Memasukkan data 
                         foreach ($csvData as $row) {
                             $rowCount++;
 
