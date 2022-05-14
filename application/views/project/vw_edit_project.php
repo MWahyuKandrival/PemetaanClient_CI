@@ -3,11 +3,9 @@
         <div class="section-header d-flex ">
             <!-- button search -->
             <div class="d-flex ">
-                <?php echo form_open('') ?>
                 <div>
                     <h1>Form Edit Data Project <?= $project['nama_projek']?></h1>
                 </div>
-                <?php echo form_close() ?>
             </div>
         </div>
         <div class="row">
@@ -18,7 +16,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <form action="<?= base_url('Project/update')?>" method="POST" enctype="multipart/form-data">
+                        <form action="" method="POST" enctype="multipart/form-data">
                                 <input type="hidden" name="kode_projek" value="<?= $project['kode_projek']?>">
                             <div class="form-group">
                                 <label for="nama">Nama Project</label>

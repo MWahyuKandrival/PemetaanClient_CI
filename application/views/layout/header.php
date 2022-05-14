@@ -36,6 +36,8 @@
   <!-- Plugin leaflet GEOCODER -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 
+  <!-- Plugin leaflet fullscreen -->
+
   <!-- data table -->
   <link href="<?= base_url('assets/') ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
 

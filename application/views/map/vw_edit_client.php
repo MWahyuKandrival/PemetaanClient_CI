@@ -12,7 +12,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="<?= base_url('Client/update'); ?>" method="POST" enctype="multipart/form-data">
+                        <form action="" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="id_client" value="<?= $client['id_client']; ?>">
                             <div class="form-group">
                                 <label for="nama">Nama Pemilik</label>

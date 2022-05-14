@@ -13,6 +13,7 @@ function is_logged_in() //batasi akses ke halaman admin
     }
 }
 
+//Berfungsi automatis mengubah status client jika tidak ada lagi projek yang aktif
 function test($id_client = "", $data = "")
 {
     $CI = get_instance();
