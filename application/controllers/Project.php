@@ -28,7 +28,7 @@ class Project extends CI_Controller
 		// Get rows
 		$data['project'] = $this->Project_model->getRows();
 
-		$data['judul'] = "Halaman Project";
+		$data['judul'] = "Pemetaan Client | Project";
 		//Get Date
 		$lastWeek = date("Y-m-d", strtotime("-7 days"));
 		$lastMonth = date("Y-m-d", strtotime("-1 month"));
@@ -93,7 +93,7 @@ class Project extends CI_Controller
 
 		if ($this->form_validation->run() == FALSE) {
 			$data = array(
-				'judul' => "Pemetaan Project | Tambah Project"
+				'judul' => "Pemetaan Client | Tambah Project"
 			);
 			$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 			$data['client'] = $this->Client_model->get();
@@ -432,7 +432,7 @@ class Project extends CI_Controller
 		redirect('Project');
 	}
 
-	/*
+	  /*
      * Callback function to check file value and type during validation
      */
 	public function file_check($str)

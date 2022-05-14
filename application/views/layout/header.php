@@ -7,7 +7,7 @@
   <title><?= $judul ?></title>
 
   <!-- Custom styles for this page -->
-
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/inovindo.png" />
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -43,6 +43,11 @@
 
   <!-- Select Search -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+  
+  <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+  <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+
+
   <style>
     .Tulisanbagus {
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
@@ -108,7 +113,7 @@
             <a href="<?= base_url() ?>">Pemetaan Client</a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
-            <a href="<?= base_url() ?>">PCR</a>
+            <a href="<?= base_url() ?>"><img src="assets/img/icon.png" class="w3-circle" alt="Alps"></a>
           </div>
           <ul class="sidebar-menu">
             <li class="menu-header">DASHBOARD</li>
