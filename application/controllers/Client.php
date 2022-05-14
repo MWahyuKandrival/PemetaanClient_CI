@@ -11,7 +11,6 @@ class Client extends CI_Controller
         is_logged_in();
         $this->load->model('Client_model');
         $this->load->model('Project_model');
-        
     }
 
     public function getData($id_client = "")
@@ -25,15 +24,15 @@ class Client extends CI_Controller
         $data = array();
 
         // Get messages from the session
-        if($this->session->userdata('success_msg')){
+        if ($this->session->userdata('success_msg')) {
             $data['success_msg'] = $this->session->userdata('success_msg');
             $this->session->unset_userdata('success_msg');
         }
-        if($this->session->userdata('error_msg')){
+        if ($this->session->userdata('error_msg')) {
             $data['error_msg'] = $this->session->userdata('error_msg');
             $this->session->unset_userdata('error_msg');
         }
-        
+
         // Get rows
         $data['client'] = $this->Client_model->getRows();
         $data['judul'] = "Halaman Client";
@@ -57,19 +56,50 @@ class Client extends CI_Controller
     }
     function edit($id = "")
     {
-        $data['judul'] = "Halaman Edit Client";
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['client'] = $this->Client_model->getById($id);
-        if ($data['client']['id_client'] == "") {
-            echo "<script>alert('Data Client tidak ditemukan'); window.location.href = '" . base_url('Client') . "';</script>";
-        }
-        $this->load->view("layout/header", $data);
-        $this->load->view("map/vw_edit_client", $data);
-        $this->load->view("layout/footer", $data);
-    }
-    function update()
-    {
-        if (isset($_POST['edit_client'])) {
+        //Validasi Data Tidak Boleh Kosong
+        $this->form_validation->set_rules('nama_client', 'Nama Client', 'required', array(
+            'required' => 'Nama Client Wajib di isi!!!'
+        ));
+
+        $this->form_validation->set_rules('pic', 'Owner', 'required', array(
+            'required' => 'Owner Wajib di isi!!!'
+        ));
+
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required', array(
+            'required' => 'Alamat Wajib di isi!!!'
+        ));
+
+        $this->form_validation->set_rules('negara', 'Negara', 'required', array(
+            'required' => 'Negara Wajib di isi!!!'
+        ));
+
+        $this->form_validation->set_rules('region', 'Region', 'required', array(
+            'required' => 'Region Wajib di isi!!!'
+        ));
+
+        $this->form_validation->set_rules('email', 'Email', 'required', array(
+            'required' => 'Email Wajib di isi!!!'
+        ));
+
+        $this->form_validation->set_rules('no_hp', 'No HP', 'required', array(
+            'required' => 'No HP Wajib di isi!!!'
+        ));
+
+        $this->form_validation->set_rules('domain', 'Domain', 'required', array(
+            'required' => 'Domain Wajib di isi!!!'
+        ));
+
+        if ($this->form_validation->run() == FALSE) {
+            $data['judul'] = "Halaman Edit Client";
+            $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+            $data['client'] = $this->Client_model->getById($id);
+            if ($data['client']['id_client'] == "") {
+                echo "<script>alert('Data Client tidak ditemukan'); window.location.href = '" . base_url('Client') . "';</script>";
+            }
+            $this->load->view("layout/header", $data);
+            $this->load->view("map/vw_edit_client", $data);
+            $this->load->view("layout/footer", $data);
+        } else {
             $data = [
                 'nama_client' => $this->input->post('nama_client'),
                 'pic' => $this->input->post('pic'),
@@ -90,8 +120,6 @@ class Client extends CI_Controller
             $id = $this->input->post('id_client');
             $input = $this->Client_model->update(['id_client' => $id], $data);
             redirect('Client/detail/' . $id);
-        } else {
-            echo "<script>alert('UnAuthorized'); window.location.href = '" . base_url('Client') . "';</script>";
         }
     }
 
@@ -188,6 +216,10 @@ class Client extends CI_Controller
     public function import()
     {
         $memData = array();
+        $insertMessage = "";
+        $UpdateMessage = "";
+        $errorMessage = array();
+        $lanjut = TRUE;
 
         // If import request is submitted
         if ($this->input->post('importSubmit')) {
@@ -206,38 +238,52 @@ class Client extends CI_Controller
                     // Parse data from CSV file
                     $csvData = $this->csvreader->parse_csv($_FILES['file']['tmp_name'], "client");
                     if (isset($csvData['error'])) {
-						redirect('client');
-						return FALSE;
-					}
+                        redirect('client');
+                        return FALSE;
+                    }
+                    // print_r($csvData);die;
                     // Insert/update CSV data into database
                     if (!empty($csvData)) {
                         //Validasi Data
-						$line = 0;
-						foreach ($csvData as $row) {
-							$line++;
-							foreach ($row as $key => $value) {
-								if ($value == "" && $key != "id_client") {
-									$this->session->set_userdata('error_msg', "Terdapat data kosong di line " . $line . " pada kolom " . $key);
-									redirect('client');
-									return false;
-								}
+                        foreach ($csvData as $row) {
+                            $line = $row['line'];
+                            // print_r($line);die;
+                            foreach ($row as $key => $value) {
+                                if ($value == "" && $key != "id_client") {
+                                    $ket = "Terdapat data kosong di line " . $line . " pada kolom " . $key;
+                                    $errorMessage[] = ['line' => $line, 'kolom' => $key, 'keterangan' => $ket];
+                                    $lanjut = FALSE;
+                                    // $this->session->set_userdata('error_msg', "Terdapat data kosong di line " . $line . " pada kolom " . $key);
+                                    // redirect('client');
+                                    // return false;
+                                }
 
                                 //Cek Status
-								if($key == "status_kerja_sama"){
-									if($value == "Berakhir" || $value == "Aktif"){
-										
-									}else{
-                                        $this->session->set_userdata('error_msg', "Format status_kerja_sama pada line " . $line . " Harus Aktif atau Berakhir (tanpa Space)");
-										redirect('client');
-										return false;
+                                if ($key == "status_kerja_sama") {
+                                    if ($value == "Berakhir" || $value == "Aktif") {
+                                    } else {
+                                        $ket = "Format status_kerja_sama pada line " . $line . " Harus Aktif atau Berakhir (tanpa Space)";
+                                        $errorMessage[] = ['line' => $line, 'kolom' => $key, 'keterangan' => $ket];
+                                        $lanjut = FALSE;
+                                        // $this->session->set_userdata('error_msg', "Format status_kerja_sama pada line " . $line . " Harus Aktif atau Berakhir (tanpa Space)");
+                                        // redirect('client');
+                                        // return false;
                                     }
-								}
-							}
-						}
+                                }
+                            }
+                        }
+
+                        if ($lanjut == FALSE) {
+                            $this->session->set_userdata('error_message', $errorMessage);
+                            $this->session->set_userdata('error_msg', 'Terdapat kesalahan dalam melakukan import. <a href ="' . base_url('client/getMessage/error') . '"> Detail </a>');
+                            redirect('client');
+                            return false;
+                        }
 
                         //Memasukkan data 
                         foreach ($csvData as $row) {
                             $rowCount++;
+                            $line = $row['line'];
 
                             // Prepare data for DB insertion
                             $memData = array(
@@ -269,6 +315,8 @@ class Client extends CI_Controller
 
                                 if ($update) {
                                     $updateCount++;
+                                    $ket = "Berhasil mengubah Client dengan id_client " . $memData['id_client'];
+                                    $successMessage[] = ['line' => $line, 'kolom' => '-', 'status' => 'Update', 'keterangan' => $ket];
                                 }
                             } else {
                                 // Insert member data
@@ -276,14 +324,17 @@ class Client extends CI_Controller
 
                                 if ($insert) {
                                     $insertCount++;
+                                    $ket = "Berhasil menambahkan Client Nama Client" . $memData['nama_client'];
+                                    $successMessage[] = ['line' => $line, 'kolom' => '-', 'status' => 'Update', 'keterangan' => $ket];
                                 }
                             }
                         }
 
                         // Status message with imported data count
                         $notAddCount = ($rowCount - ($insertCount + $updateCount));
-                        $successMsg = 'Client imported successfully. Total Rows (' . $rowCount . ') | Inserted (' . $insertCount . ') | Updated (' . $updateCount . ') | Not Inserted (' . $notAddCount . ')';
+                        $successMsg = 'Client imported successfully. Total Rows (' . $rowCount . ') | Inserted (' . $insertCount . ') | Updated (' . $updateCount . ') | Not Inserted (' . $notAddCount . '). <a href ="' . base_url('client/getMessage/success') . '"> Detail </a> ';
                         $this->session->set_userdata('success_msg', $successMsg);
+                        $this->session->set_userdata('success_message', $successMessage);
                     }
                 } else {
                     $this->session->set_userdata('error_msg', 'Error on file upload, please try again.');
@@ -315,5 +366,20 @@ class Client extends CI_Controller
             $this->form_validation->set_message('file_check', 'Please select a CSV file to upload.');
             return false;
         }
+    }
+
+    public function getMessage($status = "")
+    {
+        $data['judul'] = "Halaman Error Client";
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        if ($status == "error") {
+            $data['message'] = $this->session->userdata('error_message');
+        } else {
+            $data['message'] = $this->session->userdata('success_message');
+            // print_r($data['message']);die;
+        }
+        $this->load->view("layout/header", $data);
+        $this->load->view("laporan/report", $data);
+        $this->load->view("layout/footer", $data);
     }
 }

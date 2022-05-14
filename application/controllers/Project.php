@@ -1,9 +1,6 @@
 <?php
-
 use phpDocumentor\Reflection\PseudoTypes\False_;
-
 defined('BASEPATH') or exit('No direct script access allowed');
-
 
 class Project extends CI_Controller
 {
@@ -123,8 +120,8 @@ class Project extends CI_Controller
 				$input = $this->Client_model->update(['id_client' => $id_client], $client);
 			}
 			$id = $this->Project_model->insert($data);
-			$this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data Buku Berhasil Ditambah!</div>');
-			redirect('Project/index/');
+			$this->session->set_flashdata('success_msg', '<div class="alert alert-success" role="alert">Data Project Berhasil Ditambah!</div>');
+			redirect('Project/');
 		}
 	}
 
@@ -270,6 +267,9 @@ class Project extends CI_Controller
 	public function import()
 	{
 		$memData = array();
+		$successMessage = array();
+		$errorMessage = array();
+		$lanjut = TRUE;
 
 		// If import request is submitted
 		if ($this->input->post('importSubmit')) {
@@ -295,9 +295,9 @@ class Project extends CI_Controller
 					// Insert/update CSV data into database
 					if (!empty($csvData)) {
 						//Validasi Data
-						$line = 0;
+						
 						foreach ($csvData as $row) {
-							$line++;
+                            $line = $row['line'];
 							foreach ($row as $key => $value) {
 								//Convert date local to sql date
 								if ($key == "start_date" || $key == "end_date") {
@@ -306,61 +306,70 @@ class Project extends CI_Controller
 								}
 								//Cek jika value selain kode projek kosong, maka buat error message dan redirect ke project
 								if ($value == "" && $key != "kode_projek") {
-									$this->session->set_userdata('error_msg', "Terdapat data kosong di line " . $line . " pada kolom " . $key);
-									redirect('project');
-									return false;
+									$ket = "Terdapat data kosong di line " . $line . " pada kolom " . $key;
+									$errorMessage[] = ['line' => $line, 'kolom' => $key, 'status' => 'Error', 'keterangan' => $ket];
+									$lanjut = FALSE;
 								}
 								//Cek jika key nya id_client, maka cek apakah di tabel client ada yang memiliki id yang sama
 								if ($key == "id_client") {
 									$exist = $this->Client_model->checkExist($value);
 									if ($exist == "") {
-										$this->session->set_userdata('error_msg', "id_client pada line " . $line . " dengan value " . $value . " tidak ditemukan di database");
-										redirect('project');
-										return false;
+										$ket = "id_client pada line " . $line . " dengan value " . $value . " tidak ditemukan di database";
+										$errorMessage[] = ['line' => $line, 'kolom' => $key, 'status' => 'Error', 'keterangan' => $ket];
+										$lanjut = FALSE;
 									}
 								}
 								//Cek apakah format longitude dan latitude sesuai
 								if ($key == "latitude") {
 									if (is_numeric($value)) {
 										if ($value < -90 || $value > 90) {
-											$this->session->set_userdata('error_msg', "Format Latitude pada line " . $line . " Harus berada diantara -90 hingga 90");
-											redirect('project');
-											return false;
+											$ket = "Format Latitude pada line " . $line . " Harus berada diantara -90 hingga 90";
+											$errorMessage[] = ['line' => $line, 'kolom' => $key, 'status' => 'Error', 'keterangan' => $ket];
+											$lanjut = FALSE;
 										}
 									} else {
-										$this->session->set_userdata('error_msg', "Format Latitude pada line " . $line . " Harus berada diantara -90 hingga 90");
-										redirect('project');
-										return false;
+										$ket = "Format Latitude pada line " . $line . " Harus berada diantara -90 hingga 90";
+										$errorMessage[] = ['line' => $line, 'kolom' => $key, 'status' => 'Error', 'keterangan' => $ket];
+										$lanjut = FALSE;
 									}
 								}
 
 								if ($key == "longitude") {
 									if (is_numeric($value)) {
 										if ($value < -180 || $value > 180) {
-											$this->session->set_userdata('error_msg', "Format Latitude pada line " . $line . " Harus berada diantara -180 hingga 180");
-											redirect('project');
-											return false;
+											$ket = "Format Longitude pada line " . $line . " Harus berada diantara -180 hingga 180";
+											$errorMessage[] = ['line' => $line, 'kolom' => $key, 'status' => 'Error', 'keterangan' => $ket];
+											$lanjut = FALSE;
 										}
 									} else {
-										$this->session->set_userdata('error_msg', "Format Latitude pada line " . $line . " Harus berada diantara -180 hingga 180");
-										redirect('project');
-										return false;
+										$ket = "Format Longitude pada line " . $line . " Harus berada diantara -180 hingga 180";
+										$errorMessage[] = ['line' => $line, 'kolom' => $key, 'status' => 'Error', 'keterangan' => $ket];
+										$lanjut = FALSE;
 									}
 								}
 
 								//Cek Status
-								if($key == "status"){
-									if($value != "Berakhir" || $value != "Aktif"){
-										$this->session->set_userdata('error_msg', "Format Status pada line " . $line . " Harus Aktif atau Berakhir (tanpa Space)");
-										redirect('project');
-										return false;
+								if ($key == "status") {
+									if ($value == "Berakhir" || $value == "Aktif") {
+									} else {
+										$ket = "Format Status pada line " . $line . " Harus Aktif atau Berakhir (tanpa Space)";
+										$errorMessage[] = ['line' => $line, 'kolom' => $key, 'status' => 'Error', 'keterangan' => $ket];
+										$lanjut = FALSE;
 									}
 								}
 							}
 						}
 
+						if ($lanjut == FALSE) {
+							$this->session->set_userdata('error_message', $errorMessage);
+							$this->session->set_userdata('error_msg', 'Terdapat kesalahan dalam melakukan import. <a href ="' . base_url('project/getMessage/error') . '"> Detail </a>');
+							redirect('project');
+							return false;
+						}
+						
 						//Memasukkan data
 						foreach ($csvData as $row) {
+                            $line = $row['line'];
 							$rowCount++;
 
 							// Prepare data for DB insertion
@@ -392,6 +401,8 @@ class Project extends CI_Controller
 								$update = $this->Project_model->updateimport($memData, $condition);
 								if ($update) {
 									$updateCount++;
+									$ket = "Berhasil mengubah Project dengan kode_projek " . $memData['kode_projek'];
+									$successMessage[] = ['line' => $line, 'kolom' => $key, 'status' => 'Update', 'keterangan' => $ket];
 								}
 							} else {
 								// Insert member data
@@ -399,14 +410,17 @@ class Project extends CI_Controller
 
 								if ($insert) {
 									$insertCount++;
+									$ket = "Berhasil Menambahkan Project dengan nama_projek " . $memData['nama_projek'];
+									$successMessage[] = ['line' => $line, 'kolom' => $key, 'status' => 'Input', 'keterangan' => $ket];
 								}
 							}
 						}
 
 						// Status message with imported data count
 						$notAddCount = ($rowCount - ($insertCount + $updateCount));
-						$successMsg = 'Project imported successfully. Total Rows (' . $rowCount . ') | Inserted (' . $insertCount . ') | Updated (' . $updateCount . ') | Not Inserted (' . $notAddCount . ')';
+						$successMsg = 'Project imported successfully. Total Rows (' . $rowCount . ') | Inserted (' . $insertCount . ') | Updated (' . $updateCount . ') | Not Inserted (' . $notAddCount . '). <a href ="' . base_url('project/getMessage/success') . '"> Detail </a>';
 						$this->session->set_userdata('success_msg', $successMsg);
+						$this->session->set_userdata('success_message', $successMessage);
 					}
 				} else {
 					$this->session->set_userdata('error_msg', 'Error on file upload, please try again.');
@@ -438,5 +452,19 @@ class Project extends CI_Controller
 			$this->form_validation->set_message('file_check', 'Please select a CSV file to upload.');
 			return false;
 		}
+	}
+
+	public function getMessage($status = "")
+	{
+		$data['judul'] = "Halaman Error Project";
+		$data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+		if ($status == "error") {
+			$data['message'] = $this->session->userdata('error_message');
+		} else {
+			$data['message'] = $this->session->userdata('success_message');
+		}
+		$this->load->view("layout/header", $data);
+		$this->load->view("laporan/report", $data);
+		$this->load->view("layout/footer", $data);
 	}
 }

@@ -40,6 +40,7 @@ class CSVReader
      */
     function parse_csv($filepath, $tabel = "")
     {
+        $message = array();
         // If file doesn't exist, return false
         if (!file_exists($filepath)) {
             return FALSE;
@@ -111,107 +112,18 @@ class CSVReader
                             $arr[$keys[$j]] = $new_values[$j];
                         }
                     }
+                    $arr['line'] = $i;
                     $csvData[$i] = $arr;
+                    // print_r($csvData);die;
                     $i++;
                 }
             }
         }
         // Close opened CSV file
         fclose($csvFile);
+        $CI->session->set_userdata('kosong', $message);
         return $csvData;
     }
-
-    // function parse_csv($filepath, $tabel = "")
-    // {
-    //     $test = TRUE;
-    //     $redirect = "";
-    //     // If file doesn't exist, return false
-    //     if (!file_exists($filepath)) {
-    //         return FALSE;
-    //     }
-
-    //     // Open uploaded CSV file with read-only mode
-    //     $csvFile = fopen($filepath, 'r');
-
-    //     // Get Fields and values
-    //     $this->fields = fgetcsv($csvFile, $this->max_row_size, $this->separator, $this->enclosure);
-
-    //     //Cek Header
-    //     $keys = $this->fields;
-    //     // print_r($keys);die;
-    //     if ($tabel == "client") {
-    //         $header = [
-    //             0 => "id_client",
-    //             1 => "nama_client",
-    //             2 => "pic",
-    //             3 => "alamat",
-    //             4 => "negara",
-    //             5 => "region",
-    //             6 => "email",
-    //             7 => "no_hp",
-    //             8 => "domain",
-    //             9 => "status_kerja_sama"
-    //         ];
-    //         if ($keys == $header) {
-    //             echo "sama";
-    //         } else {
-    //             $test = FALSE;
-    //             $redirect = "<script>alert('Format Header untuk Client tidak sama'); window.location.href = '" . base_url('client') . "';</script>";
-    //         }
-    //     } else if ($tabel == "project") {
-    //         $header = [
-    //             0 => "kode_projek",
-    //             1 => "nama_projek",
-    //             2 => "domain",
-    //             3 => "package",
-    //             4 => "id_client",
-    //             5 => "latitude",
-    //             6 => "longitude",
-    //             7 => "start_date",
-    //             8 => "end_date",
-    //             9 => "status",
-    //             10 => "ketua_projek"
-    //         ];
-    //         if ($keys == $header) {
-    //             echo "sama";
-    //         } else {
-    //             $test = FALSE;
-    //             $redirect = "<script>alert('Format Header untuk Client tidak sama'); window.location.href = '" . base_url('client') . "';</script>";
-    //         }
-    //     } else {
-    //         $test = FALSE;
-    //         $redirect = "<script>alert('Format Header Salah'); window.location.href = '" . base_url('dashboard') . "';</script>";
-    //     }
-
-    //     // Store CSV data in an array
-    //     $csvData = array();
-    //     $i = 1;
-    //     while (($row = fgetcsv($csvFile, $this->max_row_size, $this->separator, $this->enclosure)) !== FALSE) {
-    //         // Skip empty lines
-    //         if ($row != NULL) {
-    //             if (count($keys) == count($row)) {
-    //                 $arr        = array();
-    //                 $new_values = array();
-    //                 $new_values = $this->escape_string($row);
-    //                 for ($j = 0; $j < count($keys); $j++) {
-    //                     if ($keys[$j] != "") {
-    //                         $arr[$keys[$j]] = $new_values[$j];
-    //                     }
-    //                 }
-    //                 $csvData[$i] = $arr;
-    //                 $i++;
-    //             }
-    //         }
-    //     }
-    //     // Close opened CSV file
-    //     fclose($csvFile);
-    //     // echo $redirect;die;
-    //     if ($test == TRUE) {
-    //         return $csvData;
-    //     } else {
-    //         return array('redirect' => $redirect);
-    //     }
-    // }
 
     function escape_string($data)
     {
