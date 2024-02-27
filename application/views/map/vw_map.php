@@ -73,26 +73,20 @@
         }).addTo(negaraForeign);
     <?php } ?>
 
-    var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
-    var mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+    var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    });
 
-    var grayscale = L.tileLayer(mbUrl, {
-        id: 'mapbox/light-v9',
-        tileSize: 512,
-        zoomOffset: -1,
-        attribution: mbAttr
-    });
-    var streets = L.tileLayer(mbUrl, {
-        id: 'mapbox/streets-v11',
-        tileSize: 512,
-        zoomOffset: -1,
-        attribution: mbAttr
-    });
+    var osmHOT = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team hosted by OpenStreetMap France'});
+
 
     var map = L.map('map', {
         center: [0.8742919, 114.4477902],
         zoom: 5,
-        layers: [streets, search],
+        layers: [search, osm, osmHOT],
         //fullscreenControl: true,
         // fullscreenControl: {
         // pseudoFullscreen: false // if true, fullscreen to page width and height
@@ -132,8 +126,8 @@
 // map.addControl(new L.Control.Fullscreen());
 
     var baseLayers = {
-        'Grayscale': grayscale,
-        'Streets': streets,
+        'OSM': osm,
+        'OSMHot': osmHOT,
     };
 
     var overlays = {
